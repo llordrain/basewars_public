@@ -321,6 +321,7 @@ function BaseWarsHUD(ply)
 	drawShadowText(LocalPlayer():GetLang("hud_level") .. stringComma(plyLevel), "BaseWars.20", screenWitdh * .5, screenHeight - xpBarHeight * 4, TEXT_ALIGN_CENTER, TEXT_ALIGN_BOTTOM)
 
 	-- Entity Name, Entity Health, Entity Power
+	local targetEntity = ply:GetEyeTrace().Entity
 	if IsValid(targetEntity) and ply:GetPos():Distance(targetEntity:GetPos()) <= 200 and targetEntity:GetMaxHealth() > 0 and not string.find(targetEntity:GetClass(), "door") and not string.find(targetEntity:GetClass(), "func") and not targetEntity:IsClass("prop_dynamic") and not targetEntity:IsPlayer() then
 		local entityHPBar = BaseWars.ScreenScale * 300
 		local entityHealth = targetEntity:Health()

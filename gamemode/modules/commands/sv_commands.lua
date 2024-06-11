@@ -101,35 +101,33 @@ BaseWars:AddChatCommand({"drop", "dropweapon", "weapondrop"}, function(ply, args
 	if not IsValid(Wep) then return end
 
 	local Class = Wep:GetClass()
-	BaseWars.PW:HasWeapon(ply:SteamID64(), Class, function(hasPermaWeapon)
-		if BaseWars.Config.WeaponDropBlacklist[Class] or BaseWars.Config.CategoryBlackList[Wep.Category] or hasPermaWeapon then
-			BaseWars:Notify(ply, "#command_dropWeapon_blackilst", NOTIFICATION_ERROR, 5)
-			return
-		end
+	if BaseWars.Config.WeaponDropBlacklist[Class] or BaseWars.Config.CategoryBlackList[Wep.Category] or hasPermaWeapon then
+		BaseWars:Notify(ply, "#command_dropWeapon_blackilst", NOTIFICATION_ERROR, 5)
+		return
+	end
 
-		local tr = {}
+	local tr = {}
 
-		tr.start = ply:EyePos()
-		tr.endpos = tr.start + ply:GetAimVector() * 120
-		tr.filter = ply
+	tr.start = ply:EyePos()
+	tr.endpos = tr.start + ply:GetAimVector() * 120
+	tr.filter = ply
 
-		tr = util.TraceLine(tr)
+	tr = util.TraceLine(tr)
 
-		local SpawnPos = tr.HitPos + Vector(0, 0, 40)
-		local SpawnAng = ply:EyeAngles()
+	local SpawnPos = tr.HitPos + Vector(0, 0, 40)
+	local SpawnAng = ply:EyeAngles()
 
-		SpawnAng.p = 0
-		SpawnAng.y = SpawnAng.y + 180
-		SpawnAng.y = math.Round(SpawnAng.y / 45) * 45
+	SpawnAng.p = 0
+	SpawnAng.y = SpawnAng.y + 180
+	SpawnAng.y = math.Round(SpawnAng.y / 45) * 45
 
-		local Ent = ents.Create(Class)
-		Ent:SetPos(SpawnPos)
-		Ent:SetAngles(SpawnAng)
-		Ent:Spawn()
-		Ent:Activate()
+	local Ent = ents.Create(Class)
+	Ent:SetPos(SpawnPos)
+	Ent:SetAngles(SpawnAng)
+	Ent:Spawn()
+	Ent:Activate()
 
-		ply:StripWeapon(Class)
-	end)
+	ply:StripWeapon(Class)
 end)
 
 --[[-------------------------------------------------------------------------

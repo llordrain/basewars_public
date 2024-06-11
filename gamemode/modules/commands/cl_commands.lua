@@ -396,13 +396,6 @@ BaseWars:AddTranslation("EChatCommand_clearnotif", "fr", "Supprimer toutes les n
 BaseWars:AddTranslation("EChatCommand_clearnotif", "en", "Clear all your notifications")
 BaseWars:AddChatCommand("clearnotif", nil, "#EChatCommand_clearnotif")
 
---[[-------------------------------------------------------------------------
-	Donate
----------------------------------------------------------------------------]]
--- BaseWars:AddTranslation("EChatCommand_donate", "fr", "Visitez notre boutique")
--- BaseWars:AddTranslation("EChatCommand_donate", "en", "Visit our store")
--- BaseWars:AddChatCommand("donate", nil, "#EChatCommand_donate")
-
 -- CONSOLE COMMAND
 -- CONSOLE COMMAND
 -- CONSOLE COMMAND

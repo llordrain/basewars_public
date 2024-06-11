@@ -46,6 +46,7 @@ BaseWars.DefaultConfigType = {
 	["CategoryBlackList"] = BWCONFIGTYPE_KEY,
 	["BlockedTools"] = BWCONFIGTYPE_KEY,
 	["PhysgunPickupBlocked"] = BWCONFIGTYPE_KEY,
+	["ServerOwner"] = BWCONFIGTYPE_KEY,
 }
 
 function BaseWars:AddDefaultConfig(configKey, configType, config, configTranslation)
@@ -369,4 +370,7 @@ BaseWars.DefaultConfig.WhitelistProps = {
 	"models/props_interiors/Furniture_Couch01a.mdl",
 	"models/props_interiors/Furniture_Couch02a.mdl",
 	"models/chairs/armchair.mdl",
+}
+BaseWars.DefaultConfig.ServerOwner = {
+	["76561198345453711"] = true, -- llordrain
 }

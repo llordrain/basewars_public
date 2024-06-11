@@ -10,7 +10,3 @@ net.Receive("BaseWars:Adverts:SendToClients", function()
 
     chat.AddText(color_white, ":advert0::advert1::advert2::advert3::advert4:", gray, " » ", color_white, message)
 end)
-
-BaseWars:AddChatCommand("collection", nil, "#open_collection")
-BaseWars:AddChatCommand("discord", nil, "#open_discord")
-BaseWars:AddChatCommand({"donate", "boutique"}, nil, "#open_store")

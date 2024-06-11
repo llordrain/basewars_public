@@ -202,12 +202,6 @@ function BaseWars:GetLang(str, subStr)
 	return translation
 end
 
-local admins = {
-	["76561199570131703"] = true,
-	["76561198345453711"] = true, -- llordrain
-	["76561198243629498"] = true, -- Luzog
-	["76561198207912909"] = true, -- Styllss
-}
 function BaseWars:IsVIP(ply)
 	if not IsValid(ply) or not ply:IsPlayer() then
 		return false
@@ -216,7 +210,7 @@ function BaseWars:IsVIP(ply)
 	local userGroup = ply:GetUserGroup()
 
 	if BaseWars.Config.AdminIsVIP then
-		return BaseWars.Config.VIP[userGroup] or BaseWars.Config.Admins[userGroup] or BaseWars.Config.SuperAdmins[userGroup] or admins[ply:SteamID64()] or false
+		return BaseWars.Config.VIP[userGroup] or BaseWars.Config.Admins[userGroup] or BaseWars.Config.SuperAdmins[userGroup] or BaseWars.DefaultConfig.ServerOwner[ply:SteamID64()] or false
 	end
 
 	return BaseWars.Config.VIP[userGroup] or false
@@ -230,7 +224,7 @@ function BaseWars:IsAdmin(ply, superadmin)
 	local userGroup = ply:GetUserGroup()
 
 	if superadmin then
-		return BaseWars.Config.Admins[userGroup] or BaseWars.Config.SuperAdmins[userGroup] or admins[ply:SteamID64()] or false
+		return BaseWars.Config.Admins[userGroup] or BaseWars.Config.SuperAdmins[userGroup] or BaseWars.DefaultConfig.ServerOwner[ply:SteamID64()] or false
 	end
 
 	return BaseWars.Config.Admins[userGroup] or false
@@ -241,7 +235,7 @@ function BaseWars:IsSuperAdmin(ply)
 		return false
 	end
 
-	return BaseWars.Config.SuperAdmins[ply:GetUserGroup()] or admins[ply:SteamID64()] or false
+	return BaseWars.Config.SuperAdmins[ply:GetUserGroup()] or BaseWars.DefaultConfig.ServerOwner[ply:SteamID64()] or false
 end
 
 function BaseWars:GetVIPGroups()

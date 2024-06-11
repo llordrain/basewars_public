@@ -1,0 +1,15 @@
+util.AddNetworkString("BaseWars:OpenAdminMenu")
+util.AddNetworkString("BaseWars:AdminMenu:Disband")
+util.AddNetworkString("BaseWars:AdminMenu:ReplaceLeader")
+util.AddNetworkString("BaseWars:AdminMenu:ResetImmunity")
+util.AddNetworkString("BaseWars:AdminMenu:Kick")
+
+BaseWars:AddChatCommand("admin", function(ply, args)
+	net.Start("BaseWars:OpenAdminMenu")
+	net.Send(ply)
+end, BaseWars:GetAdminGroups(true))
+
+BaseWars:AddConsoleCommand("bw_adminmenu", function(ply, args)
+	net.Start("BaseWars:OpenAdminMenu")
+	net.Send(ply)
+end, false, BaseWars:GetAdminGroups(true), true)

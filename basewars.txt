@@ -1,0 +1,14 @@
+"basewars"
+{
+	"base" "sandbox"
+	"title" "BaseWars"
+	"category" "other"
+	"version" "1.0.0"
+	"description" ""
+	"author_name" "llordrain"
+	"icon" ""
+	"info" ""
+	"hide" "0"
+	"menusystem" "1"
+	"selectable" "1"
+}

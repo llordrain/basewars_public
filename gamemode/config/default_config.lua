@@ -145,38 +145,23 @@ BaseWars.DefaultConfig.FactionCollision = true
 BaseWars.DefaultConfig.ShutdownRefund = true
 BaseWars.DefaultConfig.AdminIsVIP = true
 BaseWars.DefaultConfig.BombsOpenDoors = true
-BaseWars.DefaultConfig.MaxProfiles = 3
-BaseWars.DefaultConfig.Debug = {
-	SQL = false,
-	Gamemode = false
-}
-BaseWars.DefaultConfig.AutoRestart = {
-	Offset = 2,
-	Enable = true,
-	Interval = 12
-}
-BaseWars.DefaultConfig.CrashBackup = {
-	Enable = true,
-	Interval = 20
-}
+BaseWars.DefaultConfig.MaxProfiles = 1
 BaseWars.DefaultConfig.VIP = {
 	["VIP"] = true
 }
 BaseWars.DefaultConfig.Admins = {
-	["Moderator-Test"] = true,
-	["Moderator"] = true,
 	["admin"] = true,
 }
 BaseWars.DefaultConfig.SuperAdmins = {
 	["superadmin"] = true,
+	["owner"] = true,
 }
 BaseWars.DefaultConfig.PrinterCap = {
-	["default"] = 26,
+	["default"] = 20,
 	["VIP"] = 28,
-	["Moderator-Test"] = 28,
-	["Moderator"] = 28,
 	["admin"] = 28,
 	["superadmin"] = 28,
+	["owner"] = 28,
 }
 BaseWars.DefaultConfig.PrinterMaxLevel = {
 	["interval"] = 10,
@@ -200,32 +185,10 @@ BaseWars.DefaultConfig.Raids = {
 	["immunity"] = 1800,
 	["globalImmunity"] = 300,
 	["shootPeopleInRaid"] = false,
-	["cancelOnDisconnect"] = false
+	["cancelOnDisconnect"] = true
 }
 BaseWars.DefaultConfig.PhysgunPickupBlocked = {
 	["bw_spawnpoint"] = true,
-	["zrush_burner"] = true,
-	["zrush_drilltower"] = true,
-	["zrush_pump"] = true,
-	["zrush_refinery"] = true,
-	["zrush_drillhole"] = true,
-	["zrms_refiner_coal"] = true,
-	["zrms_refiner_iron"] = true,
-	["zrms_refiner_bronze"] = true,
-	["zrms_refiner_silver"] = true,
-	["zrms_refiner_gold"] = true,
-	["zrms_crusher"] = true,
-	["zrms_conveyorbelt_n"] = true,
-	["zrms_conveyorbelt_s"] = true,
-	["zrms_conveyorbelt_c_left"] = true,
-	["zrms_conveyorbelt_c_right"] = true,
-	["zrms_inserter"] = true,
-	["zrms_sorter_iron"] = true,
-	["zrms_sorter_coal"] = true,
-	["zrms_sorter_bronze"] = true,
-	["zrms_sorter_silver"] = true,
-	["zrms_sorter_gold"] = true,
-	["zrms_splitter"] = true,
 }
 BaseWars.DefaultConfig.SpawnWeaps = {
 	"weapon_physcannon",
@@ -257,79 +220,43 @@ BaseWars.DefaultConfig.WeaponDropBlacklist = {
 
 	-- BaseWars
 	["hands"] = true,
-	["bw_grenade_gas"] = true,
 
-	-- Addons?
-	["pist_weagon"] = true,
-	["weapon_zwhatisloveswep"] = true,
-	["weapon_vazulaaa"] = true,
-	["mg_xmike109"] = true,
-	["guitar"] = true,
-	["predator_bow"] = true,
-	["weapon_nyangun"] = true,
-
-	-- Taser
-	["stungun_new"] = true,
-
-	-- Other (or nil category)
-	["weapon_luckygun"] = true,
-	["weapon_popcorn"] = true,
-	["weapon_popcorn_spam"] = true,
-	["zpf_constructor"] = true,
-
-	-- M9K
+	-- Other (Addons?)
 	["m9k_minigun"] = true,
 }
 BaseWars.DefaultConfig.CategoryBlackList = {
 	["M9K Specialties"] = true,
-	["Minecraft"] = true,
-	["CS:GO Knives"] = true,
-	["Counter-Strike: Global Offensive"] = true,
-	["Vapes"] = true,
-	["Sgt. Ownage"] = true,
-	["Zeros GrowOP"] = true,
-	["Zeros Meth Lab"] = true,
 }
 BaseWars.DefaultConfig.BlockedTools = {
-	["axis"] = true,
-	["ballsocket"] = true,
-	["elastic"] = true,
-	["hydraulic"] = true,
-	["motor"] = true,
-	["muscle"] = true,
-	["pulley"] = true,
-	["rope"] = true,
-	["slider"] = true,
-	["weld"] = true,
-	["winch"] = true,
-	["balloon"] = true,
-	["duplicator"] = true,
-	["dynamite"] = true,
-	["emitter"] = true,
-	["hoverball"] = true,
-	["lamp"] = true,
-	["nocollide"] = true,
-	["physprop"] = true,
-	["thruster"] = true,
-	["wheel"] = true,
-	["adv_bone"] = true,
-	["eyeposer"] = true,
-	["faceposer"] = true,
-	["finger"] = true,
-	["inflator"] = true,
-	["inflator"] = true,
-	["trails"] = true,
-	["rb655_easy_animation"] = true,
-	["rb655_easy_bodygroup"] = true,
-	["rb655_easy_bonemerge"] = true,
-	["animprop_gesturizer"] = true,
-	["animprop_physify"] = true,
-	["animprop_poseparams"] = true,
-	["animprop"] = true,
 	["shareprops"] = true,
-	["permaprops"] = true,
-	["zrush_oilspot_zoner"] = true,
-	["zrmine_orespawner"] = true,
+	["trails"] = true,
+	["paint"] = true,
+	["paint"] = true,
+	["inflator"] = true,
+	["finger"] = true,
+	["faceposer"] = true,
+	["eyeposer"] = true,
+	["wheel"] = true,
+	["thruster"] = true,
+	["physprop"] = true,
+	["nocollide"] = true,
+	["lamp"] = true,
+	["hoverball"] = true,
+	["emitter"] = true,
+	["dynamite"] = true,
+	["duplicator"] = true,
+	["button"] = true,
+	["balloon"] = true,
+	["winch"] = true,
+	["slider"] = true,
+	["rope"] = true,
+	["pulley"] = true,
+	["muscle"] = true,
+	["motor"] = true,
+	["hydraulic"] = true,
+	["elastic"] = true,
+	["ballsocket"] = true,
+	["axis"] = true,
 }
 BaseWars.DefaultConfig.FormatNumber = {
 	{1e33, "Decillion", "D"},
@@ -376,7 +303,7 @@ BaseWars.DefaultConfig.ServerOwner = {
 	["76561198345453711"] = true, -- llordrain
 }
 BaseWars.DefaultConfig.SpawnSafeZone = {
-	Enable = true,
-	PointA = Vector(-4150, 6720, -200),
-	PointB = Vector(-2900, 4950, 500),
+	Enable = false,
+	PointA = Vector(0, 0, 0),
+	PointB = Vector(0, 0, 0),
 }

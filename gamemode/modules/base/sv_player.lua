@@ -144,9 +144,6 @@ function GM:PlayerSpawn(ply, transition)
 
 	----
 
-	ply:SetPos(Vector(math.Rand(-4080, -3950), math.Rand(6650, 5000), 95))
-	ply:SetEyeAngles(Angle(0, 0, 0))
-
 	if BaseWars.Config.SpawnProtection > -1 and not (BaseWars:RaidGoingOn() and ply:InRaid()) then
 		ply:SetSpawnProtection(CurTime() + BaseWars.Config.SpawnProtection)
 	end
@@ -229,12 +226,14 @@ function GM:PlayerSpawnProp(ply, model)
 
 	if ply:InSafeZone() then
 		BaseWars:Notify(ply, "#safeZone_spawnProp", NOTIFICATION_ERROR, 5)
+
 		return false
 	end
 
 	if ply:InRaid() then
 		BaseWars:Notify(ply, "#raid_spawnProp", NOTIFICATION_ERROR, 5)
-		return
+
+		return false
 	end
 
 	if not table.HasValue(BaseWars.Config.WhitelistProps, model) then
@@ -247,6 +246,7 @@ function GM:PlayerSpawnProp(ply, model)
 		end
 
 		BaseWars:Notify(ply, "#notAllowed", NOTIFICATION_ERROR, 5)
+
 		return false
 	end
 
@@ -415,6 +415,8 @@ end
 function GM:CanTool(ply, trace, tool)
 	local Admin = BaseWars:IsAdmin(ply, true)
 
+	print(tool .. " = true")
+
 	local ent = trace.Entity
 	if ent == game.GetWorld() and BaseWars.Config.BlockedTools[tool] != nil then return Admin end
 
@@ -531,7 +533,7 @@ function GM:PostPlayerDeath(ply)
 
 		local Class = weap:GetClass()
 
-		if BaseWars.Config.WeaponDropBlacklist and not istable(WeaponDropBlacklist) and BaseWars.Config.WeaponDropBlacklist[Class] then continue end
+		if BaseWars.Config.WeaponDropBlacklist and BaseWars.Config.WeaponDropBlacklist[Class] then continue end
 		if weap.Category and BaseWars.Config.CategoryBlackList[weap.Category] then continue end
 
 		table.insert(PlayerWeapons, Class)

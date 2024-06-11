@@ -266,10 +266,6 @@ timer.Create("BaseWars.Leaderboard.SQL", 60, 0, function()
         net.Start("BaseWars:Leaderboard:SendToClients")
             net.WriteData(compressed, #compressed)
         net.Broadcast()
-
-        if BaseWars.Config.Debug.Gamemode then
-            BaseWars:ServerLog("Updating Leaderboard Data")
-        end
     end)
 end)
 
@@ -280,10 +276,6 @@ net.Receive("BaseWars:Leaderboard:SendToClients", function(len, ply)
         net.Start("BaseWars:Leaderboard:SendToClients")
             net.WriteData(compressed, #compressed)
         net.Send(ply)
-
-        if BaseWars.Config.Debug.Gamemode then
-            BaseWars:ServerLog(ply:Name() .. " is requesting leaderboard data for the first time")
-        end
     end)
 end)
 
@@ -294,9 +286,5 @@ BaseWars:AddConsoleCommand("bw_update_leaderboard", function(ply, args)
         net.Start("BaseWars:Leaderboard:SendToClients")
             net.WriteData(compressed, #compressed)
         net.Broadcast()
-
-        if BaseWars.Config.Debug.Gamemode then
-            BaseWars:ServerLog("Updating Leaderboard Data")
-        end
     end)
 end, false, BaseWars:GetSuperAminGroups())

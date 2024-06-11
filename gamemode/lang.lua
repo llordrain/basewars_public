@@ -752,7 +752,7 @@ BaseWars.LANG["fr"] = {
 	gamemodeConfig_DefaultHealthName = "Vie Par Defaut",
 	gamemodeConfig_DefaultHealthDesc = "La quantité de santé par défaut avec laquelle un joueur apparaît.",
 	gamemodeConfig_DefaultArmorName = "Armure Par Defaut",
-	gamemodeConfig_DefaultArmorDesc = "???",
+	gamemodeConfig_DefaultArmorDesc = "La quantité d'armure par défaut avec laquelle un joueur apparaît.",
 	gamemodeConfig_GiveWeaponOnBuyName = "Acheter Une Arme",
 	gamemodeConfig_GiveWeaponOnBuyDesc = "Donner l'arme qu'un joueur achete directement au joueur au lieu de faire apparaitre l'arme au sol.",
 	gamemodeConfig_FactionCollisionName = "Collision De Faction",
@@ -773,57 +773,39 @@ BaseWars.LANG["fr"] = {
 	gamemodeConfig_BombsOpenDoorsDesc = "Les bombes ouvre les portes lors de leur explosion.",
 	gamemodeConfog_MaxProfilesName = "Profils Max",
 	gamemodeConfog_MaxProfilesDesc = "Le nombre maximum de profils qu'un joueur peut avoir.",
+	gamemodeConfig_AdminsSpawnPropsName = "Admins Props",
+	gamemodeConfig_AdminsSpawnPropsDesc = "Activer/Désactiver le fait que les admins peuvent faire apparaitre n'importe quel prop.",
+	gamemodeConfig_MaxProfilesName = "Profils Maximum",
+	gamemodeConfig_MaxProfilesDesc = "Nombre de profils qu'un joueur peut avoir.",
+	gamemodeConfig_ServerOwnerName = "Fondateurs",
+	gamemodeConfig_ServerOwnerDesc = "Les fondateurs du server, si votre steamid64 est ici, BaseWars:IsAdmin() et BaseWars:IsSuperAdmin(), vont toujours retourner «true»",
+	gamemodeConfig_RaidsName = "Raids",
+	gamemodeConfig_RaidsDesc = "Configuration des raids",
+	gamemodeConfig_Raids = {
+		minimumLevelName = "Niveau minimum",
+		minimumLevelDesc = "Le niveau minimum pour lancer un raid et/ou se faire raider",
+		durationName = "Durée",
+		durationDesc = "La durée d'un raid",
+		immunityName = "Immunité",
+		immunityDesc = "L'immunité d'une personne/faction après s'être fait raider pendant laquelle personne ne pourra les raider",
+		globalImmunityName = "Immunité globale",
+		globalImmunityDesc = "L'immunité globale pendant laquelle personne ne pourra lancer de raid",
+		shootPeopleInRaidName = "Tuer les personnes en raid",
+		shootPeopleInRaidDesc = "Activer/Désactiver le fait de pouvoir tuer une personne qui est en raid alors que vous ne l'êtes pas vous-même",
+		cancelOnDisconnectName = "Déconnexion",
+		cancelOnDisconnectDesc = "Annuler un raid lorsqu'une personne qui était en raid se déconnecte"
+	},
+	gamemodeConfig_SpawnSafeZoneName = "Safe Zone",
+	gamemodeConfig_SpawnSafeZoneDesc = "Configurez la safe zone",
+	gamemodeConfig_SpawnSafeZone = {
+		EnableName = "Activer",
+		EnableDesc = "Activer/Désactiver la safe zone",
+		PointAName = "Point A",
+		PointADesc = "T'es stupid?",
+		PointBName = "Point B",
+		PointBDesc = "T'es stupid?",
+	},
 
-	-- Rules
-	rules_fuckAroundAndFindOut = "Ces règles ne sont pas exhaustives. Faites preuve d'un peu de maturité et ne vous cachez pas derrière le classique «ce n'est pas marqué dans le règlement !» lorsque vous êtes pris dans une situation manifestement contraire à un esprit de bonne conduite. Dans ce cas, le staff se réserve le droit de sanctionner un joueur pour une raison non présente dans les règles.",
-	rules_all = {
-		["1 Règles de Base"] = {
-			"• Le Fair Play: Ce concept recouvre à la fois le respect de l'adversaire, des règles, l'esprit du jeu.",
-			"• La provocation, propos raciaux, propos sexistes, ainsi que le harcèlement en règle général est interdit.",
-			"• Il est interdit de rentrer dans une base qui ne vous appartient pas excepté lors d'un raid.",
-			"• Les usebug & la triche sont strictement interdits.",
-			"• Le focus d'un joueur/d'une faction est interdit.",
-			"• Le boosting est interdit (Le fait de donner de l'argent à quelqu'un alors qu'il n'a pas le niveau/prestige de le faire lui-même).",
-			"• Le Spawn Camp est interdit (Le fait de rester devant la base de quelqu'un est d'attendre qu'il sorte pour le tuer).",
-			"• Vous ne pouvez avoir qu'une seule base excepté une AP (Avant Poste) que vous devrez retirer à la fin de votre raid.",
-			"• Soyez respectueux avec les autres joueurs et les membres du Staff.",
-			"• La pub est interdite."
-		},
-		["2 Factions / Farming "] = {
-			"• Votre nom de faction doit être respectueux (Pas raciste, sexiste, vulgaire, etc...).",
-			"• Vous ne pouvez pas être plusieurs dans une base sans être dans une faction.",
-			"• Il est interdit de FARM en dehors de votre base; sauf indication contraire.",
-		},
-		["3  Les Construction"] = {
-			"• Vos constructions doivent être dans votre base ou aux alentours ce qui veut donc dire pas dans la rue a 500 mètres de votre base.",
-			"• Votre production d'argent (printer, artifice, etc...) doit impérativement être fait dans votre base.",
-			"• Vous ne pouvez pas faire de construction qui fait en sorte que juste vous pouvez voir les autres joueurs",
-		},
-		["4 PVP / Raid"] = {
-			"• Les alliances de joueurs/factions lors d'un raid  sont interdites.",
-			"• Le focus abusif de raid est interdit.",
-			"• Il est interdit de tuer une personne participant à un raid.",
-			"• Le raid boosting (Le fait de vous laisser raid dans le seul but de donner de l'argent à un autre joueur) est interdit.",
-			"• Au début du RAID, vous avez 5 secondes pour refermer toutes vos portes / fading doors, au-delà de ce délai vous serez sanctionné.",
-			"• Il est interdit de vendre ses entités avant un raid.",
-			"• Vous pouvez tuer que les personne marqué en tant que «Armé» (Sauf si la personne est dans un raid).",
-			"• Vous ne pouvez pas tuer d'autre joueurs qui ne vous voit pas, cela veux dire que les «oneways» avec des props de sont interdit pour le PVP mais vous pouvez les utiliser pour construire vos base",
-			"• Vous ne pouvez pas poser de bombes hors base pendant un raid",
-			"• Vous ne pouvez pas annuler un raid quand un joueur vous raid en retour",
-		},
-		["5 Commandes"] = {
-			"• Si aucun staff n'est disponible pour votre report, faites un ticket sur notre discord.",
-			"/msg <joueur> <message> (/msg llordrain Salut!)",
-			"/faction",
-			"/raid",
-			"/sell",
-			"/pw",
-			"/rules",
-			"/prestige",
-			"/config",
-			"/shop"
-		}
-	}
 }
 
 BaseWars.LANG["en"] = {
@@ -1487,7 +1469,7 @@ BaseWars.LANG["en"] = {
 	gamemodeConfig_DefaultHealthName = "Default Health",
 	gamemodeConfig_DefaultHealthDesc = "The default amount of health a player spawn with.",
 	gamemodeConfig_DefaultArmorName = "Default Armor",
-	gamemodeConfig_DefaultArmorDesc = "???",
+	gamemodeConfig_DefaultArmorDesc = "The default amount of armor a player spawn with",
 	gamemodeConfig_GiveWeaponOnBuyName = "Buy A Weapon",
 	gamemodeConfig_GiveWeaponOnBuyDesc = "Give the weapon a player buy to them directly instead of spawning it on the gorund.",
 	gamemodeConfig_FactionCollisionName = "Faction Collision",
@@ -1508,56 +1490,38 @@ BaseWars.LANG["en"] = {
 	gamemodeConfig_BombsOpenDoorsDesc = "Bombs open doors when they explode.",
 	gamemodeConfog_MaxProfilesName = "Max Profiles",
 	gamemodeConfog_MaxProfilesDesc = "The maximum amount of profiles a player can have.",
-
-	-- Rules
-	rules_fuckAroundAndFindOut = "These rules are not exhaustive. Show some maturity and don't hide behind the classic \"it's not in the rules!\" when you find yourself in a situation that clearly goes against good conduct. In such cases, the staff reserves the right to penalize a player for a reason not explicitly stated in the rules.",
-	rules_all = {
-		["1 Basic Rules"] = {
-			"• Fair Play: This concept includes respecting opponents, rules, and the spirit of the game.",
-			"• Provocation, racial slurs, sexist remarks, and harassment in general are prohibited.",
-			"• Entering a base that doesn't belong to you is prohibited, except during a raid.",
-			"• Usebugs & cheating are strictly prohibited.",
-			"• Focusing on a player/faction is prohibited.",
-			"• Boosting is prohibited.",
-			"• You can only have one base, except for an Outpost (OP) that must be removed at the end of your raid.",
-			"• Be respectful to other players and staff members.",
-			"• Advertising is prohibited."
-		},
-		["2 Factions / Farming"] = {
-			"• Your faction name must be respectful (no racism, sexism, vulgarity, etc.).",
-			"• Multiple players cannot be in a base together unless they are in the same faction.",
-			"• Farming outside your base is prohibited; unless stated otherwise."
-		},
-		["3 Constructions"] = {
-			"• Your constructions must be within your base or its vicinity, meaning not on the street 500 meters away from your base.",
-			"• Your money production (printer, artifact, meth, etc.) must be done exclusively within your base.",
-			"• You are not allowed to make a construction that make it so only you can see other players."
-		},
-		["4 PVP / Raid"] = {
-			"• Alliances of players/factions during a raid are prohibited.",
-			"• Excessive raid focusing is prohibited.",
-			"• It is forbidden to kill a person participating in a raid.",
-			"• Raid boosting (Allowing yourself to be raided solely to give money to another player) is prohibited.",
-			"• At the beginning of the RAID, you have 5 seconds to close all your doors / fading doors, beyond this time you will be penalized.",
-			"• Selling your entities before a raid is prohibited.",
-			"• You may only kill people marked as \"Armed\" (Unless they are in a raid).",
-			"• You are not allowed to kill other players if whey can't see you, this means oneways with props are not allowed to PVP but still allowed to build your base",
-			"• You can't place bombs out of people bases when in a raid",
-			"• You can't cancel a raid when the personne you are raiding is raiding you back",
-		},
-		["5 Commands"] = {
-			"• If no staff members are available for your report, make a ticket on our Discord.",
-			"/msg player message (/msg llordrain hello!)",
-			"/faction",
-			"/raid",
-			"/sell",
-			"/pw",
-			"/rules",
-			"/prestige",
-			"/config",
-			"/shop"
-		}
-	}
+	gamemodeConfig_AdminsSpawnPropsName = "Admins Props",
+	gamemodeConfig_AdminsSpawnPropsDesc = "Enable/Disable admins being able to spawn any prop.",
+	gamemodeConfig_MaxProfilesName = "Maximum Profiles",
+	gamemodeConfig_MaxProfilesDesc = "The amount of proilfes a player can have",
+	gamemodeConfig_ServerOwnerName = "Owners",
+	gamemodeConfig_ServerOwnerDesc = "The owners of the server, if your steamid64 is here you, BaseWars:IsAdmin() and BaseWars:IsSuperAdmin() will always return \"true\"",
+	gamemodeConfig_RaidsName = "Raids",
+	gamemodeConfig_RaidsDesc = "Raids Configuration",
+	gamemodeConfig_Raids = {
+		minimumLevelName = "Minimum Level",
+		minimumLevelDesc = "The minimum level required to start a raid and/or be raided",
+		durationName = "Duration",
+		durationDesc = "The duration of a raid",
+		immunityName = "Immunity",
+		immunityDesc = "The immunity of a person/faction after being raided during which no one can raid them",
+		globalImmunityName = "Global Immunity",
+		globalImmunityDesc = "The global immunity during which no one can start a raid",
+		shootPeopleInRaidName = "Kill People in Raid",
+		shootPeopleInRaidDesc = "Enable/Disable the ability to kill a person who is in a raid while you are not",
+		cancelOnDisconnectName = "Disconnection",
+		cancelOnDisconnectDesc = "Cancel a raid when a person who was in a raid disconnects"
+	},
+	gamemodeConfig_SpawnSafeZoneName = "Safe Zone",
+	gamemodeConfig_SpawnSafeZoneDesc = "Configure the safe zone if you have a spawn thats kinda fucked up or whatever other reason",
+	gamemodeConfig_SpawnSafeZone = {
+		EnableName = "Enable",
+		EnableDesc = "Enable/Disable the safe zone",
+		PointAName = "Point A",
+		PointADesc = "Are you that dumb?",
+		PointBName = "Point B",
+		PointBDesc = "Are you that dumb?",
+	},
 }
 
 --[[-------------------------------------------------------------------------

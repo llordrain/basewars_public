@@ -99,19 +99,18 @@ end
 
 function GM:PostCleanupMap()
 	BaseWars:UnLockAllDoors()
-
-	local safeZone = ents.Create("safe_zone")
-	safeZone:Spawn()
-
-	local leaveSpawn = ents.Create("leave_spawn")
-	leaveSpawn:Spawn()
-
 	BaseWars:RemoveAllProps()
+
+	local safeZone = ents.Create("bw_safe_zone")
+	safeZone:Spawn()
 end
 
 function GM:InitPostEntity()
 	BaseWars:UnLockAllDoors()
 	BaseWars:RemoveAllProps()
+
+	local safeZone = ents.Create("bw_safe_zone")
+    safeZone:Spawn()
 
 	RunConsoleCommand("sbox_weapons", "0") -- player_class/player_basewars.lua @ line #55
 end
@@ -186,6 +185,21 @@ hook.Add("BaseWars:ConfigurationModified", "BaseWars:Base", function(admin, oldC
 		if extra >= 0 then
 			ply:SetHealth(ply:GetMaxHealth() + math.max(extra, 0))
 		end
+
+		ply:SetSafeZone(false)
+	end
+
+	for _, v in ents.Iterator() do
+		if v:IsClass("bw_safe_zone") then
+			SafeRemoveEntity(v)
+
+			break
+		end
+	end
+
+	if newConfig.SpawnSafeZone.Enable then
+		local safeZone = ents.Create("bw_safe_zone")
+		safeZone:Spawn()
 	end
 end)
 
@@ -199,7 +213,7 @@ hook.Add("BaseWars:PreConfigurationModified", "BaseWars:Base", function(ply, old
 end)
 
 net.Receive("BaseWars:GamemodeConfigModified", function(len, ply)
-	BaseWars:SaveConfig(ply, util.JSONToTable(util.Decompress(net.ReadData(len / 8)), false, false))
+	BaseWars:SaveConfig(ply, util.JSONToTable(util.Decompress(net.ReadData(len / 8)), false, true))
 end)
 
 local function sendFunc(ply)

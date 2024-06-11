@@ -38,6 +38,7 @@ BaseWars.DefaultConfigType = {
 	["AutoRestart"] = BWCONFIGTYPE_KEYVALUE,
 	["CrashBackup"] = BWCONFIGTYPE_KEYVALUE,
 	["Debug"] = BWCONFIGTYPE_KEYVALUE,
+	["SpawnSafeZone"] = BWCONFIGTYPE_KEYVALUE,
 
 	["VIP"] = BWCONFIGTYPE_KEY,
 	["Admins"] = BWCONFIGTYPE_KEY,
@@ -373,4 +374,9 @@ BaseWars.DefaultConfig.WhitelistProps = {
 }
 BaseWars.DefaultConfig.ServerOwner = {
 	["76561198345453711"] = true, -- llordrain
+}
+BaseWars.DefaultConfig.SpawnSafeZone = {
+	Enable = true,
+	PointA = Vector(-4150, 6720, -200),
+	PointB = Vector(-2900, 4950, 500),
 }

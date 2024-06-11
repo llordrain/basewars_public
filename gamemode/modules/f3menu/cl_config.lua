@@ -136,7 +136,6 @@ function PANEL:Build(config, filter)
 				s:ButtonSound()
 
 				local compressed = util.Compress(util.TableToJSON(self.config))
-
 				net.Start("BaseWars:GamemodeConfigModified")
 					net.WriteData(compressed, #compressed)
 				net.SendToServer()
@@ -157,12 +156,11 @@ function PANEL:Build(config, filter)
 
 				s:ButtonSound()
 
-				local compressed = util.Compress(util.TableToJSON(BaseWars.DefaultConfig))
-
 				self.config = table.Copy(BaseWars.DefaultConfig)
 				self.Top.Filter:SetText("")
 				self:Build("gamemode")
 
+				local compressed = util.Compress(util.TableToJSON(BaseWars.DefaultConfig))
 				net.Start("BaseWars:GamemodeConfigModified")
 					net.WriteData(compressed, #compressed)
 				net.SendToServer()

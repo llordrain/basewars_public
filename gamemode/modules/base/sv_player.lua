@@ -8,7 +8,11 @@ util.AddNetworkString("BaseWars:PlayerReadyToReceiveNets")
 local PLAYER = FindMetaTable("Player")
 
 function PLAYER:SetAFKTime(time)
-	self:SetNWFloat("BaseWar.AFKTime", time)
+	self:SetNWFloat("BaseWar.AFKTime", time or 0)
+end
+
+function PLAYER:SetSafeZone(bool)
+    self:SetNWBool("BaseWars.SafeZone", bool or false)
 end
 
 --[[-------------------------------------------------------------------------

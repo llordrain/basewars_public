@@ -184,7 +184,7 @@ function DrawBaseWarsNotifications()
 end
 
 net.Receive("BaseWars:Notifications", function(len)
-	local data = util.JSONToTable(util.Decompress(net.ReadData(len / 8)), false, false)
+	local data = util.JSONToTable(util.Decompress(net.ReadData(len / 8)))
 
 	local text = data.text
 	if text[1] == "#" then
@@ -195,7 +195,7 @@ net.Receive("BaseWars:Notifications", function(len)
 end)
 
 net.Receive("BaseWars:Notifications:Chat", function(len)
-	local data = util.JSONToTable(util.Decompress(net.ReadData(len / 8)), false, false)
+	local data = util.JSONToTable(util.Decompress(net.ReadData(len / 8)))
 
 	BaseWars:ChatNotify(data.text, data.args)
 end)

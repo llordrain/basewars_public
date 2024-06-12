@@ -26,22 +26,6 @@ BaseWars:AddChatCommand("sell", function(ply, args)
 	netSend("bwm_sellmenu", ply)
 end)
 
-BaseWars:AddChatCommand({"pw", "permanentweapon"}, function(ply, args)
-	netSend("bwm_permaWeapon", ply)
-end)
-
-BaseWars:AddChatCommand("rules", function(ply, args)
-	netSend("bwm_rules", ply)
-end)
-
-BaseWars:AddChatCommand("warn", function(ply, args)
-	netSend("bwm_warnings", ply)
-end)
-
-BaseWars:AddChatCommand({"ps", "pointshop", "vip"}, function(ply, args)
-	netSend("Pointshop", ply)
-end)
-
 BaseWars:AddChatCommand("prestige", function(ply, args)
 	netSend("bwm_prestige", ply)
 end)

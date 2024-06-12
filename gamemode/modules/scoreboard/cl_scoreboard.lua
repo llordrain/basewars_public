@@ -336,6 +336,47 @@ function PANEL:PlayerPanel(ply)
 		BaseWars:DrawRoundedBox(4, 0, 0, w, h, GetBaseWarsTheme("scoreboard_contentBackground"))
 	end
 
+	self.PlayerAction.IconLayout = self.PlayerAction:Add("DIconLayout")
+	self.PlayerAction.IconLayout:Dock(TOP)
+	self.PlayerAction.IconLayout:DockMargin(bigMargin, bigMargin, bigMargin, bigMargin)
+	self.PlayerAction.IconLayout:SetTall(ScrH() * .5)
+	self.PlayerAction.IconLayout:SetSpaceX(margin)
+	self.PlayerAction.IconLayout:SetSpaceY(margin)
+	self.PlayerAction.IconLayout.Paint = function(s,w,h)
+		BaseWars:DrawRoundedBox(4, 0, 0, w, h, GetBaseWarsTheme("scoreboard_contentBackground"))
+	end
+
+	if sam then
+		for k, v in ipairs(sam.command.get_commands()) do
+			if not self.localPlayer:HasPermission(v.permission) then
+				continue
+			end
+
+			if #v.args != 1 then
+				continue
+			end
+
+			if v.args[1]["name"] != "player" then
+				continue
+			end
+
+			local w, _ = BaseWars:GetTextSize(v.name, "BaseWars.18")
+
+			local command = self.PlayerAction.IconLayout:Add("BaseWars.Button")
+			command:SetSize(w + bigMargin * 4, buttonSize)
+			command:SetColor(GetBaseWarsTheme("scoreboard_contentBackground2"), true)
+			command.Draw = function(s,w,h)
+				draw.SimpleText(v.name, "BaseWars.18", w * .5, h * .5, color_white, 1, 1)
+			end
+			command.DoClick = function(s)
+				s:ButtonSound()
+				s:CustomTempDraw(.5, GetBaseWarsTheme("button_green"), s.Draw)
+
+				RunConsoleCommand("sam", v.name, ply:SteamID64())
+			end
+		end
+	end
+
 	self.GoBack = self.Title:Add("OLD.BaseWars.Button")
 	self.GoBack:Dock(LEFT)
 	self.GoBack:DockMargin(bigMargin, bigMargin, 0, bigMargin)

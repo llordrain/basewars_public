@@ -244,8 +244,16 @@ function BaseWars:ReloadCustomTheme()
 			continue
 		end
 
+		if not theme.themeName then
+			continue
+		end
+
 		for colorID, color in pairs(theme) do
-			theme[colorID] = Color(color.r or 255, color.g or 255, color.b or 255, color.a or 255)
+			if not isnumber(color.r) or not isnumber(color.g) or not isnumber(color.b) or not isnumber(color.a) then
+				continue
+			end
+
+			theme[colorID] = Color(color.r, color.g, color.b, color.a)
 		end
 
 		AddTheme(id, theme)

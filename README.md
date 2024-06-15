@@ -1,3 +1,5 @@
+## Im not consistent at all and there's a lot of shit in the gamemode (or stuff that's really old, like 1/2 year old) so as it says in the LICENSE it is `AS IS` AKA you're on your own :]
+
 # Configuration of the gamemode
 
 The basic configuration is made in game.

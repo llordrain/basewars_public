@@ -157,7 +157,7 @@ function BaseWars:ChatNotify(text, args)
 		text = Format(LocalPlayer():GetLang(string.sub(text, 2)), unpack(args))
 	end
 
-	chat.AddText(color_white, ":basewars0::basewars1::basewars2::basewars3::basewars4::basewars5:", chatNotificationColor, " » ", color_white, text)
+	chat.AddText(color_white, "[BaseWars]", chatNotificationColor, " » ", color_white, text)
 end
 
 function notification.Kill() end

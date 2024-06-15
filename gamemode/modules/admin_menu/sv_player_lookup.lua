@@ -59,9 +59,6 @@ net.Receive("BaseWars:PlayerLookUp:RequestPlayerData", function(len, ply)
         p_and_p = false,
         infos = false,
         stats = false,
-        ban = false,
-        warnings = false,
-        permaWeapons = false,
         bounty = false,
         player_id64 = player_id64
     }
@@ -165,50 +162,6 @@ net.Receive("BaseWars:PlayerLookUp:RequestPlayerData", function(len, ply)
         result.xp_received = tonumber(result.xp_received)
 
         send("stats", result)
-    end, BaseWarsSQLError)
-
-    MySQLite.query("SELECT reason, admin, unban_date FROM sam_bans WHERE steamid = " .. MySQLite.SQLStr(util.SteamIDFrom64(player_id64)), function(result)
-        if not result then
-            send("ban", {})
-
-            return
-        end
-
-        result = result[1]
-        result.unban_date = tonumber(result.unban_date)
-
-        send("ban", result)
-    end, BaseWarsSQLError)
-
-    MySQLite.query("SELECT warning_id, admin_id64, date, reason FROM basewars_warnings WHERE player_id64 = " .. player_id64, function(result)
-        if not result then
-            send("warnings", {})
-
-            return
-        end
-
-        for k, v in ipairs(result) do
-            result[k].warning_id = tonumber(v.warning_id)
-            result[k].date = tonumber(v.date)
-        end
-
-        send("warnings", result)
-    end, BaseWarsSQLError)
-
-    MySQLite.query("SELECT weapon_id, admin_id64, date, active, weapon_class FROM basewars_permanent_weapons WHERE player_id64 = " .. player_id64, function(result)
-        if not result then
-            send("permaWeapons", {})
-
-            return
-        end
-
-        for k, v in ipairs(result) do
-            result[k].weapon_id = tonumber(v.weapon_id)
-            result[k].date = tonumber(v.date)
-            result[k].active = tobool(v.active)
-        end
-
-        send("permaWeapons", result)
     end, BaseWarsSQLError)
 
     MySQLite.query("SELECT bounty, stack FROM basewars_bounty WHERE player_id64 = " .. player_id64, function(result)

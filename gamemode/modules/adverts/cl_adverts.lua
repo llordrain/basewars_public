@@ -8,5 +8,5 @@ net.Receive("BaseWars:Adverts:SendToClients", function()
         message = ply:GetLang(string.sub(message, 2))
     end
 
-    chat.AddText(color_white, ":advert0::advert1::advert2::advert3::advert4:", gray, " » ", color_white, message)
+    chat.AddText(color_white, "[Advert]", gray, " » ", color_white, message)
 end)

@@ -9,7 +9,7 @@ net.Receive("BaseWars:ChatCommand:AdminChat", function()
     local message = net.ReadString()
     local admin = net.ReadString()
 
-    chat.AddText(color_white, ":admin_chat0::admin_chat1::admin_chat2::admin_chat3::admin_chat4::admin_chat5::admin_chat6: ", GetBaseWarsTheme("adverts_prefix"), admin, gray, " » ", color_white, message)
+    chat.AddText(GetBaseWarsTheme("adverts_prefix"), "[Admin Chat] - ", admin, gray, " » ", color_white, message)
 end)
 
 net.Receive("BaseWars:Commands:Announcement", function()

@@ -408,8 +408,6 @@ local duplicate_id = setmetatable({}, META)("duplicate_id"):SetName(iLoveCocks):
 function BaseWars:CreateEntity(id)
 	id = string.Trim(id or "")
 
-	local entity = setmetatable({}, META)
-
 	if id == "" then
 		local infos = debug.getinfo(2)
 		ErrorNoHalt("Invalid Entity ID » " .. infos.short_src .. " @ line #" .. infos.currentline .. "\n")
@@ -424,7 +422,7 @@ function BaseWars:CreateEntity(id)
 		return duplicate_id
 	end
 
-	return entity(id)
+	return setmetatable({}, META)(id)
 end
 
 function BaseWars:CreateCategory(name, icon, order, lockUntil)

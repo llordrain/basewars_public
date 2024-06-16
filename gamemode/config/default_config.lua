@@ -48,6 +48,7 @@ BaseWars.DefaultConfigType = {
 	["BlockedTools"] = BWCONFIGTYPE_KEY,
 	["PhysgunPickupBlocked"] = BWCONFIGTYPE_KEY,
 	["ServerOwner"] = BWCONFIGTYPE_KEY,
+	["DamagableWhiteList"] = BWCONFIGTYPE_KEY,
 }
 
 function BaseWars:AddDefaultConfig(configKey, configType, config, configTranslation)
@@ -306,4 +307,9 @@ BaseWars.DefaultConfig.SpawnSafeZone = {
 	Enable = false,
 	PointA = Vector(0, 0, 0),
 	PointB = Vector(0, 0, 0),
+}
+BaseWars.DefaultConfig.DamagableWhiteList = {
+	["func_breakable"] = true,
+	["func_button"] = true, -- some buttons triggers when shot for some reason?
+	["zpn_boss"] = true,
 }

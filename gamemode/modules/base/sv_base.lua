@@ -45,7 +45,7 @@ function GM:EntityTakeDamage(ent, dmg)
 		dmg:ScaleDamage(1 + (.05 * att:GetPrestigePerk("damage")))
 	end
 
-	if ent:IsClass("func_breakable") or ent:IsClass("func_button") then
+	if BaseWars.DefaultConfig.DamagableWhiteList[ent:GetClass()] then
 		return false
 	end
 

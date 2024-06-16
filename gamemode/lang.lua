@@ -805,7 +805,8 @@ BaseWars.LANG["fr"] = {
 		PointBName = "Point B",
 		PointBDesc = "T'es stupid?",
 	},
-
+	gamemodeConfig_DamagableWhiteListName = "Endommageable par tous",
+	gamemodeConfig_DamagableWhiteListDesc = "La liste des entités pouvant être endommagées par tout le monde à tout moment"
 }
 
 BaseWars.LANG["en"] = {
@@ -897,7 +898,6 @@ BaseWars.LANG["en"] = {
 	contextmenu_doStopSound = "Stopped All Sounds",
 	contextmenu_faction = "Factions",
 	contextmenu_sellMenu = "Sell Menu",
-	contextmenu_rules = "Rules",
 	contextmenu_prestige = "Prestige",
 	contextmenu_warnings = "Warnings",
 	contextmenu_config = "Configuration",
@@ -1522,6 +1522,8 @@ BaseWars.LANG["en"] = {
 		PointBName = "Point B",
 		PointBDesc = "Are you that dumb?",
 	},
+	gamemodeConfig_DamagableWhiteListName = "Damagable By All",
+	gamemodeConfig_DamagableWhiteListDesc = "The list of entities that can take damage by everyone at all time",
 }
 
 --[[-------------------------------------------------------------------------

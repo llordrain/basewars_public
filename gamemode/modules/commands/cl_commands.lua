@@ -262,13 +262,6 @@ BaseWars:AddTranslation("EChatCommand_permanentweapon", "en", "Open the permanen
 BaseWars:AddChatCommand({"permanentweapon", "pw"}, nil, "#EChatCommand_permanentweapon")
 
 --[[-------------------------------------------------------------------------
-	Rules
----------------------------------------------------------------------------]]
-BaseWars:AddTranslation("EChatCommand_rules", "fr", "Ouvrir l'onglet règles")
-BaseWars:AddTranslation("EChatCommand_rules", "en", "Open the rules tab")
-BaseWars:AddChatCommand("rules", nil, "#EChatCommand_rules")
-
---[[-------------------------------------------------------------------------
 	Prestige
 ---------------------------------------------------------------------------]]
 BaseWars:AddTranslation("EChatCommand_prestige", "fr", "Ouvrir l'onglet prestiges")

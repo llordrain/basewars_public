@@ -1,4 +1,4 @@
-local LAST_UPDATED_VERSION = 1.43 -- May 31th 2024 // https://www.gmodstore.com/market/view/echat-feature-rich-chatbox/versions
+local LAST_UPDATED_VERSION = "1.44.1" -- June 18th 2024 // https://www.gmodstore.com/market/view/echat-feature-rich-chatbox/versions
 local GRAY_COLOR = Color(200, 200, 200)
 
 local function makeModifications()
@@ -11,7 +11,7 @@ local function makeModifications()
 
     local prefixRank = {
         user = "<clr:white>:user0::user1::user2::user3: ",
-        vip = "<clr:white>:vip0::vip1::vip2::vip3: ",
+        VIP = "<clr:white>:vip0::vip1::vip2::vip3: ",
         moderator_test = "<clr:white>:moderator_test0::moderator_test1::moderator_test2::moderator_test3::moderator_test4::moderator_test5::moderator_test6::moderator_test7::moderator_test8: ",
         moderator = "<clr:white>:moderator0::moderator1::moderator2::moderator3::moderator4::moderator5::moderator6: ",
         admin = "<clr:white>:admin0::admin1::admin2::admin3::admin4::admin5::admin6::admin7: ",
@@ -44,13 +44,12 @@ local function makeModifications()
         ["admin"] = prefixRank["admin"] .. "{job_color}{nick}",
         ["Moderator"] = prefixRank["moderator"] .. "{job_color}{nick}",
         ["Moderator-Test"] = prefixRank["moderator_test"] .. "{job_color}{nick}",
-        ["VIP"] = prefixRank["vip"] .. "{job_color}{nick}",
+        ["VIP"] = prefixRank["VIP"] .. "{job_color}{nick}",
 
         ["__default__"] = prefixRank["user"] .. "{job_color}{nick}",
     }
 
     if CLIENT then
-        -- Add auto completes with args for all BaseWars commands
         echat:AddAutoComplete("BaseWars_Commands",function(text, word)
             local commandPrefix = BaseWars.Config.ChatCommandPrefix
 
@@ -103,10 +102,11 @@ local function makeModifications()
     end
 end
 
-hook.Add(CLIENT and "InitPostEntity" or "PlayerInitialSpawn", "BaseWars:Addons:EChat", function()
+local HOOK_NAME = CLIENT and "InitPostEntity" or "PlayerInitialSpawn"
+hook.Add(HOOK_NAME, "BaseWars:Addons:EChat", function()
     makeModifications()
 
-    hook.Remove(CLIENT and "InitPostEntity" or "PlayerInitialSpawn", "BaseWars:Addons:EChat")
+    hook.Remove(HOOK_NAME, "BaseWars:Addons:EChat")
 
     -- Lua Refresh
     hook.Add("BaseWars:Initialize", "BaseWars:Addons:EChat", function()

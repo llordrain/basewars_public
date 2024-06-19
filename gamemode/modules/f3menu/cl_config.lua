@@ -827,6 +827,62 @@ function PANEL:BuildAction(type, parent, defaultValue, tbl, key)
 			self.somethingChanged = true
 		end
 	end
+
+	if type == "Vector" then
+		parent.VectorZ = parent:Add("BaseWars.TextEntry")
+		parent.VectorZ:Dock(RIGHT)
+		parent.VectorZ:DockMargin(0, bigMargin, bigMargin, bigMargin)
+		parent.VectorZ:SetWide(BaseWars.ScreenScale * 120)
+		parent.VectorZ:SetColor(GetBaseWarsTheme("bwm_contentBackground2"))
+		parent.VectorZ:SetTextColor(GetBaseWarsTheme("bwm_text"))
+		parent.VectorZ:SetFont("BaseWars.18")
+		parent.VectorZ:SetPlaceHolder(self.localPlayer:GetLang("config_vector_z"))
+		parent.VectorZ:SetPlaceHolderColor(GetBaseWarsTheme("bwm_darkText"))
+		parent.VectorZ:SetNumeric(true)
+		parent.VectorZ:SetText(defaultValue.z)
+		parent.VectorZ.OnChange = function(s, text)
+			local num = tonumber(text) or 0
+
+			tbl[key].z = num
+			self.somethingChanged = true
+		end
+
+		parent.VectorY = parent:Add("BaseWars.TextEntry")
+		parent.VectorY:Dock(RIGHT)
+		parent.VectorY:DockMargin(0, bigMargin, margin, bigMargin)
+		parent.VectorY:SetWide(BaseWars.ScreenScale * 120)
+		parent.VectorY:SetColor(GetBaseWarsTheme("bwm_contentBackground2"))
+		parent.VectorY:SetTextColor(GetBaseWarsTheme("bwm_text"))
+		parent.VectorY:SetFont("BaseWars.18")
+		parent.VectorY:SetPlaceHolder(self.localPlayer:GetLang("config_vector_y"))
+		parent.VectorY:SetPlaceHolderColor(GetBaseWarsTheme("bwm_darkText"))
+		parent.VectorY:SetNumeric(true)
+		parent.VectorY:SetText(defaultValue.y)
+		parent.VectorY.OnChange = function(s, text)
+			local num = tonumber(text) or 0
+
+			tbl[key].y = num
+			self.somethingChanged = true
+		end
+
+		parent.VectorX = parent:Add("BaseWars.TextEntry")
+		parent.VectorX:Dock(RIGHT)
+		parent.VectorX:DockMargin(0, bigMargin, margin, bigMargin)
+		parent.VectorX:SetWide(BaseWars.ScreenScale * 120)
+		parent.VectorX:SetColor(GetBaseWarsTheme("bwm_contentBackground2"))
+		parent.VectorX:SetTextColor(GetBaseWarsTheme("bwm_text"))
+		parent.VectorX:SetFont("BaseWars.18")
+		parent.VectorX:SetPlaceHolder(self.localPlayer:GetLang("config_vector_x"))
+		parent.VectorX:SetPlaceHolderColor(GetBaseWarsTheme("bwm_darkText"))
+		parent.VectorX:SetNumeric(true)
+		parent.VectorX:SetText(defaultValue.x)
+		parent.VectorX.OnChange = function(s, text)
+			local num = tonumber(text) or 0
+
+			tbl[key].x = num
+			self.somethingChanged = true
+		end
+	end
 end
 
 function PANEL:Paint(w,h)

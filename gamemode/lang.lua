@@ -502,6 +502,9 @@ BaseWars.LANG["fr"] = {
 
 	-- Config
 	config_number = "Nombre",
+	config_vector_x = "X",
+	config_vector_y = "Y",
+	config_vector_z = "Z",
 	config_string = "Texte",
 	config_playerConfig = "Configuration Joueur",
 	config_gamemodeConfig = "Configuration Gamemode",
@@ -1218,6 +1221,9 @@ BaseWars.LANG["en"] = {
 
 	-- Config
 	config_number = "Number",
+	config_vector_x = "X",
+	config_vector_y = "Y",
+	config_vector_z = "Z",
 	config_string = "Text",
 	config_playerConfig = "Player Configuration",
 	config_gamemodeConfig = "Gamemode Configuration",

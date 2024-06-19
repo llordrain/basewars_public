@@ -302,18 +302,16 @@ function PANEL:BuildTable(key, parent, subParent)
 
 			self:BuildAction(type(v), item, v, self.config[key], k)
 
-			item.RemoveItem = item:Add("DButton")
-			item.RemoveItem:SetText("")
+			item.RemoveItem = item:Add("BaseWars.Button")
 			item.RemoveItem:Dock(RIGHT)
 			item.RemoveItem:DockMargin(0, bigMargin, bigMargin, bigMargin)
 			item.RemoveItem:SetWide(item:GetTall() - bigMargin * 2)
-			item.RemoveItem.color = GetBaseWarsTheme("bwm_darkText")
-			item.RemoveItem.Paint = function(s,w,h)
-				s.color = BaseWars:LerpColor(FrameTime() * 20, s.color, s:IsHovered() and GetBaseWarsTheme("gen_accent") or GetBaseWarsTheme("bwm_darkText"))
-				BaseWars:DrawMaterial(trash, w * .5, h * .5, h - bigMargin * 1.5, h - bigMargin * 1.5, s.color, 0)
+			item.RemoveItem:SetColor(GetBaseWarsTheme("bwm_contentBackground"), true)
+			item.RemoveItem.Draw = function(s,w,h)
+				BaseWars:DrawMaterial(trash, w * .5, h * .5, h - bigMargin * 1.5, h - bigMargin * 1.5, GetBaseWarsTheme("bwm_text"), 0)
 			end
 			item.RemoveItem.DoClick = function(s)
-				surface.PlaySound("bw_button.wav")
+				s:ButtonSound()
 
 				item:Remove()
 				self.config[key][k] = nil
@@ -330,15 +328,13 @@ function PANEL:BuildTable(key, parent, subParent)
 			return
 		end
 
-		parent.Action = parent:Add("DButton")
-		parent.Action:SetText("")
+		parent.Action = parent:Add("BaseWars.Button")
 		parent.Action:Dock(RIGHT)
 		parent.Action:DockMargin(0, bigMargin, bigMargin, bigMargin)
 		parent.Action:SetWide(parent:GetTall() - bigMargin * 2)
-		parent.Action.color = GetBaseWarsTheme("bwm_darkText")
-		parent.Action.Paint = function(s,w,h)
-			s.color = BaseWars:LerpColor(FrameTime() * 20, s.color, s:IsHovered() and GetBaseWarsTheme("gen_accent") or GetBaseWarsTheme("bwm_darkText"))
-			BaseWars:DrawMaterial(plus, w * .5, h * .5, h - bigMargin * 1.5, h - bigMargin * 1.5, s.color, 0)
+		parent.Action:SetColor(GetBaseWarsTheme("bwm_contentBackground"), true)
+		parent.Action.Draw = function(s,w,h)
+			BaseWars:DrawMaterial(plus, w * .5, h * .5, h - bigMargin * 1.5, h - bigMargin * 1.5, GetBaseWarsTheme("bwm_text"), 0)
 		end
 		parent.Action.DoClick = function(s)
 			local userGroup = parent.UserGroup:GetText()
@@ -356,7 +352,8 @@ function PANEL:BuildTable(key, parent, subParent)
 				return
 			end
 
-			surface.PlaySound("bw_button.wav")
+			s:ButtonSound()
+
 			self.config[key][userGroup] = num
 			self.somethingChanged = true
 
@@ -431,18 +428,17 @@ function PANEL:BuildTable(key, parent, subParent)
 				draw.SimpleText(v[2] .. " [" .. v[3] .. "]", "BaseWars.20", bigMargin, h * .5, GetBaseWarsTheme("bwm_text"), 0, 1)
 			end
 
-			item.RemoveItem = item:Add("DButton")
+			item.RemoveItem = item:Add("BaseWars.Button")
 			item.RemoveItem:SetText("")
 			item.RemoveItem:Dock(RIGHT)
 			item.RemoveItem:DockMargin(0, bigMargin, bigMargin, bigMargin)
 			item.RemoveItem:SetWide(item:GetTall() - bigMargin * 2)
-			item.RemoveItem.color = GetBaseWarsTheme("bwm_darkText")
-			item.RemoveItem.Paint = function(s,w,h)
-				s.color = BaseWars:LerpColor(FrameTime() * 20, s.color, s:IsHovered() and GetBaseWarsTheme("gen_accent") or GetBaseWarsTheme("bwm_darkText"))
-				BaseWars:DrawMaterial(trash, w * .5, h * .5, h - bigMargin * 1.5, h - bigMargin * 1.5, s.color, 0)
+			item.RemoveItem:SetColor(GetBaseWarsTheme("bwm_contentBackground"), true)
+			item.RemoveItem.Draw = function(s,w,h)
+				BaseWars:DrawMaterial(trash, w * .5, h * .5, h - bigMargin * 1.5, h - bigMargin * 1.5, GetBaseWarsTheme("bwm_text"), 0)
 			end
 			item.RemoveItem.DoClick = function(s)
-				surface.PlaySound("bw_button.wav")
+				s:ButtonSound()
 
 				item:Remove()
 				self.config[key][k] = nil
@@ -460,15 +456,14 @@ function PANEL:BuildTable(key, parent, subParent)
 			return
 		end
 
-		parent.Action = parent:Add("DButton")
+		parent.Action = parent:Add("BaseWars.Button")
 		parent.Action:SetText("")
 		parent.Action:Dock(RIGHT)
 		parent.Action:DockMargin(0, bigMargin, bigMargin, bigMargin)
 		parent.Action:SetWide(parent:GetTall() - bigMargin * 2)
-		parent.Action.color = GetBaseWarsTheme("bwm_darkText")
-		parent.Action.Paint = function(s,w,h)
-			s.color = BaseWars:LerpColor(FrameTime() * 20, s.color, s:IsHovered() and GetBaseWarsTheme("gen_accent") or GetBaseWarsTheme("bwm_darkText"))
-			BaseWars:DrawMaterial(plus, w * .5, h * .5, h - bigMargin * 1.5, h - bigMargin * 1.5, s.color, 0)
+		parent.Action:SetColor(GetBaseWarsTheme("bwm_contentBackground"), true)
+		parent.Action.Draw = function(s,w,h)
+			BaseWars:DrawMaterial(plus, w * .5, h * .5, h - bigMargin * 1.5, h - bigMargin * 1.5, GetBaseWarsTheme("bwm_text"), 0)
 		end
 		parent.Action.DoClick = function(s)
 			local num = tonumber(parent.Number:GetText()) or 0
@@ -600,18 +595,16 @@ function PANEL:BuildTable(key, parent, subParent)
 					draw.SimpleText(text, "BaseWars.20", bigMargin, h * .5, GetBaseWarsTheme("bwm_text"), 0, 1)
 				end
 
-				item.RemoveItem = item:Add("DButton")
-				item.RemoveItem:SetText("")
+				item.RemoveItem = item:Add("BaseWars.Button")
 				item.RemoveItem:Dock(RIGHT)
 				item.RemoveItem:DockMargin(0, bigMargin, bigMargin, bigMargin)
 				item.RemoveItem:SetWide(item:GetTall() - bigMargin * 2)
-				item.RemoveItem.color = GetBaseWarsTheme("bwm_darkText")
-				item.RemoveItem.Paint = function(s,w,h)
-					s.color = BaseWars:LerpColor(FrameTime() * 20, s.color, s:IsHovered() and GetBaseWarsTheme("gen_accent") or GetBaseWarsTheme("bwm_darkText"))
-					BaseWars:DrawMaterial(trash, w * .5, h * .5, h - bigMargin * 1.5, h - bigMargin * 1.5, s.color, 0)
+				item.RemoveItem:SetColor(GetBaseWarsTheme("bwm_contentBackground"), true)
+				item.RemoveItem.Draw = function(s,w,h)
+					BaseWars:DrawMaterial(trash, w * .5, h * .5, h - bigMargin * 1.5, h - bigMargin * 1.5, GetBaseWarsTheme("bwm_text"), 0)
 				end
 				item.RemoveItem.DoClick = function(s)
-					surface.PlaySound("bw_button.wav")
+					s:ButtonSound()
 
 					item:Remove()
 					table.RemoveByValue(self.config[key], v)
@@ -628,15 +621,14 @@ function PANEL:BuildTable(key, parent, subParent)
 			return
 		end
 
-		parent.Action = parent:Add("DButton")
+		parent.Action = parent:Add("BaseWars.Button")
 		parent.Action:SetText("")
 		parent.Action:Dock(RIGHT)
 		parent.Action:DockMargin(0, bigMargin, bigMargin, bigMargin)
 		parent.Action:SetWide(parent:GetTall() - bigMargin * 2)
-		parent.Action.color = GetBaseWarsTheme("bwm_darkText")
-		parent.Action.Paint = function(s,w,h)
-			s.color = BaseWars:LerpColor(FrameTime() * 20, s.color, s:IsHovered() and GetBaseWarsTheme("gen_accent") or GetBaseWarsTheme("bwm_darkText"))
-			BaseWars:DrawMaterial(plus, w * .5, h * .5, h - bigMargin * 1.5, h - bigMargin * 1.5, s.color, 0)
+		parent.Action:SetColor(GetBaseWarsTheme("bwm_contentBackground"), true)
+		parent.Action.Draw = function(s,w,h)
+			BaseWars:DrawMaterial(plus, w * .5, h * .5, h - bigMargin * 1.5, h - bigMargin * 1.5, GetBaseWarsTheme("bwm_text"), 0)
 		end
 		parent.Action.DoClick = function(s)
 			local text = parent.TextEntry:GetText()
@@ -697,18 +689,16 @@ function PANEL:BuildTable(key, parent, subParent)
 				draw.SimpleText(k, "BaseWars.20", bigMargin, h * .5, GetBaseWarsTheme("bwm_text"), 0, 1)
 			end
 
-			item.RemoveItem = item:Add("DButton")
-			item.RemoveItem:SetText("")
+			item.RemoveItem = item:Add("BaseWars.Button")
 			item.RemoveItem:Dock(RIGHT)
 			item.RemoveItem:DockMargin(0, bigMargin, bigMargin, bigMargin)
 			item.RemoveItem:SetWide(item:GetTall() - bigMargin * 2)
-			item.RemoveItem.color = GetBaseWarsTheme("bwm_darkText")
-			item.RemoveItem.Paint = function(s,w,h)
-				s.color = BaseWars:LerpColor(FrameTime() * 20, s.color, s:IsHovered() and GetBaseWarsTheme("gen_accent") or GetBaseWarsTheme("bwm_darkText"))
-				BaseWars:DrawMaterial(trash, w * .5, h * .5, h - bigMargin * 1.5, h - bigMargin * 1.5, s.color, 0)
+			item.RemoveItem:SetColor(GetBaseWarsTheme("bwm_contentBackground"), true)
+			item.RemoveItem.Draw = function(s,w,h)
+				BaseWars:DrawMaterial(trash, w * .5, h * .5, h - bigMargin * 1.5, h - bigMargin * 1.5, GetBaseWarsTheme("bwm_text"), 0)
 			end
 			item.RemoveItem.DoClick = function(s)
-				surface.PlaySound("bw_button.wav")
+				s:ButtonSound()
 
 				item:Remove()
 				self.config[key][k] = nil
@@ -724,15 +714,13 @@ function PANEL:BuildTable(key, parent, subParent)
 			return
 		end
 
-		parent.Action = parent:Add("DButton")
-		parent.Action:SetText("")
+		parent.Action = parent:Add("BaseWars.Button")
 		parent.Action:Dock(RIGHT)
 		parent.Action:DockMargin(0, bigMargin, bigMargin, bigMargin)
 		parent.Action:SetWide(parent:GetTall() - bigMargin * 2)
-		parent.Action.color = GetBaseWarsTheme("bwm_darkText")
-		parent.Action.Paint = function(s,w,h)
-			s.color = BaseWars:LerpColor(FrameTime() * 20, s.color, s:IsHovered() and GetBaseWarsTheme("gen_accent") or GetBaseWarsTheme("bwm_darkText"))
-			BaseWars:DrawMaterial(plus, w * .5, h * .5, h - bigMargin * 1.5, h - bigMargin * 1.5, s.color, 0)
+		parent.Action:SetColor(GetBaseWarsTheme("bwm_contentBackground"), true)
+		parent.Action.Draw = function(s,w,h)
+			BaseWars:DrawMaterial(plus, w * .5, h * .5, h - bigMargin * 1.5, h - bigMargin * 1.5, GetBaseWarsTheme("bwm_text"), 0)
 		end
 		parent.Action.DoClick = function(s)
 			local userGroup = parent.TextEntry:GetText()
@@ -745,7 +733,8 @@ function PANEL:BuildTable(key, parent, subParent)
 				return
 			end
 
-			surface.PlaySound("bw_button.wav")
+			s:ButtonSound()
+
 			self.config[key][userGroup] = true
 			self.somethingChanged = true
 

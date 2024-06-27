@@ -66,23 +66,23 @@ local function checkModule(moduleID, moduleData)
 
 	local errorMessage = "Error in module.lua for module \"" .. moduleID .. "\" %s"
 	if not moduleData.author then
-		return false, Format(errorMessage, "missing module author")
+		return false, Format(errorMessage, "missing author")
 	end
 
 	if not moduleData.version then
-		return false, Format(errorMessage, "missing module version")
+		return false, Format(errorMessage, "missing version")
 	end
 
 	if not moduleData.name then
-		return false, Format(errorMessage, "missing module name")
+		return false, Format(errorMessage, "missing name")
 	end
 
 	if not moduleData.desc then
-		return false, Format(errorMessage, "missing module description")
+		return false, Format(errorMessage, "missing description")
 	end
 
 	if moduleData.enable == nil then
-		return false, Format(errorMessage, "missing module \"enable\" field")
+		return false, Format(errorMessage, "missing \"enable\" field")
 	end
 
 	return true, "Hello :]"
@@ -272,16 +272,18 @@ function BaseWars:LoadModules(afterInitFunc)
 				table.insert(allFiles["init"], filePath)
 			end
 
-			if string.Left(moduleFile, 3) == "sh_" then
+			local fileType = string.Left(moduleFile, 3)
+
+			if fileType == "sh_" then
 				table.insert(allFiles["shared"], filePath)
 			end
 
 			if SERVER then
-				if string.Left(moduleFile, 3) == "sv_" then
+				if fileType == "sv_" then
 					table.insert(allFiles["server"], filePath)
 				end
 
-				if string.Left(moduleFile, 3) == "db_" then
+				if fileType == "db_" then
 					if moduleDBFile != "" then
 						BaseWars:Warning("Module \"" .. moduleName .. "\" already has a database file (" .. moduleFile .. "), ignoring \"" .. filePath .. "\"") -- Why would you need more than 1 db_*.lua file??
 						continue
@@ -292,7 +294,7 @@ function BaseWars:LoadModules(afterInitFunc)
 				end
 			end
 
-			if string.Left(moduleFile, 3) == "cl_" then
+			if fileType == "cl_" then
 				table.insert(allFiles["client"], filePath)
 			end
 		end
@@ -399,9 +401,5 @@ if SERVER then
 
 		BaseWars:Log("Module Count: " .. moduleCount)
 		BaseWars:Log("File Count: " .. fileCount)
-	end)
-
-	concommand.Add("bw_print_modules", function(ply, cmd, args, argStr)
-		if ply:IsPlayer() then return end
 	end)
 end

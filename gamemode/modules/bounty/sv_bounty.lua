@@ -6,6 +6,7 @@ function PLAYER:SetBountySpawn(num)
     self:SetNWFloat("BaseWars.Bounty", num)
 end
 
+-- TODO: Redo this shit wtf
 function PLAYER:SetBounty(num, cummulate)
     num = math.floor(tonumber(num))
 

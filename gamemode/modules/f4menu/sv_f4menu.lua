@@ -78,7 +78,7 @@ local function BuyBaseWarsItem(ply, entityID)
 			weapon:CPPISetOwner(ply)
 		end
 
-		hook.Run("BaseWars:BuyWeapon", ply, entityID) -- AJOUTER LES LOGS
+		hook.Run("BaseWars:BuyWeapon", ply, entityID)
 		BaseWars:Notify(ply, "#bws_buyItem", NOTIFICATION_PURCHASE, 5, entityObject:GetName(), BaseWars:FormatMoney(entiyPrice))
 
 		return
@@ -105,7 +105,7 @@ local function BuyBaseWarsItem(ply, entityID)
 		vehicle:CPPISetOwner(ply)
 		vehicle.Raidable = true
 
-		hook.Run("BaseWars:BuyVehicle", ply, vehicle, entityID) -- AJOUTER LES LOGS
+		hook.Run("BaseWars:BuyVehicle", ply, entityID, vehicle)
 		BaseWars:Notify(ply, "#bws_buyItem", NOTIFICATION_PURCHASE, 5, entityObject:GetName(), BaseWars:FormatMoney(entiyPrice))
 
 		return

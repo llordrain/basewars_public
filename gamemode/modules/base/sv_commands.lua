@@ -19,7 +19,7 @@ function BaseWars:AddChatCommand(command, func, rank)
     end
 end
 
-function BaseWars:AddConsoleCommand(command, func, consoleOnly, rank, log)
+function BaseWars:AddConsoleCommand(command, func, consoleOnly, rank)
     if not command or not func then return end
 
     consoleOnly = consoleOnly or false
@@ -43,9 +43,7 @@ function BaseWars:AddConsoleCommand(command, func, consoleOnly, rank, log)
 
         func(ply, args, argStr)
 
-        if not log then
-            hook.Run("BaseWars:ConsoleCommand", ply, cmd, args, argStr)
-        end
+        hook.Run("BaseWars:ConsoleCommand", ply, cmd, args, argStr)
     end)
 end
 

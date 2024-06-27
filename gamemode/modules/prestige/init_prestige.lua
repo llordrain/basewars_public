@@ -239,7 +239,7 @@ hook.Add("BaseWars:Initialize", "BaseWars:Prestige", function()
     end)
 
     BaseWars:AddPrestigPerk("morePrinter", 4, 2, function()
-        hook.Add("BaseWars:PrinterCap", "BaseWars:Prestige", function(ply)
+        hook.Add("BaseWars:Prestige:PrinterCap", "BaseWars:Prestige", function(ply)
             return ply:GetPrestigePerk("morePrinter")
         end)
     end)

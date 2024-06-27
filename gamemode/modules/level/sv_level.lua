@@ -16,8 +16,6 @@ function PLAYER:AddLevel(amount)
 	local new = math.Clamp(old + amount, 1, BaseWars.Config.MaxLevel)
 	local got = new - old
 	self:SetLevel(new)
-
-	hook.Run("PlayerGainLevel", self, old, new, got)
 end
 
 function PLAYER:SetXP(num, saveToSQL)

@@ -113,31 +113,3 @@ hook.Add("PlayerInitialSpawn", "BaseWars:UpdateBaseWarsDatabaseTables", function
         MySQLite.query(Format("INSERT INTO basewars_player_stats VALUES(%s, %s, %s, %s, %s, %s, %s)", player_id64, 0, 0, 0, 0, "0", "0"), function() end, BaseWarsSQLError)
     end, BaseWarsSQLError)
 end)
-
-BaseWars:AddConsoleCommand("bw_clear_db", function(ply, args, argStr)
-    BaseWars:Notify(ply, "hello", NOTIFICATION_GENERIC, 5)
-
-    if args[1] != "jessymorin" then return end
-
-    for k, v in player.Iterator() do
-        v:Kick("Clearing Database")
-    end
-
-    BaseWars:ServerLog("Deleting SQL tables")
-    MySQLite.query("DROP TABLE basewars_player", function()
-        BaseWars:SQLLogs("Deleted table \"basewars_player\"")
-    end, BaseWarsSQLError)
-
-    MySQLite.query("DROP TABLE basewars_player_stats", function()
-        BaseWars:SQLLogs("Deleted table \"basewars_player_stats\"")
-    end, BaseWarsSQLError)
-
-    MySQLite.query("DROP TABLE basewars_player_infos", function()
-        BaseWars:SQLLogs("Deleted table \"basewars_player_infos\"")
-    end, BaseWarsSQLError)
-
-    hook.Run("BaseWars:ClearDatabase")
-
-    BaseWars:ServerLog("Recreating SQL tables")
-    BaseWars:initDatabase()
-end, true)

@@ -2,7 +2,7 @@ local PLAYER = FindMetaTable("Player")
 
 function PLAYER:GetPrinterCap()
     local limit = BaseWars.Config.PrinterCap[self:GetUserGroup()] or BaseWars.Config.PrinterCap["default"]
-    limit = limit + hook.Run("BaseWars:PrinterCap", self) or 0
+    limit = limit + hook.Run("BaseWars:Prestige:PrinterCap", self) or 0
 
     return limit
 end

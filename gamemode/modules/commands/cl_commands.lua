@@ -3,14 +3,14 @@
 ---------------------------------------------------------------------------]]
 BaseWars:AddTranslation("EChatCommand_refundall", "fr", "Rembourser tout les joueurs connectées")
 BaseWars:AddTranslation("EChatCommand_refundall", "en", "Refund all connected players")
-BaseWars:AddChatCommand("refundall", BaseWars:GetSuperAminGroups(), "#EChatCommand_refundall")
+BaseWars:AddChatCommand("refundall", BaseWars:GetSuperAdminGroups(), "#EChatCommand_refundall")
 
 --[[-------------------------------------------------------------------------
 	Refund Single Player
 ---------------------------------------------------------------------------]]
 BaseWars:AddTranslation("EChatCommand_refund", "fr", "Rembourser un joueur")
 BaseWars:AddTranslation("EChatCommand_refund", "en", "Refund a player")
-BaseWars:AddChatCommand("refund", BaseWars:GetSuperAminGroups(), "#EChatCommand_refund", {
+BaseWars:AddChatCommand("refund", BaseWars:GetSuperAdminGroups(), "#EChatCommand_refund", {
 	"<player>"
 })
 
@@ -19,7 +19,7 @@ BaseWars:AddChatCommand("refund", BaseWars:GetSuperAminGroups(), "#EChatCommand_
 ---------------------------------------------------------------------------]]
 BaseWars:AddTranslation("EChatCommand_spawnbot", "fr", "Ajouter des bots")
 BaseWars:AddTranslation("EChatCommand_spawnbot", "en", "Add bots")
-BaseWars:AddChatCommand("spawnbot", BaseWars:GetSuperAminGroups(), "#EChatCommand_spawnbot", {
+BaseWars:AddChatCommand("spawnbot", BaseWars:GetSuperAdminGroups(), "#EChatCommand_spawnbot", {
 	"<amount>"
 })
 
@@ -28,7 +28,7 @@ BaseWars:AddChatCommand("spawnbot", BaseWars:GetSuperAminGroups(), "#EChatComman
 ---------------------------------------------------------------------------]]
 BaseWars:AddTranslation("EChatCommand_kickbot", "fr", "Retirer tout les bots")
 BaseWars:AddTranslation("EChatCommand_kickbot", "en", "Kick all bots")
-BaseWars:AddChatCommand("kickbot", BaseWars:GetSuperAminGroups(), "#EChatCommand_kickbot")
+BaseWars:AddChatCommand("kickbot", BaseWars:GetSuperAdminGroups(), "#EChatCommand_kickbot")
 
 --[[-------------------------------------------------------------------------
 	Player Value
@@ -67,13 +67,13 @@ BaseWars:AddChatCommand("respawn", BaseWars:GetAdminGroups(true), "#EChatCommand
 ---------------------------------------------------------------------------]]
 BaseWars:AddTranslation("EChatCommand_resetplayer", "fr", "Supprimer tout les profils d'une joueur")
 BaseWars:AddTranslation("EChatCommand_resetplayer", "en", "Delete all profiles of a player")
-BaseWars:AddChatCommand("resetplayer", BaseWars:GetSuperAminGroups(), "#EChatCommand_resetplayer", {
+BaseWars:AddChatCommand("resetplayer", BaseWars:GetSuperAdminGroups(), "#EChatCommand_resetplayer", {
 	"<SteamID64>"
 })
 
 BaseWars:AddTranslation("EChatCommand_deleteplayer", "fr", "Supprimer toutes les données d'un joueur")
 BaseWars:AddTranslation("EChatCommand_deleteplayer", "en", "Delete all data of a player")
-BaseWars:AddChatCommand("deleteplayer", BaseWars:GetSuperAminGroups(), "#EChatCommand_deleteplayer", {
+BaseWars:AddChatCommand("deleteplayer", BaseWars:GetSuperAdminGroups(), "#EChatCommand_deleteplayer", {
 	"<SteamID64>"
 })
 
@@ -98,7 +98,7 @@ BaseWars:AddChatCommand({"upg", "upgrade"}, nil, "#EChatCommand_upgrade")
 ---------------------------------------------------------------------------]]
 BaseWars:AddTranslation("EChatCommand_setowner", "fr", "Change le owner d'une entitée")
 BaseWars:AddTranslation("EChatCommand_setowner", "en", "Change the entity owner")
-BaseWars:AddChatCommand("setowner", BaseWars:GetSuperAminGroups(), "#EChatCommand_setowner", {
+BaseWars:AddChatCommand("setowner", BaseWars:GetSuperAdminGroups(), "#EChatCommand_setowner", {
 	"<player>"
 })
 
@@ -107,7 +107,7 @@ BaseWars:AddChatCommand("setowner", BaseWars:GetSuperAminGroups(), "#EChatComman
 ---------------------------------------------------------------------------]]
 BaseWars:AddTranslation("EChatCommand_getowner", "fr", "Mettre dans la console la class de l'entitée que vous regardez")
 BaseWars:AddTranslation("EChatCommand_getowner", "en", "Print in the console the class of the entity you're looking at")
-BaseWars:AddChatCommand("getclass", BaseWars:GetSuperAminGroups(), "#EChatCommand_getowner")
+BaseWars:AddChatCommand("getclass", BaseWars:GetSuperAdminGroups(), "#EChatCommand_getowner")
 
 --[[-------------------------------------------------------------------------
 	Admin Chat
@@ -194,7 +194,7 @@ BaseWars:AddChatCommand("bounty", nil, "#EChatCommand_bounty", {
 ---------------------------------------------------------------------------]]
 BaseWars:AddTranslation("EChatCommand_forcebounty", "fr", "Mettre une prime sur un joueur (ADMIN)")
 BaseWars:AddTranslation("EChatCommand_forcebounty", "en", "Put a bounty on a player (ADMIN)")
-BaseWars:AddChatCommand("forcebounty", BaseWars:GetSuperAminGroups(), "#EChatCommand_forcebounty", {
+BaseWars:AddChatCommand("forcebounty", BaseWars:GetSuperAdminGroups(), "#EChatCommand_forcebounty", {
 	"<player>",
 	"<amount>"
 })
@@ -287,14 +287,14 @@ BaseWars:AddChatCommand("shop", nil, "#EChatCommand_shop")
 ---------------------------------------------------------------------------]]
 BaseWars:AddTranslation("EChatCommand_setlevel", "fr", "Changer le niveau d'un joueur")
 BaseWars:AddTranslation("EChatCommand_setlevel", "en", "Set a player level")
-BaseWars:AddChatCommand("setlevel", BaseWars:GetSuperAminGroups(), "#EChatCommand_setlevel", {
+BaseWars:AddChatCommand("setlevel", BaseWars:GetSuperAdminGroups(), "#EChatCommand_setlevel", {
 	"<player>",
 	"<amount>"
 })
 
 BaseWars:AddTranslation("EChatCommand_addlevel", "fr", "Ajouter des niveaux a un joueur")
 BaseWars:AddTranslation("EChatCommand_addlevel", "en", "Give levels to a player")
-BaseWars:AddChatCommand("addlevel", BaseWars:GetSuperAminGroups(), "#EChatCommand_addlevel", {
+BaseWars:AddChatCommand("addlevel", BaseWars:GetSuperAdminGroups(), "#EChatCommand_addlevel", {
 	"<player>",
 	"<amount>"
 })
@@ -304,14 +304,14 @@ BaseWars:AddChatCommand("addlevel", BaseWars:GetSuperAminGroups(), "#EChatComman
 ---------------------------------------------------------------------------]]
 BaseWars:AddTranslation("EChatCommand_setxp", "fr", "Changer l'xp d'un joueur")
 BaseWars:AddTranslation("EChatCommand_setxp", "en", "Set a player xp")
-BaseWars:AddChatCommand("setxp", BaseWars:GetSuperAminGroups(), "#EChatCommand_setxp", {
+BaseWars:AddChatCommand("setxp", BaseWars:GetSuperAdminGroups(), "#EChatCommand_setxp", {
 	"<player>",
 	"<amount>"
 })
 
 BaseWars:AddTranslation("EChatCommand_addxp", "fr", "Ajouter de l'xp a un joueur")
 BaseWars:AddTranslation("EChatCommand_addxp", "en", "Give xp to a player")
-BaseWars:AddChatCommand("addxp", BaseWars:GetSuperAminGroups(), "#EChatCommand_addxp", {
+BaseWars:AddChatCommand("addxp", BaseWars:GetSuperAdminGroups(), "#EChatCommand_addxp", {
 	"<player>",
 	"<amount>"
 })
@@ -321,14 +321,14 @@ BaseWars:AddChatCommand("addxp", BaseWars:GetSuperAminGroups(), "#EChatCommand_a
 ---------------------------------------------------------------------------]]
 BaseWars:AddTranslation("EChatCommand_setmoney", "fr", "Changer l'argent d'un joueur")
 BaseWars:AddTranslation("EChatCommand_setmoney", "en", "Set a player money")
-BaseWars:AddChatCommand("setmoney", BaseWars:GetSuperAminGroups(), "#EChatCommand_setmoney", {
+BaseWars:AddChatCommand("setmoney", BaseWars:GetSuperAdminGroups(), "#EChatCommand_setmoney", {
 	"<player>",
 	"<amount>"
 })
 
 BaseWars:AddTranslation("EChatCommand_addmoney", "fr", "Ajouter de l'argent joueur")
 BaseWars:AddTranslation("EChatCommand_addmoney", "en", "Give money to a player")
-BaseWars:AddChatCommand("addmoney", BaseWars:GetSuperAminGroups(), "#EChatCommand_addmoney", {
+BaseWars:AddChatCommand("addmoney", BaseWars:GetSuperAdminGroups(), "#EChatCommand_addmoney", {
 	"<player>",
 	"<amount>"
 })
@@ -338,14 +338,14 @@ BaseWars:AddChatCommand("addmoney", BaseWars:GetSuperAminGroups(), "#EChatComman
 ---------------------------------------------------------------------------]]
 BaseWars:AddTranslation("EChatCommand_setprestige", "fr", "Changer le prestige d'un joueur")
 BaseWars:AddTranslation("EChatCommand_setprestige", "en", "Set a player prestige")
-BaseWars:AddChatCommand("setprestige", BaseWars:GetSuperAminGroups(), "#EChatCommand_setprestige", {
+BaseWars:AddChatCommand("setprestige", BaseWars:GetSuperAdminGroups(), "#EChatCommand_setprestige", {
 	"<player>",
 	"<amount>"
 })
 
 BaseWars:AddTranslation("EChatCommand_addprestige", "fr", "Ajouter des prestiges à un joueur")
 BaseWars:AddTranslation("EChatCommand_addprestige", "en", "Give prestigse to a player")
-BaseWars:AddChatCommand("addprestige", BaseWars:GetSuperAminGroups(), "#EChatCommand_addprestige", {
+BaseWars:AddChatCommand("addprestige", BaseWars:GetSuperAdminGroups(), "#EChatCommand_addprestige", {
 	"<player>",
 	"<amount>"
 })

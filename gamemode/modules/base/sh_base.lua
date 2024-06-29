@@ -265,7 +265,7 @@ function BaseWars:GetAdminGroups(superadmin)
 	return table.Copy(BaseWars.Config.Admins)
 end
 
-function BaseWars:GetSuperAminGroups()
+function BaseWars:GetSuperAdminGroups()
 	return table.Copy(BaseWars.Config.SuperAdmins)
 end
 

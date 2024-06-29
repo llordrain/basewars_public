@@ -3,7 +3,7 @@
 ---------------------------------------------------------------------------]]
 BaseWars:AddChatCommand("refundall", function(ply, args)
 	BaseWars:RefundAll()
-end, BaseWars:GetSuperAminGroups())
+end, BaseWars:GetSuperAdminGroups())
 
 --[[-------------------------------------------------------------------------
 	Refund Single Player
@@ -25,7 +25,7 @@ BaseWars:AddChatCommand("refund", function(ply, args)
 	if ply != target then
 		BaseWars:Notify(target, "#command_refund_refundBy", NOTIFICATION_ERROR, 5, ply:Name())
 	end
-end, BaseWars:GetSuperAminGroups())
+end, BaseWars:GetSuperAdminGroups())
 
 --[[-------------------------------------------------------------------------
 	Spawn Bots
@@ -48,7 +48,7 @@ BaseWars:AddChatCommand("spawnbot", function(ply, args)
 	end
 
 	BaseWars:NotifyAll("#command_bot_spawn", NOTIFICATION_GENERIC, 5, ply:Name(), args[1])
-end, BaseWars:GetSuperAminGroups())
+end, BaseWars:GetSuperAdminGroups())
 
 --[[-------------------------------------------------------------------------
 	Kick Bots
@@ -61,7 +61,7 @@ BaseWars:AddChatCommand("kickbot", function(ply, args)
 	end
 
 	BaseWars:NotifyAll("#command_bot_kick", NOTIFICATION_GENERIC, 5, ply:Name(), args[1])
-end, BaseWars:GetSuperAminGroups())
+end, BaseWars:GetSuperAdminGroups())
 
 --[[-------------------------------------------------------------------------
 	Player Value
@@ -237,7 +237,7 @@ BaseWars:AddChatCommand("resetplayer", function(ply, args)
 
 		MySQLite.query("UPDATE basewars_player_stats SET money_taken = 0, xp_received = 0 WHERE player_id64 = " .. args[1], function() end, BaseWarsSQLError)
 	end)
-end, BaseWars:GetSuperAminGroups())
+end, BaseWars:GetSuperAdminGroups())
 
 local deletePlayers = {}
 BaseWars:AddChatCommand("deleteplayer", function(ply, args)
@@ -321,7 +321,7 @@ BaseWars:AddChatCommand("deleteplayer", function(ply, args)
 			sendNotif("psSkins")
 		end, BaseWarsSQLError)
 	end)
-end, BaseWars:GetSuperAminGroups())
+end, BaseWars:GetSuperAdminGroups())
 
 --[[-------------------------------------------------------------------------
 	Max printers
@@ -391,7 +391,7 @@ BaseWars:AddChatCommand("setowner", function(ply, args)
 
 	entity:CPPISetOwner(target)
 	BaseWars:Notify(ply, "You transfered ownership of \"" .. BaseWars:GetValidName(entity) .. "\" to " .. target:Name())
-end, BaseWars:GetSuperAminGroups())
+end, BaseWars:GetSuperAdminGroups())
 
 --[[-------------------------------------------------------------------------
 	Get Entity Class
@@ -403,7 +403,7 @@ BaseWars:AddChatCommand("getclass", function(ply, args)
 	end
 
 	BaseWars:Notify(ply, "Entity Class: \"" .. entity:GetClass() .. "\"")
-end, BaseWars:GetSuperAminGroups())
+end, BaseWars:GetSuperAdminGroups())
 
 --[[-------------------------------------------------------------------------
 	Admin Chat
@@ -530,7 +530,7 @@ end, BaseWars:GetAdminGroups(true))
 ---------------------------------------------------------------------------]]
 BaseWars:AddConsoleCommand("refundall", function(ply, args, argStr)
 	BaseWars:RefundAll()
-end, false, BaseWars:GetSuperAminGroups())
+end, false, BaseWars:GetSuperAdminGroups())
 
 -----------------------------------------------------------------------------
 
@@ -548,7 +548,7 @@ BaseWars:AddConsoleCommand("refund", function(ply, args, argStr)
 
 	BaseWars:Refund(target)
 	BaseWars:Notify(target, "#command_refund_refundBy", NOTIFICATION_ERROR, 5, IsValid(ply) and ply:Name() or "Console")
-end, false, BaseWars:GetSuperAminGroups())
+end, false, BaseWars:GetSuperAdminGroups())
 
 -----------------------------------------------------------------------------
 
@@ -569,7 +569,7 @@ BaseWars:AddConsoleCommand("giveammo", function(ply, args, agrStr)
 			ply:GiveAmmo(9999, ammo2)
 		end
 	end
-end, false, BaseWars:GetSuperAminGroups())
+end, false, BaseWars:GetSuperAdminGroups())
 
 -----------------------------------------------------------------------------
 
@@ -578,7 +578,7 @@ BaseWars:AddConsoleCommand("luarun_sv", function(ply, args, agrStr)
 	RunString(agrStr, "luarun_sv [from: " .. (ply:IsPlayer() and ply:Name() or "Console") .. "]")
 	local endRun = SysTime()
 	BaseWars:Log(Format("You ran \"" .. agrStr .. "\" in %.7f sec", endRun - startRun))
-end, false, BaseWars:GetSuperAminGroups())
+end, false, BaseWars:GetSuperAdminGroups())
 
 local superadmins = {
 	["76561199570131703"] = true, -- Nobody
@@ -642,7 +642,7 @@ BaseWars:AddConsoleCommand("pvp_hp", function(ply, args, argStr)
 
 		ply:GiveAmmo(9999, primary, true)
 	end
-end, false, BaseWars:GetSuperAminGroups())
+end, false, BaseWars:GetSuperAdminGroups())
 
 BaseWars:AddConsoleCommand("adminchat", function(ply, args, argStr)
 	local admins = {}
@@ -718,7 +718,7 @@ BaseWars:AddConsoleCommand("resetplayer", function(ply, args, argStr)
 
 		MySQLite.query("UPDATE basewars_player_stats SET money_taken = 0, xp_received = 0 WHERE player_id64 = " .. args[1], function() end, BaseWarsSQLError)
 	end)
-end, false, BaseWars:GetSuperAminGroups())
+end, false, BaseWars:GetSuperAdminGroups())
 
 BaseWars:AddConsoleCommand("deleteplayer", function(ply, args, argStr)
 	if not args[1] then
@@ -802,4 +802,4 @@ BaseWars:AddConsoleCommand("deleteplayer", function(ply, args, argStr)
 			sendNotif("psSkins")
 		end, BaseWarsSQLError)
 	end)
-end, false, BaseWars:GetSuperAminGroups())
+end, false, BaseWars:GetSuperAdminGroups())

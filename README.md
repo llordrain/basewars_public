@@ -1,5 +1,5 @@
 > [!IMPORTANT]
-> There's a lot of stuff in the gamemode that i haven't touched in years (So they're probable shit) and i'm also not consistent at all
+> There's a lot of stuff in the gamemode that i haven't touched in years (So they're probable shit) and i'm also not consistent at all. Everything works with **UserGroups** for now
 
 # Configuration of the gamemode
 
@@ -13,9 +13,9 @@ The Shoplist (F4) config is in [config/entities.lua](gamemode/config/entities.lu
 
 # Do stuff with the shoplist
 
-Add an entity in the shoplist you need to use the function `BaseWars:CreateEntity(String entityID)`.
+To add an entity in the shoplist you need to use the function `BaseWars:CreateEntity(String entityID)`.
 
-Add a category in the shoplist you need to use the function `BaseWars:CreateCategory(String name, String iconPath, Number order)`
+To add a category in the shoplist you need to use the function `BaseWars:CreateCategory(String name, String iconPath, Number order)`
 
 ## Exemple usage:
 
@@ -283,25 +283,296 @@ BaseWars:CreateEntity("edit_fog"):SetClass("edit_fog"):SetCategory("My Category 
 
 ## Server:
 
-<!-- - `BaseWars:BaseWars:SQLLogs(...)`
-  - Argument
+- `BaseWars:BaseWars:SQLLogs(...)`
+  - Argument Type
     - ... » **_Any_**
   - How to use »
   ```lua
   BaseWars:BaseWars:SQLLogs("Hello, world")
-  ``` -->
+  ```
 
 ## Client:
 
-## Shared:
-
-<!-- - `BaseWars:GetModules()`
+- `BaseWars:CreateDefaultTheme()`
+- `BaseWars:ReloadCustomTheme()`
 - `BaseWars:OpenAdminMenu()`
 - `BaseWars:CloseAdminMenu()`
 - `BaseWars:GetAdminMenuPanel()`
+  - Return value » **_Panel_** | **_nil_**
 - `BaseWars:GetAdminMenuTabs()`
+- Return value » **_Table_**
+
+- `BaseWars:AddAdminMenuTab(name, iconPath, panelClass, order)`
+
+  - Argument Type
+    - name » **_String_**
+    - iconPath » **_String_**
+    - panelClass » **_String_**
+    - order » **_Number_** | **_nil_**
+  - How to use »
+
+  ```lua
+  BaseWars:AddAdminMenuTab("Femboy", "basewars_materials/f3/faction.png", "DPanel", 69)
+
+  -- Or
+
+  BaseWars:AddTranslation("adminmenu_femboy", "fr", "Admin Menu Femboy")
+  BaseWars:AddTranslation("adminmenu_femboy", "en", "Admin Menu Femboy")
+  BaseWars:AddAdminMenuTab("#adminmenu_femboy", "basewars_materials/f3/faction.png", "DPanel", 69)
+  ```
+
+- `BaseWars:AddChatCommand(command, rank, desc, args)`
+
+  - Argument Type
+    - command » **_String_**
+    - rank » **_Table_** | **_nil_**
+    - desc » **_String_** | **_nil_**
+    - args » **_Table_** | **_nil_**
+  - How to use »
+
+  ```lua
+  -- rank is optional, leave empty (nil) if everyone has access to this command
+  -- desc is optional, will default to "#commands_NoDesc"
+  -- args is optional, don't touch if your command has no arguments :]
+
+  BaseWars:AddChatCommand("setcredit")
+
+  -- Ranks
+  BaseWars:AddChatCommand("setcredit", BaseWars:GetSuperAdminGroups())
+  BaseWars:AddChatCommand("setcredit", {
+    ["owner"] = true,
+    ["superadmin"] = true,
+  })
+
+  -- Description
+  BaseWars:AddChatCommand(command, nil, "Hello, this is a command description")
+  BaseWars:AddChatCommand(command, nil, "Hello, this is a command description")
+
+  -- Args
+  BaseWars:AddChatCommand("setcredit", nil, nil, {
+    "<player>",
+    "amount",
+  })
+  ```
+
+- `BaseWars:GetChatCommands(command)`
+
+  - Argument Type
+    - command » **_String_** | **_nil_**
+  - How to use »
+
+  ```lua
+  BaseWars:GetChatCommands("setcredit") -- returns "setcredit" command
+  BaseWars:GetChatCommands() -- returns all commands
+  ```
+
+- `BaseWars:DrawMaterial(mat, x, y, w, h, color, ang)`
+
+  - Argument Type
+    - mat » **_Material_**
+    - x » **_Number_**
+    - y » **_Number_**
+    - w » **_Number_**
+    - h » **_Number_**
+    - color » **_Color_**
+    - ang » **_Number_**
+  - How to use »
+
+  ```lua
+  local mat = Material("basewars_materials/notification/purchase.png", "smooth")
+  local color = Color(175, 50, 50)
+
+  BaseWars:DrawMaterial(mat, 10, 10, 200, 200, color, -CurTime() * 540 % 360)
+  ```
+
+- `BaseWars:DrawStencil(shape, paint)`
+
+  - Argument Type
+    - shape » **_Function_**
+    - paint » **_Function_**
+  - How to use »
+
+  ```lua
+  -- If you don't know what is does you probably shoudn't use it anyway
+  -- https://wiki.facepunch.com/gmod/render
+  ```
+
+- `BaseWars:DrawArc(x, y, ang, p, rad, color, seg)`
+  - Argument Type
+    - x » **_Number_**
+    - y » **_Number_**
+    - ang » **_Number_**
+    - p » **_Number_**
+    - rad » **_Number_**
+    - color » **_Color_**
+    - seg » **_Number_** | **_nil_**
+  - How to use »
+  ```lua
+  -- No idea, its used in BaseWars:DrawRoundedBox() and BaseWars:DrawRoundedBoxEx()
+  ```
+- `BaseWars:DrawRoundedBoxEx(radius, x, y, w, h, col, tl, tr, bl, br)`
+
+  - Argument Type
+    - radius » **_Number_**
+    - x » **_Number_**
+    - y » **_Number_**
+    - w » **_Number_**
+    - h » **_Number_**
+    - col » **_Color_**
+    - tl » **_Boolean_**
+    - tr » **_Boolean_**
+    - bl » **_Boolean_**
+    - br » **_Boolean_**
+  - How to use »
+
+  ```lua
+  local color = Color(50, 175, 50)
+
+  -- If radius is 0 tl, tr, bl and br is useless
+  BaseWars:DrawRoundedBoxEx(5, 20, 20, 200, 80, color)
+
+  -- If radius is greater than 0 tl, tr, bl, br define if a corner should be rounded
+  -- tl » Top Left
+  -- tr » Top Right
+  -- bl » Bottom Left
+  -- br » Bottom Right
+  BaseWars:DrawRoundedBoxEx(5, 20, 20, 200, 80, color, true, true) -- Top left and right will be rounded by 5px, Bottom left and right won't be rounded
+  ```
+
+- `BaseWars:DrawRoundedBox(radius, x, y, w, h, col)`
+
+  - Argument Type
+    - radius » **_Number_**
+    - x » **_Number_**
+    - y » **_Number_**
+    - w » **_Number_**
+    - h » **_Number_**
+    - col » **_Color_**
+  - How to use »
+
+  ```lua
+  local color = Color(50, 175, 50)
+
+  -- Same as BaseWars:DrawRoundedBoxEx() but tl, tr, bl, br is always "true"
+  BaseWars:DrawRoundedBox(5, 20, 20, 200, 80, color)
+  ```
+
+- `BaseWars:DrawBlur(panel, amount)`
+
+  - Argument Type
+    - panel » **_Panel_**
+    - amount » **_Number_**
+  - How to use »
+
+  ```lua
+  BaseWars:DrawBlur(panel*, 3)
+  ```
+
+- `BaseWars:DrawCircle(x, y, radius, vertices, angle, v, color)`
+
+  - Argument Type
+    - a » **_a_**
+  - How to use »
+
+  ```lua
+  local color = Color(50, 175, 50)
+
+  BaseWars:DrawCircle(500, 500, 360, 360, 0, 360, color)
+  ```
+
+- `BaseWars:GetTextSize(text, font)`
+
+  - Argument Type
+    - text » **_String_**
+    - font » **_String_**
+  - How to use »
+
+  ```lua
+  local w, h = BaseWars:GetTextSize("Hello, World", "Basewars.18")
+  ```
+
+- `BaseWars:SimpleLinearGradient(x, y, w, h, startColor, endColor, horizontal)`
+
+  - Argument Type
+    - x » **_Number_**
+    - y » **_Number_**
+    - w » **_Number_**
+    - h » **_Number_**
+    - startColor » **_Color_**
+    - endColor » **_Color_**
+    - horizontal » **_Boolean_**
+  - How to use »
+
+  ```lua
+  -- Sorry but for this one you'll have to figure it out bu yourself
+  ```
+
+- `BaseWars:LinearGradient(x, y, w, h, stops, horizontal)`
+
+  - Argument Type
+    - x » **_Number_**
+    - y » **_Number_**
+    - w » **_Number_**
+    - h » **_Number_**
+    - stops » **_Table_**
+    - horizontal » **_Boolean_**
+  - How to use »
+
+  ```lua
+  -- Sorry but for this one you'll have to figure it out bu yourself
+  ```
+
+- `BaseWars:LerpColor(frac, from, to)`
+
+  - Argument Type
+    - frac » **_Number_**
+    - from » **_Color_**
+    - to » **_Color_**
+  - How to use »
+
+  ```lua
+  local from = Color(255, 0, 0)
+  local to = Color(0, 255, 0)
+
+  local color = BaseWars:LerpColor(FrameTime() * 16, from, to)
+  ```
+
+- `BaseWars:CreateFont(name, size, weight, extra)`
+
+  - Argument Type
+    - name » **_String_**
+    - size » **_Number_**
+    - weight » **_Number_**
+    - extra » **_Table_** | **_nil_**
+  - How to use »
+
+  ```lua
+  BaseWars:CreateFont("MyFont", 50, 500)
+
+  BaseWars:CreateFont("MyFont:Outline", 50, 500, {
+    outline = true,
+  })
+  ```
+
+- `BaseWars:EaseInBlurBackground(panel, blurIntensity, timeInSeconds, color, alpha)`
+
+  - Argument Type
+    - panel » **_Panel_**
+    - blurIntensity » **_Number_**
+    - timeInSeconds » **_Number_**
+    - color » **_Color_** | **_nil_**
+    - alpha » **_Number_** | **_nil_**
+  - How to use »
+
+  ```lua
+  -- Please dont use this, i made this in 10 mins and its dogshit
+  ```
+
+## Shared:
+
+- `BaseWars:GetModules()`
 - `BaseWars:AddLanguage(languageCode, languageName)`
-  - Arguments:
+  - Argument Types:
     - languageCode » **_String_**
     - languageName » **_String_**
   - How to use »
@@ -309,7 +580,7 @@ BaseWars:CreateEntity("edit_fog"):SetClass("edit_fog"):SetCategory("My Category 
   BaseWars:AddLanguage("fr", "Français")
   ```
 - `BaseWars:AddTranslation(key, languageCode, text)`
-  - Arguments
+  - Argument Types
     - key » **_String_**
     - languageCode » **_String_**
     - text » **_String_**
@@ -319,48 +590,48 @@ BaseWars:CreateEntity("edit_fog"):SetClass("edit_fog"):SetCategory("My Category 
   BaseWars:AddTranslation("bwm_warnings", "en", "Warnings")
   ```
 - `BaseWars:LanguageExists(languageCode)`
-  - Argument
+  - Argument Type
     - languageCode » **_String_**
   - How to use »
   ```lua
   BaseWars:LanguageExists("fr")
   ```
 - `BaseWars:GetLanguage(languageCode)`
-  - Argument
-    - languageCode » **_String_**
+  - Argument Type
+    - languageCode » **_String_** | **_nil_**
   - How to use »
   ```lua
-  BaseWars:GetLanguage("fr") -- returns the French language (of the language code isn't valid, returns all languages)
+  BaseWars:GetLanguage("fr") -- returns the French language
   BaseWars:GetLanguage() -- returns all the lauguages
   ```
 - `BaseWars:Log(...)`
-  - Argument
+  - Argument Type
     - ... » **_Any_**
   - How to use »
   ```lua
   BaseWars:Log("Hello, World")
   ```
 - `BaseWars:Warning(...)`
-  - Argument
+  - Argument Type
     - ... » **_Any_**
   - How to use »
   ```lua
   BaseWars:Warning("Hello, world")
   ```
 - `BaseWars:ServerLog(...)`
-  - Argument
+  - Argument Type
     - ... » **_Any_**
   - How to use »
   ```lua
   BaseWars:ServerLog("Hello, world")
   ```
-- `BaseWars:AddDefaultConfig(String configKey, String configType, String config, String configTranslation)`
+- `BaseWars:AddDefaultConfig(configKey, configType, config, configTranslation)`
 
-  - Argument
+  - Argument Type
     - configKey » **_String_**
-    - configType » **_Number_**
+    - configType » **_Number_** | **_nil_**
     - config » **_Table_**
-    - configTranslation » **_Table_**
+    - configTranslation » **_Table_** | **_nil_**
   - How to use »
 
   ```lua
@@ -410,33 +681,14 @@ BaseWars:CreateEntity("edit_fog"):SetClass("edit_fog"):SetCategory("My Category 
   })
   ```
 
-- `BaseWars:AddAdminMenuTab(name, iconPath, panelClass, order)`
-
-  - Argument
-    - name » **_String_**
-    - iconPath » **_String_**
-    - panelClass » **_String_**
-    - order » **_Number_**
-  - How to use »
-
-  ```lua
-  BaseWars:AddAdminMenuTab("Femboy", "basewars_materials/f3/faction.png", "DPanel", 69)
-
-  -- Or
-
-  BaseWars:AddTranslation("adminmenu_femboy", "fr", "Admin Menu Femboy")
-  BaseWars:AddTranslation("adminmenu_femboy", "en", "Admin Menu Femboy")
-  BaseWars:AddAdminMenuTab("#adminmenu_femboy", "basewars_materials/f3/faction.png", "DPanel", 69)
-  ```
-
 - `BaseWars:AddAdvert(seconds, message)`
-  - Argument
+  - Argument Type
     - seconds » **_Number_**
     - message » **_String_**
   - How to use »
   ```lua
   BaseWars:AddAdvert(600, "Hello every 10 mins")
-  ``` -->
+  ```
 
 # PLAYER Functions
 
@@ -453,3 +705,12 @@ BaseWars:CreateEntity("edit_fog"):SetClass("edit_fog"):SetCategory("My Category 
 ## Client:
 
 ## Shared:
+
+<!--
+- ``
+  - Argument Type
+    - a » **_a_**
+  - How to use »
+  ```lua
+  ```
+-->

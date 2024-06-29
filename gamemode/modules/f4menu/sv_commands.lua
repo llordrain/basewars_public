@@ -24,4 +24,4 @@ BaseWars:AddConsoleCommand("spawnent", function(ply, args, agrStr)
 	end
 
 	BaseWars:Notify(ply, "Spawned " .. BaseWars:GetValidName(entity), NOTIFICATION_GENERIC, 5)
-end, false, BaseWars:GetSuperAminGroups())
+end, false, BaseWars:GetSuperAdminGroups())

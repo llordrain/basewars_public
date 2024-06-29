@@ -34,7 +34,7 @@ BaseWars:AddChatCommand("addlevel", function(ply, args)
 	if ply != target then
 		BaseWars:Notify(target, "#command_addLevel_addBy", NOTIFICATION_GENERIC, 5, ply:Name(), BaseWars:FormatNumber(level))
 	end
-end, BaseWars:GetSuperAminGroups())
+end, BaseWars:GetSuperAdminGroups())
 
 -----------------------------------------------------------------------------
 
@@ -66,7 +66,7 @@ BaseWars:AddChatCommand("setlevel", function(ply, args)
 	if ply != target then
 		BaseWars:Notify(target, "#command_setLevel_setBy", NOTIFICATION_GENERIC, 5, ply:Name(), BaseWars:FormatNumber(level))
 	end
-end, BaseWars:GetSuperAminGroups())
+end, BaseWars:GetSuperAdminGroups())
 
 --[[-------------------------------------------------------------------------
 	Add/Set XP
@@ -94,7 +94,7 @@ BaseWars:AddChatCommand("addxp", function(ply, args)
 	if ply != target then
 		BaseWars:Notify(target, "#command_addXP_addBy", NOTIFICATION_GENERIC, 5, ply:Name(), BaseWars:FormatNumber(xp))
 	end
-end, BaseWars:GetSuperAminGroups())
+end, BaseWars:GetSuperAdminGroups())
 
 -----------------------------------------------------------------------------
 
@@ -121,7 +121,7 @@ BaseWars:AddChatCommand("setxp", function(ply, args)
 	if ply != target then
 		BaseWars:Notify(target, "#command_setXP_setBy", NOTIFICATION_GENERIC, 5, ply:Name(), BaseWars:FormatNumber(xp))
 	end
-end, BaseWars:GetSuperAminGroups())
+end, BaseWars:GetSuperAdminGroups())
 
 BaseWars:AddConsoleCommand("calculatexp", function(ply, args, argStr)
 

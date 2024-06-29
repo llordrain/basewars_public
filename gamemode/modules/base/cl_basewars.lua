@@ -341,6 +341,7 @@ function BaseWars:EaseInBlurBackground(panel, blurIntensity, timeInSeconds, colo
 	end
 end
 
+-- ???
 function PANEL:CalculateTall()
 	local tall = (BaseWars.ScreenScale * 10) * (self:ChildCount() + 1) -- BaseWars.ScreenScale * 10 » bigMargin
 

@@ -16,5 +16,5 @@ function BaseWars:GetChatCommands(cmd)
         return basewarsChatCommand[cmd]
     end
 
-    return table.Copy(basewarsChatCommand)
+    return basewarsChatCommand --table.Copy(basewarsChatCommand)
 end

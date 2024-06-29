@@ -22,7 +22,7 @@ BaseWars:AddChatCommand("addprestige", function(ply, args)
 	if ply != target then
 		BaseWars:Notify(target, "#command_addPrestige_addBy", NOTIFICATION_GENERIC, 5, target:Name(), BaseWars:FormatNumber(prestige))
 	end
-end, BaseWars:GetSuperAminGroups())
+end, BaseWars:GetSuperAdminGroups())
 
 -----------------------------------------------------------------------------
 
@@ -50,4 +50,4 @@ BaseWars:AddChatCommand("setprestige", function(ply, args)
 	if ply != target then
 		BaseWars:Notify(target, "#command_setPrestige_setBy", NOTIFICATION_GENERIC, 5, target:Name(), BaseWars:FormatNumber(prestige))
 	end
-end, BaseWars:GetSuperAminGroups())
+end, BaseWars:GetSuperAdminGroups())

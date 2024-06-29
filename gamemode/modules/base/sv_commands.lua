@@ -52,7 +52,7 @@ function BaseWars:GetChatCommands(command)
         return basewarsChatCommand[command]
     end
 
-    return table.Copy(basewarsChatCommand)
+    return basewarsChatCommand --table.Copy(basewarsChatCommand)
 end
 
 function BaseWars:GetConsoleCommands(command)
@@ -60,5 +60,5 @@ function BaseWars:GetConsoleCommands(command)
         return basewarsConsoleCommand[command]
     end
 
-    return table.Copy(basewarsConsoleCommand)
+    return basewarsConsoleCommand --table.Copy(basewarsConsoleCommand)
 end

@@ -21,7 +21,7 @@ BaseWars:AddChatCommand("addmoney", function(ply, args)
 	if ply != target then
 		BaseWars:Notify(target, "#command_addMoney_addBy", NOTIFICATION_GENERIC, 5, ply:Name(), BaseWars:FormatMoney(money))
 	end
-end, BaseWars:GetSuperAminGroups())
+end, BaseWars:GetSuperAdminGroups())
 
 -----------------------------------------------------------------------------
 
@@ -48,4 +48,4 @@ BaseWars:AddChatCommand("setmoney", function(ply, args)
 	if ply != target then
 		BaseWars:Notify(target, "#command_setMoney_setBy", NOTIFICATION_GENERIC, 5, ply:Name(), BaseWars:FormatMoney(money))
 	end
-end, BaseWars:GetSuperAminGroups())
+end, BaseWars:GetSuperAdminGroups())

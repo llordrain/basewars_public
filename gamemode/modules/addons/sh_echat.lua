@@ -1,4 +1,4 @@
-local LAST_UPDATED_VERSION = "1.44.1" -- June 18th 2024 // https://www.gmodstore.com/market/view/echat-feature-rich-chatbox/versions
+local LAST_UPDATED_VERSION = "1.45" -- June 25th 2024 // https://www.gmodstore.com/market/view/echat-feature-rich-chatbox/versions
 local GRAY_COLOR = Color(200, 200, 200)
 
 local function makeModifications()

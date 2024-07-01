@@ -415,8 +415,6 @@ end
 function GM:CanTool(ply, trace, tool)
 	local Admin = BaseWars:IsAdmin(ply, true)
 
-	print(tool .. " = true")
-
 	local ent = trace.Entity
 	if ent == game.GetWorld() and BaseWars.Config.BlockedTools[tool] != nil then return Admin end
 

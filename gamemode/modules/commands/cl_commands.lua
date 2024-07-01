@@ -133,13 +133,6 @@ BaseWars:AddTranslation("EChatCommand_profile", "en", "Change profile")
 BaseWars:AddChatCommand("profile", nil, "#EChatCommand_profile")
 
 --[[-------------------------------------------------------------------------
-	Restart Time
----------------------------------------------------------------------------]]
-BaseWars:AddTranslation("EChatCommand_restart", "fr", "Temps avant le prochain restart")
-BaseWars:AddTranslation("EChatCommand_restart", "en", "Time until next restart")
-BaseWars:AddChatCommand({"restart", "reboot"}, nil, "#EChatCommand_restart")
-
---[[-------------------------------------------------------------------------
 	Lock / Unlock doors
 ---------------------------------------------------------------------------]]
 BaseWars:AddTranslation("EChatCommand_lock", "fr", "Verrouiller la porte que vous regardez")

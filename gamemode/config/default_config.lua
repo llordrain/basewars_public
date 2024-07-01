@@ -35,8 +35,6 @@ BaseWars.DefaultConfigType = {
 	["RaidRequirements"] = BWCONFIGTYPE_KEYVALUE,
 	["PayDay"] = BWCONFIGTYPE_KEYVALUE,
 	["Raids"] = BWCONFIGTYPE_KEYVALUE,
-	["AutoRestart"] = BWCONFIGTYPE_KEYVALUE,
-	["CrashBackup"] = BWCONFIGTYPE_KEYVALUE,
 	["Debug"] = BWCONFIGTYPE_KEYVALUE,
 	["SpawnSafeZone"] = BWCONFIGTYPE_KEYVALUE,
 

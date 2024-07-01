@@ -39,24 +39,6 @@ BaseWars.Themes["default"] = {
 	-- Adverts
 	adverts_prefix = Color(208, 255, 0),
 
-	-- Boardcast
-	broadcast_prefix = Color(0, 230, 255),
-	broadcast_text = color_white,
-
-	-- Logs Coloring
-	logs_accent = Color(90, 130, 230),
-	logs_prefix = Color(180, 30, 30),
-	logs_quotes = Color(43, 180, 30),
-	logs_extra = Color(0, 255, 234),
-	logs_module = Color(255, 123, 0),
-	logs_money = Color(208, 255, 0),
-	logs_noColor = color_white,
-
-	-- Warnings
-	warnings_prefix = Color(210, 25, 25),
-	warnings_info = Color(210, 25, 25),
-	warnings_text = color_white,
-
 	-- Dashboard
 	leaderboard_top1 = Color(255, 215, 0),
 	leaderboard_top2 = Color(192, 192, 192),
@@ -200,8 +182,6 @@ BaseWars.Themes["green"] = {
 
 	gen_accent = Color(90, 230, 130),
 
-	logs_accent = Color(90, 230, 130),
-
 	profileSelector_background = Color(37, 47, 37),
 	profileSelector_contentBackground = Color(29, 40, 32),
 
@@ -277,8 +257,6 @@ BaseWars.Themes["lightred"] = {
 
 	gen_accent = Color(230, 90, 90),
 
-	logs_accent = Color(230, 90, 90),
-
 	profileSelector_background = Color(47, 37, 37),
 	profileSelector_contentBackground = Color(40, 29, 29),
 
@@ -352,8 +330,6 @@ BaseWars.Themes["purple"] = {
 	themeName = "Purple",
 
 	gen_accent = Color(230, 90, 230),
-
-	logs_accent = Color(230, 90, 230),
 
 	profileSelector_background = Color(47, 37, 47),
 	profileSelector_contentBackground = Color(40, 29, 40),
@@ -429,8 +405,6 @@ BaseWars.Themes["darkyellow"] = {
 	themeName = "Dark Yellow",
 
 	gen_accent = Color(255, 240, 15),
-
-	logs_accent = Color(255, 240, 15),
 
 	profileSelector_background = Color(47, 47, 37),
 	profileSelector_contentBackground = Color(40, 40, 29),
@@ -508,8 +482,6 @@ BaseWars.Themes["light"] = {
 	themeName = "Light",
 
 	gen_accent = Color(200, 90, 20),
-
-	logs_accent = Color(230, 90, 230),
 
 	profileSelector_text = color_black,
 	profileSelector_darkText = Color(50, 50, 50),

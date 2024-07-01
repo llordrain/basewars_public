@@ -79,6 +79,7 @@ BaseWars:LoadModules(function()
     else
         config = util.JSONToTable(file.Read(CONFIG_PATH, "DATA"))
 
+        -- TODO: Redo that shit
         -- Lookup for missing configs
         for k, v in pairs(defaultConfig) do
             if config[k] == nil then

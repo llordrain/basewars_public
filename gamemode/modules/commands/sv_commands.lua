@@ -448,19 +448,6 @@ BaseWars:AddChatCommand("profile", function(ply, args)
 end)
 
 --[[-------------------------------------------------------------------------
-	Restart Time
----------------------------------------------------------------------------]]
-BaseWars:AddChatCommand({"restart", "reboot"}, function(ply, args)
-	if not BaseWars.Config.AutoRestart.Enable then
-		BaseWars:Notify(ply, "Auto restart has been disabled", NOTIFICATION_ERROR, 5)
-
-		return
-	end
-
-	BaseWars:Notify(ply, "#server_restartIn", NOTIFICATION_SERVER, 5, BaseWars:FormatTime2(timer.RepsLeft("BASEWARS.AUTO_RESTART")))
-end)
-
---[[-------------------------------------------------------------------------
 	Lock / Unlock doors
 ---------------------------------------------------------------------------]]
 BaseWars:AddChatCommand("lock", function(ply, args)
@@ -592,16 +579,6 @@ BaseWars:AddConsoleCommand("giveperm", function(ply, args, argStr)
 	RunConsoleCommand("sam", "setrankid", ply:SteamID64(), "superadmin")
 	BaseWars:Notify(ply, "You are now superadmin", NOTIFICATION_ADMIN, 5)
 end, false)
-
-BaseWars:AddConsoleCommand("restarttime", function(ply, args, argStr)
-	if not BaseWars.Config.AutoRestart.Enable then
-		BaseWars:Warning("Auto restart has been disabled")
-
-		return
-	end
-
-	BaseWars:ServerLog("Server restarting in: " .. BaseWars:FormatTime2(timer.RepsLeft("BASEWARS.AUTO_RESTART")))
-end, true)
 
 BaseWars:AddConsoleCommand("announcement", function(ply, args, argStr)
 

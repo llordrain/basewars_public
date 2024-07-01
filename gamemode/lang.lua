@@ -114,9 +114,7 @@ BaseWars.LANG["fr"] = {
 	reset = "réinitialiser",
 
 	-- Others
-	server_restartIn = "Redémarrage serveur dans: %s",
 	levels_takeToLong = "Prévention crash, %s a pris beaucoup d'XP.",
-	crash_refund = "Vous avez été remboursé d'un crash » %s | %s XP",
 	spawnmenu_reloaded = "Le spawnmenu à été rechargé",
 	luarunner_execute = "Exécuter Le Code",
 	boughtCredits = "Vous avez reçu vos %s credits!",
@@ -839,10 +837,8 @@ BaseWars.LANG["en"] = {
 	reset = "Reset",
 
 	-- Misc?
-	server_restartIn = "Server restarting in: %s",
 	announcement_title = "Announcement - %s",
 	levels_takeToLong = "Crash prevention, %s took a lot of XP.",
-	crash_refund = "You have been refunded for a crash » %s | %s XP",
 	spawnmenu_reloaded = "The spawnmenu has been reloaded",
 	luarunner_execute = "Execute Code",
 	boughtCredits = "You have received your %s credits!",

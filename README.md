@@ -634,6 +634,8 @@ BaseWars:CreateEntity("edit_fog"):SetClass("edit_fog"):SetCategory("My Category 
     - configTranslation » **_Table_** | **_nil_**
   - How to use »
 
+  ### [**Better exemple here**](gamemode/modules/prestige/init_prestige.lua)
+
   ```lua
   BaseWars:AddDefaultConfig("Exemple", nil, false, {
     ["fr"] = {

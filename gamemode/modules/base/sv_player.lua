@@ -619,10 +619,8 @@ net.Receive("BaseWars:OpenSpawnpointMenu", function(len, ply)
 	local spawnpoint = net.ReadEntity()
 
 	ply:Spawn()
+
 	if IsValid(spawnpoint) then
 		ply:SetPos(spawnpoint:GetPos() + Vector(0, 0, 5))
-	else
-		ply:SetPos(Vector(math.Rand(-4080, -3950), math.Rand(6650, 5000), 95))
 	end
-	ply:SetEyeAngles(Angle(0, 90, 0))
 end)

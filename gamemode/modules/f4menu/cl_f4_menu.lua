@@ -1,7 +1,8 @@
 local icons = {
 	close = Material("basewars_materials/close.png", "smooth"),
 	copy = Material("basewars_materials/copy.png", "smooth"),
-	favorite = Material("basewars_materials/f4/favorite.png", "smooth")
+	favorite1 = Material("basewars_materials/f4/favorite1.png", "smooth"),
+	favorite2 = Material("basewars_materials/f4/favorite2.png", "smooth")
 }
 local cardH = BaseWars.ScreenScale * 80
 local bigMargin = BaseWars.ScreenScale * 10
@@ -337,11 +338,8 @@ function PANEL:BuildFavorites()
 			item.Buttons.Favorite:Dock(TOP)
 			item.Buttons.Favorite:SetTall((cardH - margin * 3) * .5)
 			item.Buttons.Favorite:SetColor(item.lerpColor, true)
-			item.Buttons.Favorite.LerpFunc = function(s)
-				return s:IsHovered() or BaseWars:IsFavorite(entityID)
-			end
 			item.Buttons.Favorite.Draw = function(s,w,h)
-				BaseWars:DrawMaterial(icons["favorite"], w * .5, h * .5, h * .65, h * .65, color_white, 0)
+				BaseWars:DrawMaterial(BaseWars:IsFavorite(entityID) and icons["favorite2"] or icons["favorite1"], w * .5, h * .5, h * .65, h * .65, color_white, 0)
 			end
 			item.Buttons.Favorite.DoClick = function(s)
 				s:ButtonSound()
@@ -545,11 +543,8 @@ function PANEL:Build(data, replacePanel)
 			item.Buttons.Favorite:Dock(TOP)
 			item.Buttons.Favorite:SetTall((cardH - margin * 3) * .5)
 			item.Buttons.Favorite:SetColor(item.lerpColor, true)
-			item.Buttons.Favorite.LerpFunc = function(s)
-				return s:IsHovered() or BaseWars:IsFavorite(entityID)
-			end
 			item.Buttons.Favorite.Draw = function(s,w,h)
-				BaseWars:DrawMaterial(icons["favorite"], w * .5, h * .5, h * .65, h * .65, color_white, 0)
+				BaseWars:DrawMaterial(BaseWars:IsFavorite(entityID) and icons["favorite2"] or icons["favorite1"], w * .5, h * .5, h * .65, h * .65, color_white, 0)
 			end
 			item.Buttons.Favorite.DoClick = function(s)
 				s:ButtonSound()

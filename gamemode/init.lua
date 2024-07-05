@@ -4,43 +4,31 @@ local CONFIG_PATH = BASEWARS_FOLDER .. "/basewars_config.json"
 util.AddNetworkString("BaseWars:GamemodeConfigModified")
 util.AddNetworkString("BaseWars:SendGamemodeConfigToClient")
 
-resource.AddWorkshop("2905302365")
-
 do
-    local BASEWARS_ICONS_PATH = "materials/basewars_materials"
-    local ECHAT_ICONS_PATH = "materials/echat/emoji"
-
-    local emojiCount = 0
-    local emojis, _ = file.Find("gamemodes/basewars/content/" .. ECHAT_ICONS_PATH .. "/*", "GAME")
-    for k, v in ipairs(emojis) do
-        emojiCount = emojiCount + 1
-        resource.AddFile(ECHAT_ICONS_PATH .. "/" .. v)
-    end
-
     local count = 0
-    local function addBaseWarsIcon(path)
-        local icons, folders = file.Find("gamemodes/basewars/content/" .. BASEWARS_ICONS_PATH .. path .. "*", "GAME")
+    local function addBaseWarsResource(path)
+        local icons, folders = file.Find("gamemodes/basewars/content" .. path .. "*", "GAME")
         for k, v in ipairs(icons) do
             count = count + 1
-            resource.AddFile(BASEWARS_ICONS_PATH .. "/" .. v)
+
+            resource.AddFile(string.sub(path, 2) .. v)
         end
 
         for k, v in ipairs(folders) do
-            addBaseWarsIcon(path .. v .. "/")
+            if v == "echat" and not (file.Exists("autorun/echat_loader.lua", "LUA") and file.Exists("autorun/esc_loader.lua", "LUA")) then
+                continue
+            end
+
+            addBaseWarsResource(path .. v .. "/")
         end
     end
 
-    addBaseWarsIcon("/")
+    addBaseWarsResource("/")
 
-    resource.AddFile("resource/KodeMono Medium.ttf")
-    resource.AddFile("resource/Montserrat Medium.ttf")
-
-    resource.AddFile("sound/bw_button.wav")
-    resource.AddFile("sound/bw_notification.wav")
+    -- resource.AddWorkshop("3265905462") -- Workshop Addon
 
     hook.Add("BaseWars:Initialize", "BaseWars:AddResources", function()
         BaseWars:ServerLog(count .. " BaseWars icons")
-        BaseWars:ServerLog(emojiCount .. " custom EChat emojis")
     end)
 end
 

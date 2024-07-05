@@ -11,8 +11,6 @@ BaseWars = {}
 BaseWars.Config = {}
 BaseWars.LANG = {}
 
-BaseWars.ServerName = file.Read("basewars/server_name.txt", "DATA") or "DEV"
-
 --[[-------------------------------------------------------------------------
 	MARK: Global Constants
 ---------------------------------------------------------------------------]]

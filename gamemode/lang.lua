@@ -540,7 +540,9 @@ BaseWars.LANG["fr"] = {
 		factionHighlightName = "Surbrillance De Faction",
 		factionHighlightDesc = "Mettre en surbrillance les membres de votre faction",
 		showAllCommandsName = "Toutes les commandes",
-		showAllCommandsDesc = "Afficher les commandes que vous n'avez pas accès dans le dashboard"
+		showAllCommandsDesc = "Afficher les commandes que vous n'avez pas accès dans le dashboard",
+		F4TabName = "Onglet BaseWars Shop",
+		F4TabDesc = "L'onglet sur lequel le shop va s'ouvrir",
 	},
 
 	-- BaseWars Shop (F4)
@@ -1277,7 +1279,9 @@ BaseWars.LANG["en"] = {
 		factionHighlightName = "Faction Highlight",
 		factionHighlightDesc = "Highlight the members of your faction",
 		showAllCommandsName = "All the commands",
-		showAllCommandsDesc = "Show the commands you don't have access in the dashboard"
+		showAllCommandsDesc = "Show the commands you don't have access in the dashboard",
+		F4TabName = "BaseWars Shop Tab",
+		F4TabDesc = "The tab on which the shop will open",
 	},
 
 	-- BaseWars Shop (F4)

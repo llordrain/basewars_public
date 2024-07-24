@@ -106,7 +106,7 @@ function DrawRaidHUD()
 	local barWide = math.max(attackerW + extraMargin * 2, defenderW + extraMargin * 2, baseWide)
 
 	BaseWars:DrawRoundedBox(4, (screenWitdh - timeWide) * .5, bigMargin * 2, timeWide, barTall, GetBaseWarsTheme("raid_time"))
-	draw.SimpleText(raidTime, "BaseWars.28.Mono", screenWitdh * .5, bigMargin * 2 + barTall * .55, GetBaseWarsTheme("raid_text"), 1, 1)
+	draw.SimpleText(raidTime, "BaseWars.28", screenWitdh * .5, bigMargin * 2 + barTall * .55, GetBaseWarsTheme("raid_text"), 1, 1)
 
 	BaseWars:DrawRoundedBox(4, (screenWitdh - timeWide) * .5 - barWide - margin, bigMargin * 2, barWide, barTall, GetBaseWarsTheme("raid_background"))
 	draw.SimpleText(participants.attacker.name, "BaseWars.26", (screenWitdh - timeWide) * .5 - barWide * .5 - margin, bigMargin * 2 + barTall * .48, GetBaseWarsTheme("raid_text"), 1, 1)
@@ -717,11 +717,6 @@ function GM:HUDPaint()
 		return
 	end
 
-	local spec = FSpectate and FSpectate:GetSpecEnt()
-	if IsValid(spec) and spec:IsPlayer() then
-		ply = spec
-	end
-
 	if hook.Run("HUDShouldDraw", "BaseWarsBaseWarsHUD") then
 		BaseWarsHUD(ply)
 	end
@@ -740,7 +735,3 @@ function GM:HUDPaint()
 
 	self.BaseClass:HUDPaint()
 end
-
-concommand.Add("bw_show_cursor", function()
-	gui.EnableScreenClicker(not vgui.CursorVisible())
-end)

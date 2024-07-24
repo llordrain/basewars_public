@@ -73,7 +73,7 @@ function PANEL:Init()
 
 	local wide = (self.w - bigMargin * 4 - margin) * .5
 
-	self.BottomBar.StartRaid = self.BottomBar:Add("BaseWars.Button")
+	self.BottomBar.StartRaid = self.BottomBar:Add("BaseWars.Button2")
 	self.BottomBar.StartRaid:Dock(LEFT)
 	self.BottomBar.StartRaid:DockMargin(bigMargin, bigMargin, 0, bigMargin)
 	self.BottomBar.StartRaid:SetWide(wide)
@@ -146,7 +146,7 @@ function PANEL:Init()
 		net.SendToServer()
 	end
 
-	self.BottomBar.StopRaid = self.BottomBar:Add("BaseWars.Button")
+	self.BottomBar.StopRaid = self.BottomBar:Add("BaseWars.Button2")
 	self.BottomBar.StopRaid:Dock(RIGHT)
 	self.BottomBar.StopRaid:DockMargin(0, bigMargin, bigMargin, bigMargin)
 	self.BottomBar.StopRaid:SetWide(wide)

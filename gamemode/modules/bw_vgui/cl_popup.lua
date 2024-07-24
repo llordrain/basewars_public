@@ -60,7 +60,7 @@ function POPUP:Init()
     self.Frame.Bottom:SetTall(buttonTall + bigMargin * 2)
     self.Frame.Bottom.Paint = nil
 
-    self.Frame.Bottom.Confirm = self.Frame.Bottom:Add("BaseWars.Button")
+    self.Frame.Bottom.Confirm = self.Frame.Bottom:Add("BaseWars.Button2")
     self.Frame.Bottom.Confirm:Dock(LEFT)
     self.Frame.Bottom.Confirm:DockMargin(bigMargin, bigMargin, 0, bigMargin)
     self.Frame.Bottom.Confirm:SetWide((self.Frame:GetWide() - bigMargin * 3) * .5)
@@ -75,7 +75,7 @@ function POPUP:Init()
         self:Remove()
     end
 
-    self.Frame.Bottom.Cancel = self.Frame.Bottom:Add("BaseWars.Button")
+    self.Frame.Bottom.Cancel = self.Frame.Bottom:Add("BaseWars.Button2")
     self.Frame.Bottom.Cancel:Dock(RIGHT)
     self.Frame.Bottom.Cancel:DockMargin(0, bigMargin, bigMargin, bigMargin)
     self.Frame.Bottom.Cancel:SetWide((self.Frame:GetWide() - bigMargin * 3) * .5)
@@ -200,7 +200,7 @@ end
 
 function SHOP_POPUP:CreateButtons(bool)
     if not bool then
-        self.Frame.Bottom.Cancel = self.Frame.Bottom:Add("BaseWars.Button")
+        self.Frame.Bottom.Cancel = self.Frame.Bottom:Add("BaseWars.Button2")
         self.Frame.Bottom.Cancel:Dock(FILL)
         self.Frame.Bottom.Cancel:DockMargin(bigMargin, bigMargin, bigMargin, bigMargin)
         self.Frame.Bottom.Cancel:SetColor(self.colors.contentBackground, true)
@@ -216,7 +216,7 @@ function SHOP_POPUP:CreateButtons(bool)
         return
     end
 
-    self.Frame.Bottom.Confirm = self.Frame.Bottom:Add("BaseWars.Button")
+    self.Frame.Bottom.Confirm = self.Frame.Bottom:Add("BaseWars.Button2")
     self.Frame.Bottom.Confirm:Dock(LEFT)
     self.Frame.Bottom.Confirm:DockMargin(bigMargin, bigMargin, 0, bigMargin)
     self.Frame.Bottom.Confirm:SetWide((self.Frame:GetWide() - bigMargin * 3) * .5)
@@ -235,7 +235,7 @@ function SHOP_POPUP:CreateButtons(bool)
         end
     end
 
-    self.Frame.Bottom.Cancel = self.Frame.Bottom:Add("BaseWars.Button")
+    self.Frame.Bottom.Cancel = self.Frame.Bottom:Add("BaseWars.Button2")
     self.Frame.Bottom.Cancel:Dock(RIGHT)
     self.Frame.Bottom.Cancel:DockMargin(0, bigMargin, bigMargin, bigMargin)
     self.Frame.Bottom.Cancel:SetWide((self.Frame:GetWide() - bigMargin * 3) * .5)

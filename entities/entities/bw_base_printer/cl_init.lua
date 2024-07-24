@@ -22,12 +22,6 @@ function ENT:Draw()
     local ply = LocalPlayer()
     local showPrinter = true
     local hasBank = self:GetConnectedToBank()
-
-    local spec = FSpectate and FSpectate:GetSpecEnt()
-    if IsValid(spec) and spec:IsPlayer() then
-        ply = spec
-    end
-
     local traceEntity = ply:GetEyeTrace().Entity
 
     if ply:GetPos():Distance(self:GetPos()) > BaseWars.Config.EntityRenderDistance then

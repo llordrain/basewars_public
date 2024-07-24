@@ -125,9 +125,9 @@ local function BuyBaseWarsItem(ply, entityID)
 	entity:SetCurrentValue(entiyPrice)
 	entity.Raidable = true
 
-	-- --[[-------------------------------------------------------------------------
-	-- 	ADDONS SUPPORT
-	-- ---------------------------------------------------------------------------]]
+	--[[-------------------------------------------------------------------------
+		ADDONS SUPPORT
+	---------------------------------------------------------------------------]]
 	if zclib then
 		zclib.Player.SetOwner(entity, ply)
 	end
@@ -153,5 +153,6 @@ end
 
 BaseWars:AddConsoleCommand("basewarsbuy", function(ply, args, argStr)
 	if not ply:IsPlayer() then return end
+
 	BuyBaseWarsItem(ply, args[1])
 end, false, nil, true)

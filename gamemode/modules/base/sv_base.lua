@@ -67,6 +67,7 @@ function GM:EntityTakeDamage(ent, dmg)
 		return false
 	end
 
+	-- Don't know how this shit works but it works
 	local entityOwner = ent:CPPIGetOwner()
 	if att:IsPlayer() and not ent:IsPlayer() then
 		if not IsValid(entityOwner) or ent:GetMaxHealth() <= 0 then return true end
@@ -93,8 +94,6 @@ function GM:EntityTakeDamage(ent, dmg)
 			end
 		end
 	end
-
-	self.BaseClass:EntityTakeDamage(ent, dmg)
 end
 
 function GM:PostCleanupMap()
@@ -110,7 +109,7 @@ function GM:InitPostEntity()
 	BaseWars:RemoveAllProps()
 
 	local safeZone = ents.Create("bw_safe_zone")
-    safeZone:Spawn()
+	safeZone:Spawn()
 
 	RunConsoleCommand("sbox_weapons", "0") -- player_class/player_basewars.lua @ line #55
 end

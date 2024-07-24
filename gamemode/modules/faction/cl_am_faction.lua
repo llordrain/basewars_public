@@ -52,7 +52,7 @@ function PANEL:Build()
             draw.SimpleText(factionName .. " [" .. factionData.id .. "]", "BaseWars.24", h * .25, h * .5, factionData.color, 0, 1)
         end
 
-        faction.Name.Disband = faction.Name:Add("BaseWars.Button")
+        faction.Name.Disband = faction.Name:Add("BaseWars.Button2")
         faction.Name.Disband:Dock(RIGHT)
         faction.Name.Disband:DockMargin(0, bigMargin, bigMargin, bigMargin)
         faction.Name.Disband:SetWide(buttonWide)
@@ -82,7 +82,7 @@ function PANEL:Build()
         end
 
         if membersCount > 0 then
-            faction.Leader.TransferLeadership = faction.Leader:Add("BaseWars.Button")
+            faction.Leader.TransferLeadership = faction.Leader:Add("BaseWars.Button2")
             faction.Leader.TransferLeadership:Dock(RIGHT)
             faction.Leader.TransferLeadership:DockMargin(0, bigMargin, bigMargin, bigMargin)
             faction.Leader.TransferLeadership:SetWide(buttonWide)
@@ -155,7 +155,7 @@ function PANEL:Build()
             draw.SimpleText(Format(self.localPlayer:GetLang("adminmenu_factionImmunity"), time), "BaseWars.24", h * .25, h * .5, self.colors.text, 0, 1)
         end
 
-        faction.Immunity.Reset = faction.Immunity:Add("BaseWars.Button")
+        faction.Immunity.Reset = faction.Immunity:Add("BaseWars.Button2")
         faction.Immunity.Reset:Dock(RIGHT)
         faction.Immunity.Reset:DockMargin(0, bigMargin, bigMargin, bigMargin)
         faction.Immunity.Reset:SetWide(buttonWide)
@@ -205,7 +205,7 @@ function PANEL:Build()
                 draw.SimpleText(ply:Name(), "BaseWars.24", h * .25, h * .5, self.colors.text, 0, 1)
             end
 
-            playerPanel.Kick = playerPanel:Add("BaseWars.Button")
+            playerPanel.Kick = playerPanel:Add("BaseWars.Button2")
             playerPanel.Kick:Dock(RIGHT)
             playerPanel.Kick:DockMargin(0, bigMargin, bigMargin, bigMargin)
             playerPanel.Kick:SetWide(buttonWide)

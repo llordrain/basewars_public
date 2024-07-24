@@ -112,11 +112,11 @@ BaseWars.LANG["fr"] = {
 	back = "Retour",
 	now = "Maintenant",
 	reset = "réinitialiser",
+	favorites = "Favoris",
 
 	-- Others
 	levels_takeToLong = "Prévention crash, %s a pris beaucoup d'XP.",
 	spawnmenu_reloaded = "Le spawnmenu à été rechargé",
-	luarunner_execute = "Exécuter Le Code",
 	boughtCredits = "Vous avez reçu vos %s credits!",
 
 	-- Calculator
@@ -813,6 +813,25 @@ BaseWars.LANG["fr"] = {
 BaseWars.LANG["en"] = {
 	languageName = "English",
 	selectPlayer = "Select a player",
+
+	shop_title = "BaseWars Shop",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	error = "Error",
 	close = "Close",
 	notAllowed = "You do not have permission to do this",
@@ -835,12 +854,12 @@ BaseWars.LANG["en"] = {
 	back = "Back",
 	now = "Now",
 	reset = "Reset",
+	favorites = "Favorites",
 
 	-- Misc?
 	announcement_title = "Announcement - %s",
 	levels_takeToLong = "Crash prevention, %s took a lot of XP.",
 	spawnmenu_reloaded = "The spawnmenu has been reloaded",
-	luarunner_execute = "Execute Code",
 	boughtCredits = "You have received your %s credits!",
 
 	calculator_selectPrinter = "Select a printer",

@@ -63,7 +63,7 @@ BaseWars:AddFactionInteraction("faction_createFaction", buttonSize * 6 + bigMarg
 	parent.ColorPicker:DockMargin(bigMargin, margin, bigMargin, 0)
 	parent.ColorPicker:SetTall(buttonSize * 3 + margin * 2)
 
-	parent.Button = parent:Add("BaseWars.Button")
+	parent.Button = parent:Add("BaseWars.Button2")
 	parent.Button:Dock(BOTTOM)
 	parent.Button:DockMargin(bigMargin, margin, bigMargin, bigMargin)
 	parent.Button:SetTall(buttonSize)
@@ -173,7 +173,7 @@ BaseWars:AddFactionInteraction("faction_joinFaction", buttonSize * 3 + bigMargin
 	parent.Password:SetPlaceHolder(localPlayer:GetLang("faction_password"))
 	parent.Password:SetPlaceHolderColor(theme.darkText)
 
-	parent.Button = parent:Add("BaseWars.Button")
+	parent.Button = parent:Add("BaseWars.Button2")
 	parent.Button:Dock(BOTTOM)
 	parent.Button:DockMargin(bigMargin, margin, bigMargin, bigMargin)
 	parent.Button:SetTall(buttonSize)
@@ -239,7 +239,7 @@ BaseWars:AddFactionInteraction("faction_quitFaction", buttonSize + bigMargin * 2
         green = GetBaseWarsTheme("button_green")
 	}
 
-	parent.Button = parent:Add("BaseWars.Button")
+	parent.Button = parent:Add("BaseWars.Button2")
 	parent.Button:Dock(BOTTOM)
 	parent.Button:DockMargin(bigMargin, bigMargin, bigMargin, bigMargin)
 	parent.Button:SetTall(buttonSize)
@@ -303,7 +303,7 @@ BaseWars:AddFactionInteraction("faction_changePassword", buttonSize * 2 + bigMar
 	parent.Password:SetPlaceHolderColor(theme.darkText)
 	parent.Password:RequestFocus()
 
-	parent.Button = parent:Add("BaseWars.Button")
+	parent.Button = parent:Add("BaseWars.Button2")
 	parent.Button:Dock(BOTTOM)
 	parent.Button:DockMargin(bigMargin, margin, bigMargin, bigMargin)
 	parent.Button:SetTall(buttonSize)
@@ -354,7 +354,7 @@ BaseWars:AddFactionInteraction("faction_kickMember", buttonSize + bigMargin * 2,
         green = GetBaseWarsTheme("button_green")
 	}
 
-	parent.Button = parent:Add("BaseWars.Button")
+	parent.Button = parent:Add("BaseWars.Button2")
 	parent.Button:Dock(BOTTOM)
 	parent.Button:DockMargin(bigMargin, bigMargin, bigMargin, bigMargin)
 	parent.Button:SetTall(buttonSize)
@@ -433,7 +433,7 @@ BaseWars:AddFactionInteraction("faction_promoteLeader", buttonSize + bigMargin *
         green = GetBaseWarsTheme("button_green")
 	}
 
-	parent.Button = parent:Add("BaseWars.Button")
+	parent.Button = parent:Add("BaseWars.Button2")
 	parent.Button:Dock(BOTTOM)
 	parent.Button:DockMargin(bigMargin, bigMargin, bigMargin, bigMargin)
 	parent.Button:SetTall(buttonSize)

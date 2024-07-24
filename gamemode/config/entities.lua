@@ -1,10 +1,9 @@
-BaseWars:CreateCategory("Favorites", "basewars_materials/f4/favorite.png", 1)
-local PRINTERS_CATEGORY = BaseWars:CreateCategory("Printers", "basewars_materials/f4/printer.png", 2)
-local WEAPONS_CATEGORY = BaseWars:CreateCategory("Weapons", "basewars_materials/f4/weapon.png", 3)
-local DEFENSES_CATEGORY = BaseWars:CreateCategory("Defenses", "basewars_materials/f4/defense.png", 4)
-local RAID_CATEGORY = BaseWars:CreateCategory("Raid", "basewars_materials/f4/bomb.png", 5)
-local FARMING_CATEGORY = BaseWars:CreateCategory("Farming", "basewars_materials/f4/farming.png", 6)
-local MISC_CATEGORY = BaseWars:CreateCategory("Misc", "basewars_materials/f4/misc.png", 7)
+local PRINTERS_CATEGORY = BaseWars:CreateCategory("Printers", "basewars_materials/f4/printer.png", 1)
+local WEAPONS_CATEGORY = BaseWars:CreateCategory("Weapons", "basewars_materials/f4/weapon.png", 2)
+local DEFENSES_CATEGORY = BaseWars:CreateCategory("Defenses", "basewars_materials/f4/defense.png", 3)
+local RAID_CATEGORY = BaseWars:CreateCategory("Raid", "basewars_materials/f4/bomb.png", 4)
+local FARMING_CATEGORY = BaseWars:CreateCategory("Farming", "basewars_materials/f4/farming.png", 5)
+local MISC_CATEGORY = BaseWars:CreateCategory("Misc", "basewars_materials/f4/misc.png", 6)
 
 local PRINTER_MODEL = "models/props_c17/consolebox01a.mdl"
 local BANK_MODEL = "models/props_c17/consolebox01a.mdl"
@@ -73,7 +72,7 @@ BaseWars:CreateEntity("bw_printer_prestige5"):SetClass("bw_printer_prestige5"):S
 BaseWars:CreateEntity("bw_printer_prestige6"):SetClass("bw_printer_prestige6"):SetCategory(PRINTERS_CATEGORY):SetSubCategory(PRESTIGE_PRINTERS):SetName("Prestige Printer 6"):SetPrice(20e12):SetLevel(30e3):SetMax(8):SetPrestige(10):SetModel(PRINTER_MODEL):Finish()
 BaseWars:CreateEntity("bw_printer_prestige7"):SetClass("bw_printer_prestige7"):SetCategory(PRINTERS_CATEGORY):SetSubCategory(PRESTIGE_PRINTERS):SetName("Prestige Printer 7"):SetPrice(65e12):SetLevel(100e3):SetMax(8):SetPrestige(20):SetModel(PRINTER_MODEL):Finish()
 BaseWars:CreateEntity("bw_printer_prestige8"):SetClass("bw_printer_prestige8"):SetCategory(PRINTERS_CATEGORY):SetSubCategory(PRESTIGE_PRINTERS):SetName("Prestige Printer 8"):SetPrice(140e12):SetLevel(250e3):SetMax(8):SetPrestige(30):SetModel(PRINTER_MODEL):Finish()
-BaseWars:CreateEntity("bw_printer_prestige9"):SetClass("bw_printer_prestige9"):SetCategory(PRINTERS_CATEGORY):SetSubCategory(PRESTIGE_PRINTERS):SetName("Prestige Printer 9"):SetPrice(15e15):SetLevel(5e6):SetMax(999):SetPrestige(50):SetModel(PRINTER_MODEL):Finish()
+BaseWars:CreateEntity("bw_printer_prestige9"):SetClass("bw_printer_prestige9"):SetCategory(PRINTERS_CATEGORY):SetSubCategory(PRESTIGE_PRINTERS):SetName("Prestige Printer 9"):SetPrice(15e15):SetLevel(5e6):SetMax(999):SetPrestige(50):SetModel(PRINTER_MODEL):SetRankCheck(IS_VIP_FUNCTION):Finish()
 
 --[[-------------------------------------------------------------------------
 	DEFENSES

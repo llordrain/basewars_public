@@ -1,5 +1,17 @@
 local PANEL = FindMetaTable("Panel")
 
+local cachedScale = {}
+function BaseWars:SS(num)
+	if cachedScale[num] then
+		return cachedScale[num]
+	end
+
+	local scaled = self.ScreenScale * num
+	cachedScale[num] = scaled
+
+	return scaled
+end
+
 function BaseWars:DrawMaterial(mat, x, y, w, h, color, ang)
 	surface.SetDrawColor(color.r, color.g, color.b, color.a)
 	surface.SetMaterial(mat)
@@ -142,11 +154,36 @@ function BaseWars:DrawCircle(x, y, radius, vertices, angle, v, color)
 	surface.DrawPoly(circle)
 end
 
+local cachedTextSize = {}
 function BaseWars:GetTextSize(text, font)
-	if not font or not text then return end
+	if not font then
+		local infos = debug.getinfo(2)
+		ErrorNoHalt("Missing arg #1 BaseWars:GetTextSize() » " .. infos.short_src .. " @ line #" .. infos.currentline .. "\n")
+
+		return 69, 69
+	end
+
+	if not text then
+		local infos = debug.getinfo(2)
+		ErrorNoHalt("Missing arg #2 BaseWars:GetTextSize() » " .. infos.short_src .. " @ line #" .. infos.currentline .. "\n")
+
+		return 69, 69
+	end
+
+	if cachedTextSize[text] and cachedTextSize[text][font] then
+		return unpack(cachedTextSize[text][font])
+	end
 
 	surface.SetFont(font)
-	return surface.GetTextSize(text)
+	local w, h = surface.GetTextSize(text)
+
+	if not cachedTextSize[text] then
+		cachedTextSize[text] = {}
+	end
+
+	cachedTextSize[text][font] = {w, h}
+
+	return w, h
 end
 
 -- https://github.com/Bo98/garrysmod-util/blob/master/lua/autorun/client/gradient.lua
@@ -236,8 +273,7 @@ end
 function BaseWars:ReloadCustomTheme()
 	local themes, _ = file.Find("basewars/themes/*.json", "DATA")
 	for k, v in pairs(themes) do
-		local json = file.Read("basewars/themes/" .. v, "DATA")
-		local theme = util.JSONToTable(json)
+		local theme = util.JSONToTable(file.Read("basewars/themes/" .. v, "DATA"))
 		local id = string.sub(v, 1, #v - 5)
 
 		if BaseWars.DefaultTheme[id] then
@@ -286,20 +322,11 @@ function BaseWars:CreateFont(name, size, weight, extra)
 		extended = true,
 	}
 
-	fontDataMono = {
-		font = "Kode Mono Medium",
-		size = size,
-		weight = weight,
-		extended = true,
-	}
-
 	if extra and istable(extra) then
 		table.Merge(fontData, extra)
-		table.Merge(fontDataMono, extra)
 	end
 
 	surface.CreateFont(name, fontData)
-	surface.CreateFont(name .. ".Mono", fontDataMono)
 end
 
 local WEIGHT = 500

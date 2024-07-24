@@ -126,7 +126,7 @@ function PANEL:AddPlayer(ply)
 	local IsFactionLeader = ply:IsFactionLeader()
 
 	if not self.factions[plyFaction] then
-		local factionCat = self.Body.PlayersList:Add("BaseWars.Cagory")
+		local factionCat = self.Body.PlayersList:Add("BaseWars.Category")
 		factionCat:Dock(TOP)
 		factionCat:SetName(plyFaction)
 		factionCat:SetAccentColor(plyFactionColor)
@@ -362,7 +362,7 @@ function PANEL:PlayerPanel(ply)
 
 			local w, _ = BaseWars:GetTextSize(v.name, "BaseWars.18")
 
-			local command = self.PlayerAction.IconLayout:Add("BaseWars.Button")
+			local command = self.PlayerAction.IconLayout:Add("BaseWars.Button2")
 			command:SetSize(w + bigMargin * 4, buttonSize)
 			command:SetColor(GetBaseWarsTheme("scoreboard_contentBackground2"), true)
 			command.Draw = function(s,w,h)

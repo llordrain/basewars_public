@@ -425,7 +425,7 @@ function BaseWars:CreateEntity(id)
 	return setmetatable({}, META)(id)
 end
 
-function BaseWars:CreateCategory(name, icon, order, lockUntil)
+function BaseWars:CreateCategory(name, icon, order)
 	name = string.Trim(name or "")
 	icon = string.Trim(icon or "")
 	order = tonumber(order) or 50
@@ -448,7 +448,6 @@ function BaseWars:CreateCategory(name, icon, order, lockUntil)
 	categoryList[name] = {
 		icon = Material(icon, "smooth"),
 		order = order,
-		lockUntil = lockUntil
 	}
 
 	return name
@@ -462,7 +461,6 @@ function BaseWars:CreateShopList()
 		table.insert(shopList, {
 			name = k,
 			icon = v.icon,
-			lockUntil = v.lockUntil,
 			subCategories = {}
 		})
 
@@ -536,4 +534,14 @@ end
 
 hook.Add("BaseWars:Initialize", "BaseWars:CreateShopList", function()
 	BaseWars:CreateShopList()
+
+	local choices = {
+		[-1] = "#last"
+	}
+
+	for k, v in ipairs(BaseWars:GetShopList()) do
+		choices[k] = v.name
+	end
+
+	BaseWars.DefaultPlayerConfig["F4Tab"].choices = choices
 end)

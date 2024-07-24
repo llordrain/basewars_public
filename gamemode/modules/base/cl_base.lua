@@ -41,15 +41,19 @@ function PANEL:PaintScrollBar(panel)
 	if not panel then return end
 
 	local vbar = self:GetVBar()
+	local colors = {
+		scroll = GetBaseWarsTheme(panel .. "_scroll"),
+		bar = GetBaseWarsTheme(panel .. "_scrollbar")
+	}
 
-	vbar:SetWide(10)
+	vbar:SetWide(BaseWars:SS(8))
 	vbar:SetHideButtons(true)
 
 	vbar.Paint = function(s,w,h)
-		draw.RoundedBox(4, 0, 0, w, h, GetBaseWarsTheme(panel .. "_scroll"))
+		BaseWars:DrawRoundedBox(BaseWars:SS(6), 0, 0, w, h, colors.scroll)
 	end
 	vbar.btnGrip.Paint = function(s,w,h)
-		draw.RoundedBox(4, 0, 0, w, h, GetBaseWarsTheme(panel .. "_scrollbar"))
+		BaseWars:DrawRoundedBox(BaseWars:SS(6), 0, 0, w, h, colors.bar)
 	end
 end
 

@@ -65,6 +65,16 @@ BaseWars.DefaultPlayerConfig = {
 		value = true,
 		type = "boolean"
 	},
+	["F4Tab"] = {
+		value = -1,
+		type = "number",
+		choices = {} -- Set in base/sh_baeswars_entities.lua at the bottom in the "BaseWars:Initialize" hook
+	},
+	-- ["F3Tab"] = {
+	-- 	value = -1,
+	-- 	type = "number",
+	-- 	choices = {}
+	-- },
 	["language"] = {
 		value = BaseWars.Config.DefaultLanguage,
 		type = "string",

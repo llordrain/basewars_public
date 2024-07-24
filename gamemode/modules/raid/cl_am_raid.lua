@@ -24,7 +24,7 @@ function PANEL:Init()
         draw.SimpleText(Format(self.localPlayer:GetLang("raids_globalImmunity"), time > 0 and BaseWars:FormatTime2(time) or self.localPlayer:GetLang("none")), "BaseWars.20", h * .25, h * .5, self.colors.text, 0, 1)
     end
 
-    self.TopBar.Reset = self.TopBar:Add("BaseWars.Button")
+    self.TopBar.Reset = self.TopBar:Add("BaseWars.Button2")
     self.TopBar.Reset:Dock(RIGHT)
     self.TopBar.Reset:DockMargin(0, bigMargin, bigMargin, bigMargin)
     self.TopBar.Reset:SetWide(buttonWide)
@@ -64,7 +64,7 @@ function PANEL:Init()
             draw.SimpleText(Format(self.localPlayer:GetLang("raids_playerImmunityAdmin"), ply:Name(), time > 0 and BaseWars:FormatTime2(time) or self.localPlayer:GetLang("none")), "BaseWars.20", h * .25, h * .5, self.colors.text, 0, 1)
         end
 
-        playerPanel.Reset = playerPanel:Add("BaseWars.Button")
+        playerPanel.Reset = playerPanel:Add("BaseWars.Button2")
         playerPanel.Reset:Dock(RIGHT)
         playerPanel.Reset:DockMargin(0, bigMargin, bigMargin, bigMargin)
         playerPanel.Reset:SetWide(buttonWide)

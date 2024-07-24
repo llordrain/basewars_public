@@ -302,7 +302,7 @@ function PANEL:BuildTable(key, parent, subParent)
 
 			self:BuildAction(type(v), item, v, self.config[key], k)
 
-			item.RemoveItem = item:Add("BaseWars.Button")
+			item.RemoveItem = item:Add("BaseWars.Button2")
 			item.RemoveItem:Dock(RIGHT)
 			item.RemoveItem:DockMargin(0, bigMargin, bigMargin, bigMargin)
 			item.RemoveItem:SetWide(item:GetTall() - bigMargin * 2)
@@ -328,7 +328,7 @@ function PANEL:BuildTable(key, parent, subParent)
 			return
 		end
 
-		parent.Action = parent:Add("BaseWars.Button")
+		parent.Action = parent:Add("BaseWars.Button2")
 		parent.Action:Dock(RIGHT)
 		parent.Action:DockMargin(0, bigMargin, bigMargin, bigMargin)
 		parent.Action:SetWide(parent:GetTall() - bigMargin * 2)
@@ -428,7 +428,7 @@ function PANEL:BuildTable(key, parent, subParent)
 				draw.SimpleText(v[2] .. " [" .. v[3] .. "]", "BaseWars.20", bigMargin, h * .5, GetBaseWarsTheme("bwm_text"), 0, 1)
 			end
 
-			item.RemoveItem = item:Add("BaseWars.Button")
+			item.RemoveItem = item:Add("BaseWars.Button2")
 			item.RemoveItem:SetText("")
 			item.RemoveItem:Dock(RIGHT)
 			item.RemoveItem:DockMargin(0, bigMargin, bigMargin, bigMargin)
@@ -456,7 +456,7 @@ function PANEL:BuildTable(key, parent, subParent)
 			return
 		end
 
-		parent.Action = parent:Add("BaseWars.Button")
+		parent.Action = parent:Add("BaseWars.Button2")
 		parent.Action:SetText("")
 		parent.Action:Dock(RIGHT)
 		parent.Action:DockMargin(0, bigMargin, bigMargin, bigMargin)
@@ -595,7 +595,7 @@ function PANEL:BuildTable(key, parent, subParent)
 					draw.SimpleText(text, "BaseWars.20", bigMargin, h * .5, GetBaseWarsTheme("bwm_text"), 0, 1)
 				end
 
-				item.RemoveItem = item:Add("BaseWars.Button")
+				item.RemoveItem = item:Add("BaseWars.Button2")
 				item.RemoveItem:Dock(RIGHT)
 				item.RemoveItem:DockMargin(0, bigMargin, bigMargin, bigMargin)
 				item.RemoveItem:SetWide(item:GetTall() - bigMargin * 2)
@@ -621,7 +621,7 @@ function PANEL:BuildTable(key, parent, subParent)
 			return
 		end
 
-		parent.Action = parent:Add("BaseWars.Button")
+		parent.Action = parent:Add("BaseWars.Button2")
 		parent.Action:SetText("")
 		parent.Action:Dock(RIGHT)
 		parent.Action:DockMargin(0, bigMargin, bigMargin, bigMargin)
@@ -689,7 +689,7 @@ function PANEL:BuildTable(key, parent, subParent)
 				draw.SimpleText(k, "BaseWars.20", bigMargin, h * .5, GetBaseWarsTheme("bwm_text"), 0, 1)
 			end
 
-			item.RemoveItem = item:Add("BaseWars.Button")
+			item.RemoveItem = item:Add("BaseWars.Button2")
 			item.RemoveItem:Dock(RIGHT)
 			item.RemoveItem:DockMargin(0, bigMargin, bigMargin, bigMargin)
 			item.RemoveItem:SetWide(item:GetTall() - bigMargin * 2)
@@ -714,7 +714,7 @@ function PANEL:BuildTable(key, parent, subParent)
 			return
 		end
 
-		parent.Action = parent:Add("BaseWars.Button")
+		parent.Action = parent:Add("BaseWars.Button2")
 		parent.Action:Dock(RIGHT)
 		parent.Action:DockMargin(0, bigMargin, bigMargin, bigMargin)
 		parent.Action:SetWide(parent:GetTall() - bigMargin * 2)

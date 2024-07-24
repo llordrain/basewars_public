@@ -1,3 +1,56 @@
+local BUTTON = {}
+function BUTTON:Init()
+    self:SetText("")
+    self:SetAccentColor(GetBaseWarsTheme("accent"))
+    self:SetTall(BaseWars:SS(40))
+
+    self._lerpAlpha = 0
+end
+
+function BUTTON:LerpFunc()
+    return false
+end
+
+
+function BUTTON:SetAccentColor(color)
+    self._accentColor = color
+end
+
+function BUTTON:ButtonSound()
+    surface.PlaySound("bw_button.wav")
+end
+
+function BUTTON:DoClick()
+    self:ButtonSound()
+end
+
+function BUTTON:Draw(w,h)
+    draw.SimpleText("Horse Balls", "BaseWars.18", w * .5, h * .5, color_white, 1, 1)
+end
+
+function BUTTON:Paint(w,h)
+    if not self.Draw then
+        return
+    end
+
+    self._lerpAlpha = Lerp(FrameTime() * 15, self._lerpAlpha, self:LerpFunc() and 255 or (self:IsHovered() and 80 or 0))
+
+    BaseWars:DrawRoundedBox(BaseWars:SS(6), 0, 0, w, h, ColorAlpha(self._accentColor, self._lerpAlpha))
+
+    self:Draw(w,h)
+end
+
+vgui.Register("BaseWars.Button", BUTTON, "DButton")
+
+
+
+
+
+
+
+
+
+
 local bigMargin = BaseWars.ScreenScale * 10
 local margin = BaseWars.ScreenScale * 5
 local roundness = BaseWars.ScreenScale * 4
@@ -201,7 +254,7 @@ function BUTTON:Paint(w,h)
     end
 end
 
-vgui.Register("BaseWars.Button", BUTTON, "DButton")
+vgui.Register("BaseWars.Button2", BUTTON, "DButton")
 
 --[[-------------------------------------------------------------------------
     CLOSE BUTTON

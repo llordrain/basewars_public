@@ -176,7 +176,7 @@ function PANEL:Init()
         draw.SimpleText(self.localPlayer:GetLang("printer_upgradeMenu") .. " - " .. self.localPlayer:GetLang("printer_upgrades", printerUpgrades[self.currentUpgrade].id .. "Name"), "BaseWars.20", h + bigMargin, h * .5, self.colors.text, 0, 1)
     end
 
-    self.Frame.Content.SidePanel.SelectedUpgrade.Once = self.Frame.Content.SidePanel.SelectedUpgrade:Add("BaseWars.Button")
+    self.Frame.Content.SidePanel.SelectedUpgrade.Once = self.Frame.Content.SidePanel.SelectedUpgrade:Add("BaseWars.Button2")
     self.Frame.Content.SidePanel.SelectedUpgrade.Once:SetTall(buttonTall)
     self.Frame.Content.SidePanel.SelectedUpgrade.Once:Dock(TOP)
     self.Frame.Content.SidePanel.SelectedUpgrade.Once:DockMargin(bigMargin, bigMargin, bigMargin, 0)
@@ -231,7 +231,7 @@ function PANEL:Init()
         net.SendToServer()
     end
 
-    self.Frame.Content.SidePanel.SelectedUpgrade.Max = self.Frame.Content.SidePanel.SelectedUpgrade:Add("BaseWars.Button")
+    self.Frame.Content.SidePanel.SelectedUpgrade.Max = self.Frame.Content.SidePanel.SelectedUpgrade:Add("BaseWars.Button2")
     self.Frame.Content.SidePanel.SelectedUpgrade.Max:SetTall(buttonTall)
     self.Frame.Content.SidePanel.SelectedUpgrade.Max:Dock(TOP)
     self.Frame.Content.SidePanel.SelectedUpgrade.Max:DockMargin(bigMargin, bigMargin, bigMargin, 0)
@@ -353,7 +353,7 @@ function PANEL:Init()
         end
     end
 
-    self.Frame.Content.SidePanel.QuickUpgrade.UpgradeButton = self.Frame.Content.SidePanel.QuickUpgrade:Add("BaseWars.Button")
+    self.Frame.Content.SidePanel.QuickUpgrade.UpgradeButton = self.Frame.Content.SidePanel.QuickUpgrade:Add("BaseWars.Button2")
     self.Frame.Content.SidePanel.QuickUpgrade.UpgradeButton:SetTall(buttonTall)
     self.Frame.Content.SidePanel.QuickUpgrade.UpgradeButton:Dock(TOP)
     self.Frame.Content.SidePanel.QuickUpgrade.UpgradeButton:DockMargin(bigMargin, bigMargin, bigMargin, 0)
@@ -424,7 +424,7 @@ function PANEL:Init()
         draw.SimpleText(self.localPlayer:GetLang("printer_buyPaperMenu"), "BaseWars.20", h + bigMargin, h * .5, self.colors.text, 0, 1)
     end
 
-    self.Frame.Content.SidePanel.BuyPaper.BuyButton = self.Frame.Content.SidePanel.BuyPaper:Add("BaseWars.Button")
+    self.Frame.Content.SidePanel.BuyPaper.BuyButton = self.Frame.Content.SidePanel.BuyPaper:Add("BaseWars.Button2")
     self.Frame.Content.SidePanel.BuyPaper.BuyButton:SetTall(buttonTall)
     self.Frame.Content.SidePanel.BuyPaper.BuyButton:Dock(TOP)
     self.Frame.Content.SidePanel.BuyPaper.BuyButton:DockMargin(bigMargin, bigMargin, bigMargin, 0)
@@ -487,7 +487,7 @@ function PANEL:Init()
         draw.SimpleText(self.localPlayer:GetLang("printer_takeMoney"), "BaseWars.20", h + bigMargin, h * .5, self.colors.text, 0, 1)
     end
 
-    self.Frame.Content.SidePanel.TakeMoney.TakeButton = self.Frame.Content.SidePanel.TakeMoney:Add("BaseWars.Button")
+    self.Frame.Content.SidePanel.TakeMoney.TakeButton = self.Frame.Content.SidePanel.TakeMoney:Add("BaseWars.Button2")
     self.Frame.Content.SidePanel.TakeMoney.TakeButton:SetTall(buttonTall)
     self.Frame.Content.SidePanel.TakeMoney.TakeButton:Dock(TOP)
     self.Frame.Content.SidePanel.TakeMoney.TakeButton:DockMargin(bigMargin, bigMargin, bigMargin, 0)

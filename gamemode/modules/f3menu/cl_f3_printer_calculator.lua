@@ -49,7 +49,7 @@ function PANEL:BuildSelector()
         BaseWars:DrawRoundedBox(roundness, 0, buttonTall * 2 + bigMargin * 6, w, h - buttonTall * 2 - bigMargin * 6, self.colors.contentBackground)
     end
 
-    self.BackPanel.Select = self.BackPanel:Add("BaseWars.Button")
+    self.BackPanel.Select = self.BackPanel:Add("BaseWars.Button2")
     self.BackPanel.Select:Dock(TOP)
     self.BackPanel.Select:DockMargin(bigMargin, bigMargin, bigMargin, bigMargin)
     self.BackPanel.Select:SetTall(buttonTall)
@@ -128,7 +128,7 @@ function PANEL:BuildPrinterList(filter)
             continue
         end
 
-        local printer = self.BackPanel.Scroll:Add("BaseWars.Button")
+        local printer = self.BackPanel.Scroll:Add("BaseWars.Button2")
         printer:Dock(TOP)
         printer:DockMargin(0, 0, margin, 0)
         printer:SetTall(buttonTall)
@@ -174,7 +174,7 @@ function PANEL:BuildPrinter(id)
         draw.SimpleText(self.selectedName, "BaseWars.24", w * .5, h * .5, self.colors.text, 1, 1)
     end
 
-    self.TopBar.BackButton = self.TopBar:Add("BaseWars.Button")
+    self.TopBar.BackButton = self.TopBar:Add("BaseWars.Button2")
     self.TopBar.BackButton:Dock(LEFT)
     self.TopBar.BackButton:DockMargin(bigMargin, bigMargin, 0, bigMargin)
     self.TopBar.BackButton:SetWide(buttonTall)
@@ -246,7 +246,7 @@ function PANEL:BuildPrinter(id)
         draw.SimpleText(self.localPlayer:GetLang("printer_upgrades", "paperCapacityName"), "BaseWars.20", h * .25, h * .5, self.colors.text, 0, 1)
     end
 
-    self.Middle.Left.Upgrades.PaperCapacity.Plus = self.Middle.Left.Upgrades.PaperCapacity:Add("BaseWars.Button")
+    self.Middle.Left.Upgrades.PaperCapacity.Plus = self.Middle.Left.Upgrades.PaperCapacity:Add("BaseWars.Button2")
     self.Middle.Left.Upgrades.PaperCapacity.Plus:Dock(RIGHT)
     self.Middle.Left.Upgrades.PaperCapacity.Plus:DockMargin(0, margin, margin, margin)
     self.Middle.Left.Upgrades.PaperCapacity.Plus:SetWide(elementTall - bigMargin)
@@ -308,7 +308,7 @@ function PANEL:BuildPrinter(id)
         end
     end
 
-    self.Middle.Left.Upgrades.PaperCapacity.Minus = self.Middle.Left.Upgrades.PaperCapacity:Add("BaseWars.Button")
+    self.Middle.Left.Upgrades.PaperCapacity.Minus = self.Middle.Left.Upgrades.PaperCapacity:Add("BaseWars.Button2")
     self.Middle.Left.Upgrades.PaperCapacity.Minus:Dock(RIGHT)
     self.Middle.Left.Upgrades.PaperCapacity.Minus:DockMargin(0, margin, 0, margin)
     self.Middle.Left.Upgrades.PaperCapacity.Minus:SetWide(elementTall - bigMargin)
@@ -346,7 +346,7 @@ function PANEL:BuildPrinter(id)
         draw.SimpleText(self.localPlayer:GetLang("printer_upgrades", "capacityName"), "BaseWars.20", h * .25, h * .5, self.colors.text, 0, 1)
     end
 
-    self.Middle.Left.Upgrades.Capacity.Plus = self.Middle.Left.Upgrades.Capacity:Add("BaseWars.Button")
+    self.Middle.Left.Upgrades.Capacity.Plus = self.Middle.Left.Upgrades.Capacity:Add("BaseWars.Button2")
     self.Middle.Left.Upgrades.Capacity.Plus:Dock(RIGHT)
     self.Middle.Left.Upgrades.Capacity.Plus:DockMargin(0, margin, margin, margin)
     self.Middle.Left.Upgrades.Capacity.Plus:SetWide(elementTall - bigMargin)
@@ -408,7 +408,7 @@ function PANEL:BuildPrinter(id)
         end
     end
 
-    self.Middle.Left.Upgrades.Capacity.Minus = self.Middle.Left.Upgrades.Capacity:Add("BaseWars.Button")
+    self.Middle.Left.Upgrades.Capacity.Minus = self.Middle.Left.Upgrades.Capacity:Add("BaseWars.Button2")
     self.Middle.Left.Upgrades.Capacity.Minus:Dock(RIGHT)
     self.Middle.Left.Upgrades.Capacity.Minus:DockMargin(0, margin, 0, margin)
     self.Middle.Left.Upgrades.Capacity.Minus:SetWide(elementTall - bigMargin)
@@ -446,7 +446,7 @@ function PANEL:BuildPrinter(id)
         draw.SimpleText(self.localPlayer:GetLang("printer_upgrades", "amountName"), "BaseWars.20", h * .25, h * .5, self.colors.text, 0, 1)
     end
 
-    self.Middle.Left.Upgrades.Value.Plus = self.Middle.Left.Upgrades.Value:Add("BaseWars.Button")
+    self.Middle.Left.Upgrades.Value.Plus = self.Middle.Left.Upgrades.Value:Add("BaseWars.Button2")
     self.Middle.Left.Upgrades.Value.Plus:Dock(RIGHT)
     self.Middle.Left.Upgrades.Value.Plus:DockMargin(0, margin, margin, margin)
     self.Middle.Left.Upgrades.Value.Plus:SetWide(elementTall - bigMargin)
@@ -508,7 +508,7 @@ function PANEL:BuildPrinter(id)
         end
     end
 
-    self.Middle.Left.Upgrades.Value.Minus = self.Middle.Left.Upgrades.Value:Add("BaseWars.Button")
+    self.Middle.Left.Upgrades.Value.Minus = self.Middle.Left.Upgrades.Value:Add("BaseWars.Button2")
     self.Middle.Left.Upgrades.Value.Minus:Dock(RIGHT)
     self.Middle.Left.Upgrades.Value.Minus:DockMargin(0, margin, 0, margin)
     self.Middle.Left.Upgrades.Value.Minus:SetWide(elementTall - bigMargin)
@@ -546,7 +546,7 @@ function PANEL:BuildPrinter(id)
         draw.SimpleText(self.localPlayer:GetLang("printer_upgrades", "intervalName"), "BaseWars.20", h * .25, h * .5, self.colors.text, 0, 1)
     end
 
-    self.Middle.Left.Upgrades.Speed.Plus = self.Middle.Left.Upgrades.Speed:Add("BaseWars.Button")
+    self.Middle.Left.Upgrades.Speed.Plus = self.Middle.Left.Upgrades.Speed:Add("BaseWars.Button2")
     self.Middle.Left.Upgrades.Speed.Plus:Dock(RIGHT)
     self.Middle.Left.Upgrades.Speed.Plus:DockMargin(0, margin, margin, margin)
     self.Middle.Left.Upgrades.Speed.Plus:SetWide(elementTall - bigMargin)
@@ -608,7 +608,7 @@ function PANEL:BuildPrinter(id)
         end
     end
 
-    self.Middle.Left.Upgrades.Speed.Minus = self.Middle.Left.Upgrades.Speed:Add("BaseWars.Button")
+    self.Middle.Left.Upgrades.Speed.Minus = self.Middle.Left.Upgrades.Speed:Add("BaseWars.Button2")
     self.Middle.Left.Upgrades.Speed.Minus:Dock(RIGHT)
     self.Middle.Left.Upgrades.Speed.Minus:DockMargin(0, margin, 0, margin)
     self.Middle.Left.Upgrades.Speed.Minus:SetWide(elementTall - bigMargin)
@@ -676,7 +676,7 @@ function PANEL:BuildPrinter(id)
         draw.SimpleText(self.localPlayer:GetLang("prestige_perks", "printerSpeedName"), "BaseWars.20", h * .25, h * .5, self.colors.text, 0, 1)
     end
 
-    self.Middle.Right.Upgrades.Speed.Plus = self.Middle.Right.Upgrades.Speed:Add("BaseWars.Button")
+    self.Middle.Right.Upgrades.Speed.Plus = self.Middle.Right.Upgrades.Speed:Add("BaseWars.Button2")
     self.Middle.Right.Upgrades.Speed.Plus:Dock(RIGHT)
     self.Middle.Right.Upgrades.Speed.Plus:DockMargin(0, margin, margin, margin)
     self.Middle.Right.Upgrades.Speed.Plus:SetWide(elementTall - bigMargin)
@@ -738,7 +738,7 @@ function PANEL:BuildPrinter(id)
         end
     end
 
-    self.Middle.Right.Upgrades.Speed.Minus = self.Middle.Right.Upgrades.Speed:Add("BaseWars.Button")
+    self.Middle.Right.Upgrades.Speed.Minus = self.Middle.Right.Upgrades.Speed:Add("BaseWars.Button2")
     self.Middle.Right.Upgrades.Speed.Minus:Dock(RIGHT)
     self.Middle.Right.Upgrades.Speed.Minus:DockMargin(0, margin, 0, margin)
     self.Middle.Right.Upgrades.Speed.Minus:SetWide(elementTall - bigMargin)
@@ -776,7 +776,7 @@ function PANEL:BuildPrinter(id)
         draw.SimpleText(self.localPlayer:GetLang("prestige_perks", "printerUpgradeCostName"), "BaseWars.20", h * .25, h * .5, self.colors.text, 0, 1)
     end
 
-    self.Middle.Right.Upgrades.UpgradeCost.Plus = self.Middle.Right.Upgrades.UpgradeCost:Add("BaseWars.Button")
+    self.Middle.Right.Upgrades.UpgradeCost.Plus = self.Middle.Right.Upgrades.UpgradeCost:Add("BaseWars.Button2")
     self.Middle.Right.Upgrades.UpgradeCost.Plus:Dock(RIGHT)
     self.Middle.Right.Upgrades.UpgradeCost.Plus:DockMargin(0, margin, margin, margin)
     self.Middle.Right.Upgrades.UpgradeCost.Plus:SetWide(elementTall - bigMargin)
@@ -838,7 +838,7 @@ function PANEL:BuildPrinter(id)
         end
     end
 
-    self.Middle.Right.Upgrades.UpgradeCost.Minus = self.Middle.Right.Upgrades.UpgradeCost:Add("BaseWars.Button")
+    self.Middle.Right.Upgrades.UpgradeCost.Minus = self.Middle.Right.Upgrades.UpgradeCost:Add("BaseWars.Button2")
     self.Middle.Right.Upgrades.UpgradeCost.Minus:Dock(RIGHT)
     self.Middle.Right.Upgrades.UpgradeCost.Minus:DockMargin(0, margin, 0, margin)
     self.Middle.Right.Upgrades.UpgradeCost.Minus:SetWide(elementTall - bigMargin)
@@ -886,7 +886,7 @@ function PANEL:BuildPrinter(id)
         draw.SimpleText(Format(self.localPlayer:GetLang("calculator_printerProduction"), BaseWars:FormatMoney(self.production)), "BaseWars.20", w - wide * .5, h * .5, self.colors.text, 1, 1)
     end
 
-    self.BottomBar.Calculate = self.BottomBar:Add("BaseWars.Button")
+    self.BottomBar.Calculate = self.BottomBar:Add("BaseWars.Button2")
     self.BottomBar.Calculate:SetSize((self.w - bigMargin * 2) - wide * 2 - bigMargin * 4, buttonTall)
     self.BottomBar.Calculate:SetPos(wide + bigMargin * 2, bigMargin)
     self.BottomBar.Calculate:SetColor(self.colors.contentBackground, true)

@@ -67,7 +67,7 @@ function PANEL:Init()
     self.TopBar.SearchEntry:SetPlaceHolderColor(self.colors.darkText)
     self.TopBar.SearchEntry:SetPlaceHolder(self.localPlayer:GetLang("playerlookup_search"))
 
-    self.TopBar.SearchButton = self.TopBar:Add("BaseWars.Button")
+    self.TopBar.SearchButton = self.TopBar:Add("BaseWars.Button2")
     self.TopBar.SearchButton:Dock(RIGHT)
     self.TopBar.SearchButton:DockMargin(0, bigMargin, bigMargin, bigMargin)
     self.TopBar.SearchButton:SetWide(BaseWars.ScreenScale * 150)
@@ -152,7 +152,7 @@ function PANEL:BuildAllPlayers(data)
     local playerWide = (self.w - bigMargin * 2 - margin * 4) / 3
     local playerTall = (self.h - bigMargin * 8 - margin * 4 - buttonTall * 2) / 6
     for _, playerData in ipairs(data) do
-        local playerPanel = self.Content.Layout:Add("BaseWars.Button")
+        local playerPanel = self.Content.Layout:Add("BaseWars.Button2")
         playerPanel:SetSize(playerWide, playerTall)
         playerPanel:SetColor(self.colors.contentBackground, true)
         playerPanel.Draw = nil
@@ -182,7 +182,7 @@ function PANEL:BuildAllPlayers(data)
         playerPanel.Infos:DockMargin(0, bigMargin, bigMargin, bigMargin)
         playerPanel.Infos:SetMouseInputEnabled(false)
         playerPanel.Infos.Paint = function(s,w,h)
-            draw.SimpleText(playerData.steam_name, "BaseWars.20.Mono", w * .5, margin, isConnected and self.colors.green or self.colors.disabled, 1)
+            draw.SimpleText(playerData.steam_name, "BaseWars.20", w * .5, margin, isConnected and self.colors.green or self.colors.disabled, 1)
 
             local lastSeen = now
             local time = os.time() - playerData.last_played
@@ -205,7 +205,7 @@ function PANEL:BuildAllPlayers(data)
     end
 
     if self.page > 1 then
-        self.Content.BottomBar.PageLeft = self.Content.BottomBar:Add("BaseWars.Button")
+        self.Content.BottomBar.PageLeft = self.Content.BottomBar:Add("BaseWars.Button2")
         self.Content.BottomBar.PageLeft:Dock(LEFT)
         self.Content.BottomBar.PageLeft:DockMargin(bigMargin, bigMargin, 0, bigMargin)
         self.Content.BottomBar.PageLeft:SetWide(BaseWars.ScreenScale * 200)
@@ -230,7 +230,7 @@ function PANEL:BuildAllPlayers(data)
     end
 
     if self.page < self.pageCount then
-        self.Content.BottomBar.PageRight = self.Content.BottomBar:Add("BaseWars.Button")
+        self.Content.BottomBar.PageRight = self.Content.BottomBar:Add("BaseWars.Button2")
         self.Content.BottomBar.PageRight:Dock(RIGHT)
         self.Content.BottomBar.PageRight:DockMargin(0, bigMargin, bigMargin, bigMargin)
         self.Content.BottomBar.PageRight:SetWide(BaseWars.ScreenScale * 200)
@@ -285,7 +285,7 @@ function PANEL:BuildPlayerData(data)
     self.TopBar.SearchEntry:SetText(data.player_id64)
 
     if not IsValid(self.TopBar.BackButton) then
-        self.TopBar.BackButton = self.TopBar:Add("BaseWars.Button")
+        self.TopBar.BackButton = self.TopBar:Add("BaseWars.Button2")
         self.TopBar.BackButton:Dock(LEFT)
         self.TopBar.BackButton:DockMargin(bigMargin, bigMargin, bigMargin * 2, bigMargin)
         self.TopBar.BackButton:SetWide(buttonTall)
@@ -372,7 +372,7 @@ function PANEL:BuildPlayerData(data)
     infosPanel.PlayerName.Paint = function(s,w,h)
         BaseWars:DrawRoundedBox(roundness, 0, 0, w, h, self.colors.contentBackground)
 
-        draw.SimpleText(data.infos.steam_name, "BaseWars.20.Mono", w * .5, h * .5, isConnected and self.colors.green or self.colors.disabled, 1, 1)
+        draw.SimpleText(data.infos.steam_name, "BaseWars.20", w * .5, h * .5, isConnected and self.colors.green or self.colors.disabled, 1, 1)
     end
 
     infosPanel.LastSeen = infosPanel:Add("DPanel")

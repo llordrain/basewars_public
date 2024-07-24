@@ -1,6 +1,16 @@
 > [!IMPORTANT]
 > There's a lot of stuff in the gamemode that i haven't touched in years (So they're probable shit) and i'm also not consistent at all. Everything works with **UserGroups** for now
 
+# Credits
+
+Icons » [flaticon.com](https://www.flaticon.com/)
+
+MySQLite » [By Falco Peijnenburg](https://github.com/FPtje/MySQLite)
+
+Material Avatar » [By WilliamVenner](https://github.com/WilliamVenner/glua-material-avatar)
+
+BaseWars:DrawArc() » [By Threebow](https://github.com/Threebow/tdlib)
+
 # Configuration of the gamemode
 
 The basic configuration is made in game.

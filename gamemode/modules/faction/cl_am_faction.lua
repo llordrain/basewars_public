@@ -10,10 +10,10 @@ local PANEL = {}
 function PANEL:Init()
     self.localPlayer = LocalPlayer()
     self.colors = {
-        text = GetBaseWarsTheme("am_text"),
-        contentBackground = GetBaseWarsTheme("am_contentBackground"),
-		disabled = GetBaseWarsTheme("button_disabled"),
-        green = GetBaseWarsTheme("button_green")
+        text = BaseWars:GetTheme("am_text"),
+        contentBackground = BaseWars:GetTheme("am_contentBackground"),
+		disabled = BaseWars:GetTheme("button_disabled"),
+        green = BaseWars:GetTheme("button_green")
     }
 
     thisPanel = self

@@ -17,7 +17,7 @@ function PANEL:Init()
 end
 
 function PANEL:Paint(w,h)
-	BaseWars:DrawRoundedBox(4, 0, 0, w, h, GetBaseWarsTheme("combobox_background"))
+	BaseWars:DrawRoundedBox(4, 0, 0, w, h, BaseWars:GetTheme("combobox_background"))
 end
 
 function PANEL:AddChoice(text, func)
@@ -29,7 +29,7 @@ function PANEL:AddChoice(text, func)
 	choice:SetTall(buttonSize)
 	choice:DrawSide(true, true)
 	choice.Draw = function(s,w,h)
-		draw.SimpleText(text, self:GetFont(), w * .5, h * .5, GetBaseWarsTheme("combobox_text"), 1, 1)
+		draw.SimpleText(text, self:GetFont(), w * .5, h * .5, BaseWars:GetTheme("combobox_text"), 1, 1)
 	end
 	choice.DoClick = function(s)
 		s:ButtonSound()

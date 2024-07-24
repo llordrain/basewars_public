@@ -1,7 +1,7 @@
 local BUTTON = {}
 function BUTTON:Init()
     self:SetText("")
-    self:SetAccentColor(GetBaseWarsTheme("accent"))
+    self:SetAccentColor(BaseWars:GetTheme("accent"))
     self:SetTall(BaseWars:SS(40))
 
     self._lerpAlpha = 0
@@ -88,7 +88,7 @@ function OLD_BUTTON:Tick()
 end
 
 function OLD_BUTTON:Think()
-    self._accentColor = GetBaseWarsTheme("gen_accent")
+    self._accentColor = BaseWars:GetTheme("gen_accent")
 
     self:Tick()
 end
@@ -126,7 +126,7 @@ vgui.Register("OLD.BaseWars.Button", OLD_BUTTON, "DButton")
 local BUTTON = {}
 function BUTTON:Init()
     self:SetText("")
-    self:SetAccentColor(GetBaseWarsTheme("gen_accent"))
+    self:SetAccentColor(BaseWars:GetTheme("gen_accent"))
     self:SetColor(Color(math.random(0, 255), math.random(0, 255), math.random(0, 255)))
     self:SetTall(BaseWars.ScreenScale * 36)
 end
@@ -290,10 +290,10 @@ function PANEL:SetIcon(icon)
 end
 
 function PANEL:Paint(w,h)
-    self._lerpColor = BaseWars:LerpColor(FrameTime() * 15, self._lerpColor, self:IsHovered() and GetBaseWarsTheme("gen_close") or self._color)
+    self._lerpColor = BaseWars:LerpColor(FrameTime() * 15, self._lerpColor, self:IsHovered() and BaseWars:GetTheme("gen_close") or self._color)
 
     BaseWars:DrawRoundedBox(roundness, 0, 0, w, h, self._lerpColor)
-    BaseWars:DrawMaterial(self.icon, w * .5, h * .5, buttonSize - bigMargin * 2, buttonSize - bigMargin * 2, GetBaseWarsTheme("gen_closeText"), 0)
+    BaseWars:DrawMaterial(self.icon, w * .5, h * .5, buttonSize - bigMargin * 2, buttonSize - bigMargin * 2, BaseWars:GetTheme("gen_closeText"), 0)
 end
 
 vgui.Register("BaseWars.IconButton", PANEL, "DButton")

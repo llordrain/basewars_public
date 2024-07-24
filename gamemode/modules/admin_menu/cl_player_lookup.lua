@@ -34,13 +34,13 @@ function PANEL:Init()
     self.selectedPlayer = ""
 
     self.colors = {
-        accent = GetBaseWarsTheme("gen_accent"),
-        text = GetBaseWarsTheme("am_text"),
-        darkText = GetBaseWarsTheme("am_darkText"),
-        contentBackground = GetBaseWarsTheme("am_contentBackground"),
-        background = GetBaseWarsTheme("am_background"),
-        disabled = GetBaseWarsTheme("button_disabled"),
-        green = GetBaseWarsTheme("button_green")
+        accent = BaseWars:GetTheme("gen_accent"),
+        text = BaseWars:GetTheme("am_text"),
+        darkText = BaseWars:GetTheme("am_darkText"),
+        contentBackground = BaseWars:GetTheme("am_contentBackground"),
+        background = BaseWars:GetTheme("am_background"),
+        disabled = BaseWars:GetTheme("button_disabled"),
+        green = BaseWars:GetTheme("button_green")
     }
 
     thisPanel = self

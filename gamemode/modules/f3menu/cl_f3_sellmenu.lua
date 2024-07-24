@@ -24,16 +24,16 @@ function PANEL:Init()
 	self.Topbar.All:Dock(LEFT)
 	self.Topbar.All:SetWide((self.w - bigMargin * 3) * .5)
 	self.Topbar.All.Paint = function(s,w,h)
-		BaseWars:DrawRoundedBox(4, 0, 0, w, h, GetBaseWarsTheme("bwm_contentBackground"))
-		draw.SimpleText(self.localPlayer:GetLang("sellmenu_allEntities"), "BaseWars.24", w * .5, h * .5, GetBaseWarsTheme("bwm_text"), 1, 1)
+		BaseWars:DrawRoundedBox(4, 0, 0, w, h, BaseWars:GetTheme("bwm_contentBackground"))
+		draw.SimpleText(self.localPlayer:GetLang("sellmenu_allEntities"), "BaseWars.24", w * .5, h * .5, BaseWars:GetTheme("bwm_text"), 1, 1)
 	end
 
 	self.Topbar.Selected = self.Topbar:Add("DPanel")
 	self.Topbar.Selected:Dock(RIGHT)
 	self.Topbar.Selected:SetWide((self.w - bigMargin * 3) * .5)
 	self.Topbar.Selected.Paint = function(s,w,h)
-		BaseWars:DrawRoundedBox(4, 0, 0, w, h, GetBaseWarsTheme("bwm_contentBackground"))
-		draw.SimpleText(self.localPlayer:GetLang("sellmenu_selectedEntities"), "BaseWars.24", w * .5, h * .5, GetBaseWarsTheme("bwm_text"), 1, 1)
+		BaseWars:DrawRoundedBox(4, 0, 0, w, h, BaseWars:GetTheme("bwm_contentBackground"))
+		draw.SimpleText(self.localPlayer:GetLang("sellmenu_selectedEntities"), "BaseWars.24", w * .5, h * .5, BaseWars:GetTheme("bwm_text"), 1, 1)
 	end
 
 	self.ButtonsPanel = self:Add("DPanel")
@@ -41,7 +41,7 @@ function PANEL:Init()
 	self.ButtonsPanel:DockMargin(bigMargin, bigMargin, bigMargin, bigMargin)
 	self.ButtonsPanel:SetTall(buttonSize + bigMargin * 2)
 	self.ButtonsPanel.Paint = function(s,w,h)
-		BaseWars:DrawRoundedBox(4, 0, 0, w, h, GetBaseWarsTheme("bwm_contentBackground"))
+		BaseWars:DrawRoundedBox(4, 0, 0, w, h, BaseWars:GetTheme("bwm_contentBackground"))
 	end
 
 	self.ButtonsPanel.All = self.ButtonsPanel:Add("OLD.BaseWars.Button")
@@ -50,7 +50,7 @@ function PANEL:Init()
 	self.ButtonsPanel.All:SetWide((self.w - bigMargin * 5) * .5)
 	self.ButtonsPanel.All:DrawSide(true, true)
 	self.ButtonsPanel.All.Draw = function(s,w,h)
-		draw.SimpleText(self.localPlayer:GetLang("sellmenu_sellallfor"):format(BaseWars:FormatMoney(self.totalValue * BaseWars.Config.BackMoney)), "BaseWars.20", w * .5, h * .5, GetBaseWarsTheme("bwm_text"), 1, 1)
+		draw.SimpleText(self.localPlayer:GetLang("sellmenu_sellallfor"):format(BaseWars:FormatMoney(self.totalValue * BaseWars.Config.BackMoney)), "BaseWars.20", w * .5, h * .5, BaseWars:GetTheme("bwm_text"), 1, 1)
 	end
 	self.ButtonsPanel.All.DoClick = function(s)
 		local t = 0
@@ -86,7 +86,7 @@ function PANEL:Init()
 	self.ButtonsPanel.Selected:SetWide((self.w - bigMargin * 5) * .5)
 	self.ButtonsPanel.Selected:DrawSide(true, true)
 	self.ButtonsPanel.Selected.Draw = function(s,w,h)
-		draw.SimpleText(self.localPlayer:GetLang("sellmenu_sellselectedfor"):format(BaseWars:FormatMoney(self.selectedValue * BaseWars.Config.BackMoney)), "BaseWars.20", w * .5, h * .5, GetBaseWarsTheme("bwm_text"), 1, 1)
+		draw.SimpleText(self.localPlayer:GetLang("sellmenu_sellselectedfor"):format(BaseWars:FormatMoney(self.selectedValue * BaseWars.Config.BackMoney)), "BaseWars.20", w * .5, h * .5, BaseWars:GetTheme("bwm_text"), 1, 1)
 	end
 	self.ButtonsPanel.Selected.DoClick = function(s)
 		if not IsValid(self.SelectedEntities.Layout) then return end
@@ -151,7 +151,7 @@ function PANEL:AddEntity(entity)
 	entityPanel:SetText("")
 	entityPanel:SetSize(entityW, entityH)
 	entityPanel.Paint = function(s,w,h)
-		BaseWars:DrawRoundedBox(4, 0, 0, w, h, GetBaseWarsTheme("bwm_contentBackground"))
+		BaseWars:DrawRoundedBox(4, 0, 0, w, h, BaseWars:GetTheme("bwm_contentBackground"))
 	end
 	entityPanel.Think = function(s)
 		if not IsValid(s.entity) then
@@ -189,8 +189,8 @@ function PANEL:AddEntity(entity)
 	entityPanel.EntityName.Paint = function(s,w,h)
 		local name = BaseWars:GetValidName(entity)
 
-		BaseWars:DrawRoundedBoxEx(4, 0, 0, w, h, GetBaseWarsTheme("bwm_contentBackground2"), false, false, true, true)
-		draw.SimpleText(name, "BaseWars.18", w * .5, h * .5, GetBaseWarsTheme("bwm_text"), 1, 1)
+		BaseWars:DrawRoundedBoxEx(4, 0, 0, w, h, BaseWars:GetTheme("bwm_contentBackground2"), false, false, true, true)
+		draw.SimpleText(name, "BaseWars.18", w * .5, h * .5, BaseWars:GetTheme("bwm_text"), 1, 1)
 	end
 
 	self:OnAddEntity(entity)
@@ -202,7 +202,7 @@ function PANEL:RemoveEntity(entity, ignoreCouting)
 	entityPanel:SetText("")
 	entityPanel:SetSize(entityW, entityH)
 	entityPanel.Paint = function(s,w,h)
-		BaseWars:DrawRoundedBox(4, 0, 0, w, h, GetBaseWarsTheme("bwm_contentBackground"))
+		BaseWars:DrawRoundedBox(4, 0, 0, w, h, BaseWars:GetTheme("bwm_contentBackground"))
 	end
 	entityPanel.Think = function(s)
 		if not IsValid(s.entity) then
@@ -240,8 +240,8 @@ function PANEL:RemoveEntity(entity, ignoreCouting)
 	entityPanel.EntityName.Paint = function(s,w,h)
 		local name = BaseWars:GetValidName(entity)
 
-		BaseWars:DrawRoundedBoxEx(4, 0, 0, w, h, GetBaseWarsTheme("bwm_contentBackground2"), false, false, true, true)
-		draw.SimpleText(name, "BaseWars.18", w * .5, h * .5, GetBaseWarsTheme("bwm_text"), 1, 1)
+		BaseWars:DrawRoundedBoxEx(4, 0, 0, w, h, BaseWars:GetTheme("bwm_contentBackground2"), false, false, true, true)
+		draw.SimpleText(name, "BaseWars.18", w * .5, h * .5, BaseWars:GetTheme("bwm_text"), 1, 1)
 	end
 
 	if not ignoreCouting then

@@ -572,6 +572,7 @@ BaseWars.LANG["fr"] = {
 	bws_slowDown = "Trop vite! (%ss)",
 	bws_addFavorite = "Vous avez ajouté «%s» dans vos favoris",
 	bws_removeFavorite = "Vous avez retiré «%s» de vos favoris",
+	bws_last = "Dernier Onglet",
 
 	-- Faction
 	faction_factionName = "Nom De Faction",
@@ -1308,6 +1309,7 @@ BaseWars.LANG["en"] = {
 	bws_slowDown = "Too fast! (%ss)",
 	bws_addFavorite = "You added \"%s\" to your favorites",
 	bws_removeFavorite = "You removed \"%s\" from your favorites",
+	bws_last = "Last Tab",
 
 	-- Faction
 	faction_factionName = "Faction Name",

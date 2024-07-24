@@ -16,17 +16,17 @@ function NAME:Init()
     self.Topbar:Dock(TOP)
     self.Topbar:SetTall(BaseWars.ScreenScale * 40)
     self.Topbar.Paint = function(s,w,h)
-        BaseWars:DrawRoundedBoxEx(6, 0, 0, w, h, GetBaseWarsTheme("spawnpoint_titleBar"), true, true)
-        draw.SimpleText("- " .. ply:GetLang("spawnpoint_nametitle") .. " -", "BaseWars.22", w * .5, h * .5, GetBaseWarsTheme("spawnpoint_text"), 1, 1)
+        BaseWars:DrawRoundedBoxEx(6, 0, 0, w, h, BaseWars:GetTheme("spawnpoint_titleBar"), true, true)
+        draw.SimpleText("- " .. ply:GetLang("spawnpoint_nametitle") .. " -", "BaseWars.22", w * .5, h * .5, BaseWars:GetTheme("spawnpoint_text"), 1, 1)
     end
 
     self.Topbar.Close = self.Topbar:Add("DButton")
     self.Topbar.Close:SetText("")
     self.Topbar.Close:Dock(RIGHT)
     self.Topbar.Close:SetWide(self.Topbar:GetTall())
-    self.Topbar.Close.color = GetBaseWarsTheme("spawnpoint_darkText")
+    self.Topbar.Close.color = BaseWars:GetTheme("spawnpoint_darkText")
     self.Topbar.Close.Paint = function(s,w,h)
-        s.color = BaseWars:LerpColor(FrameTime() * 12, s.color, s:IsHovered() and GetBaseWarsTheme("spawnpoint_text") or GetBaseWarsTheme("spawnpoint_darkText"))
+        s.color = BaseWars:LerpColor(FrameTime() * 12, s.color, s:IsHovered() and BaseWars:GetTheme("spawnpoint_text") or BaseWars:GetTheme("spawnpoint_darkText"))
 
         BaseWars:DrawMaterial(closeIcon, margin * 2, margin * 2, w - margin * 4, h - margin * 4, s.color)
     end
@@ -39,11 +39,11 @@ function NAME:Init()
     self.Name:Dock(FILL)
     self.Name:DockMargin(bigMargin, bigMargin, bigMargin, 0)
     self.Name:SetTall(buttonSize)
-    self.Name:SetColor(GetBaseWarsTheme("spawnpoint_contentBackground"))
-    self.Name:SetTextColor(GetBaseWarsTheme("spawnpoint_text"))
+    self.Name:SetColor(BaseWars:GetTheme("spawnpoint_contentBackground"))
+    self.Name:SetTextColor(BaseWars:GetTheme("spawnpoint_text"))
     self.Name:SetFont("BaseWars.18")
     self.Name:SetPlaceHolder(LocalPlayer():GetLang("spawnpoint_name"))
-    self.Name:SetPlaceHolderColor(GetBaseWarsTheme("spawnpoint_darkText"))
+    self.Name:SetPlaceHolderColor(BaseWars:GetTheme("spawnpoint_darkText"))
     self.Name:RequestFocus()
     self.Name.OnEnter = function(s)
         local name = string.Trim(s:GetText())
@@ -65,7 +65,7 @@ function NAME:Init()
     self.Button:DockMargin(bigMargin, bigMargin, bigMargin, bigMargin)
     self.Button:SetTall(buttonSize + bigMargin * 2)
     self.Button.Paint = function(s,w,h)
-        BaseWars:DrawRoundedBox(4, 0, 0, w, h, GetBaseWarsTheme("spawnpoint_contentBackground"))
+        BaseWars:DrawRoundedBox(4, 0, 0, w, h, BaseWars:GetTheme("spawnpoint_contentBackground"))
     end
 
     self.Button.SetName = self.Button:Add("OLD.BaseWars.Button")
@@ -83,7 +83,7 @@ function NAME:Init()
             text = ply:GetLang("spawnpoint_toolong")
         end
 
-        draw.SimpleText(text, "BaseWars.18", w * .5, h * .5, GetBaseWarsTheme("spawnpoint_text"), 1, 1)
+        draw.SimpleText(text, "BaseWars.18", w * .5, h * .5, BaseWars:GetTheme("spawnpoint_text"), 1, 1)
     end
     self.Button.SetName.DoClick = function(s)
         local name = string.Trim(self.Name:GetText())
@@ -146,11 +146,11 @@ function SPAWN:CreateFrame()
         spawnpoint:DockMargin(0, 0, 0, margin)
         spawnpoint.lerp = 0
         spawnpoint.Paint = function(s,w,h)
-            local color = GetBaseWarsTheme("gen_accent")
+            local color = BaseWars:GetTheme("gen_accent")
             s.lerp = Lerp(FrameTime() * 16, s.lerp, s:IsHovered() and 1 or 0)
 
             BaseWars:DrawRoundedBox(4, 0, 0, w, h, ColorAlpha(color, color.a * s.lerp))
-            draw.SimpleText(v:GetCName(), "BaseWars.20", w * .5, h * .5, GetBaseWarsTheme("spawnpoint_text"), 1, 1)
+            draw.SimpleText(v:GetCName(), "BaseWars.20", w * .5, h * .5, BaseWars:GetTheme("spawnpoint_text"), 1, 1)
         end
         spawnpoint.DoClick = function(s)
             surface.PlaySound("bw_button.wav")
@@ -174,11 +174,11 @@ function SPAWN:CreateFrame()
     self.SpawnAtWorld:SetPos((self:GetWide() - self.SpawnAtWorld:GetWide()) * .5, self:GetTall() - BaseWars.ScreenScale * 90)
     self.SpawnAtWorld.lerp = 0
     self.SpawnAtWorld.Paint = function(s,w,h)
-        local color = GetBaseWarsTheme("spawnpoint_spawn")
+        local color = BaseWars:GetTheme("spawnpoint_spawn")
         s.lerp = Lerp(FrameTime() * 16, s.lerp, s:IsHovered() and 1 or 0)
 
         BaseWars:DrawRoundedBox(4, 0, 0, w, h, ColorAlpha(color, color.a * s.lerp))
-        draw.SimpleText(LocalPlayer():GetLang("spawnpoint_spawnatworld"), "BaseWars.20", w * .5, h * .5, GetBaseWarsTheme("spawnpoint_text"), 1, 1)
+        draw.SimpleText(LocalPlayer():GetLang("spawnpoint_spawnatworld"), "BaseWars.20", w * .5, h * .5, BaseWars:GetTheme("spawnpoint_text"), 1, 1)
     end
     self.SpawnAtWorld.DoClick = function(s)
         surface.PlaySound("bw_button.wav")
@@ -217,7 +217,7 @@ function SPAWN:Think()
 end
 
 function SPAWN:Paint(w,h)
-    draw.SimpleText("- " .. LocalPlayer():GetLang("spawnpoint_chose") .. " -", "BaseWars.36", w * .5, BaseWars.ScreenScale * 40, GetBaseWarsTheme("spawnpoint_text"), 1, 1)
+    draw.SimpleText("- " .. LocalPlayer():GetLang("spawnpoint_chose") .. " -", "BaseWars.36", w * .5, BaseWars.ScreenScale * 40, BaseWars:GetTheme("spawnpoint_text"), 1, 1)
 end
 
 vgui.Register("BaseWars.VGUI.Spawnpoint.Spawn", SPAWN, "EditablePanel")

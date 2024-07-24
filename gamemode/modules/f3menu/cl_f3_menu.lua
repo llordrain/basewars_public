@@ -33,8 +33,8 @@ function PANEL:Init()
 	self.Frame.Topbar:Dock(TOP)
 	self.Frame.Topbar:SetTall(BaseWars.ScreenScale * 40)
 	self.Frame.Topbar.Paint = function(s,w,h)
-		BaseWars:DrawRoundedBoxEx(4, 0, 0, w, h, GetBaseWarsTheme("bwm_titleBar"), true, true, false, false)
-		draw.SimpleText("- BaseWars Menu -", "BaseWars.26", w * .5, h * .5, GetBaseWarsTheme("bwm_text"), 1, 1)
+		BaseWars:DrawRoundedBoxEx(4, 0, 0, w, h, BaseWars:GetTheme("bwm_titleBar"), true, true, false, false)
+		draw.SimpleText("- BaseWars Menu -", "BaseWars.26", w * .5, h * .5, BaseWars:GetTheme("bwm_text"), 1, 1)
 	end
 
 	--[[-------------------------------------------------------------------
@@ -45,7 +45,7 @@ function PANEL:Init()
 	self.Frame.Sidebar:Dock(LEFT)
 	self.Frame.Sidebar:SetWide(BaseWars.ScreenScale * 220)
 	self.Frame.Sidebar.Paint = function(s,w,h)
-		BaseWars:DrawRoundedBoxEx(4, 0, 0, w, h, GetBaseWarsTheme("bwm_background"), false, false, true, false)
+		BaseWars:DrawRoundedBoxEx(4, 0, 0, w, h, BaseWars:GetTheme("bwm_background"), false, false, true, false)
 	end
 
 	self.Frame.Sidebar.Player = self.Frame.Sidebar:Add("DPanel")
@@ -56,7 +56,7 @@ function PANEL:Init()
 		local plyFaction = ply:GetFaction()
 		local plyFactionColor = ply:GetFactionColor()
 
-		draw.SimpleText(plyName, "BaseWars.20", h, h * .5 + 1, GetBaseWarsTheme("bwm_text"), TEXT_ALIGN_LEFT, TEXT_ALIGN_BOTTOM)
+		draw.SimpleText(plyName, "BaseWars.20", h, h * .5 + 1, BaseWars:GetTheme("bwm_text"), TEXT_ALIGN_LEFT, TEXT_ALIGN_BOTTOM)
 		draw.SimpleText(plyFaction, "BaseWars.18", h, h * .5 - 1, plyFactionColor, TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP)
 	end
 
@@ -73,7 +73,7 @@ function PANEL:Init()
 	self.Frame.Sidebar.Close:Dock(BOTTOM)
 	self.Frame.Sidebar.Close:DockMargin(bigMargin, bigMargin, bigMargin, bigMargin)
 	self.Frame.Sidebar.Close.Draw = function(s,w,h)
-		local textColor = GetBaseWarsTheme("bwm_text")
+		local textColor = BaseWars:GetTheme("bwm_text")
 
 		BaseWars:DrawMaterial(closeIcon, bigMargin * 1.5, bigMargin, h - bigMargin * 2, h - bigMargin * 2, textColor)
 		draw.SimpleText(ply:GetLang("close"), "BaseWars.20", h * 1.1, h * .5, textColor, 0, 1)
@@ -91,7 +91,7 @@ function PANEL:Init()
 		NavButton:Dock(TOP)
 		NavButton:DockMargin(bigMargin, margin, bigMargin, 0)
 		NavButton.Draw = function(s,w,h)
-			local textColor = GetBaseWarsTheme("bwm_text")
+			local textColor = BaseWars:GetTheme("bwm_text")
 
 			BaseWars:DrawMaterial(v.icon, bigMargin * 1.5, bigMargin, h - bigMargin * 2, h - bigMargin * 2, textColor)
 			draw.SimpleText(tabName, "BaseWars.20", h * 1.1, h * .5, textColor, 0, 1)
@@ -130,7 +130,7 @@ function PANEL:Init()
 	self.Frame.Body:Dock(FILL)
 	self.Frame.Body:InvalidateParent(true)
 	self.Frame.Body.Paint = function(s,w,h)
-		BaseWars:DrawRoundedBoxEx(4, 0, 0, w, h, GetBaseWarsTheme("bwm_background"), false, false, false, true)
+		BaseWars:DrawRoundedBoxEx(4, 0, 0, w, h, BaseWars:GetTheme("bwm_background"), false, false, false, true)
 	end
 
 	if #self.tabs > 0 then
@@ -168,7 +168,7 @@ function PANEL:Build(panelName, replacePanel)
 end
 
 function PANEL:Think()
-	self.accentColor = GetBaseWarsTheme("gen_accent")
+	self.accentColor = BaseWars:GetTheme("gen_accent")
 end
 
 function PANEL:Paint(w, h)

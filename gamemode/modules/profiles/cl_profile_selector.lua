@@ -26,11 +26,11 @@ function PANEL:Init()
     self.profileID = self.localPlayer.basewarsProfileID
     self.localPlayer.basewarsProfileID = nil
     self.colors = {
-        background = GetBaseWarsTheme("profileSelector_background"),
-        contentBackground = GetBaseWarsTheme("profileSelector_contentBackground"),
-        text = GetBaseWarsTheme("profileSelector_text"),
-        darkText = GetBaseWarsTheme("profileSelector_darkText"),
-        accent = GetBaseWarsTheme("gen_accent"),
+        background = BaseWars:GetTheme("profileSelector_background"),
+        contentBackground = BaseWars:GetTheme("profileSelector_contentBackground"),
+        text = BaseWars:GetTheme("profileSelector_text"),
+        darkText = BaseWars:GetTheme("profileSelector_darkText"),
+        accent = BaseWars:GetTheme("gen_accent"),
     }
 
     self:SetSize(ScrW(), ScrH())

@@ -42,8 +42,8 @@ function PANEL:PaintScrollBar(panel)
 
 	local vbar = self:GetVBar()
 	local colors = {
-		scroll = GetBaseWarsTheme(panel .. "_scroll"),
-		bar = GetBaseWarsTheme(panel .. "_scrollbar")
+		scroll = BaseWars:GetTheme(panel .. "_scroll"),
+		bar = BaseWars:GetTheme(panel .. "_scrollbar")
 	}
 
 	vbar:SetWide(BaseWars:SS(8))
@@ -57,63 +57,6 @@ function PANEL:PaintScrollBar(panel)
 	end
 end
 
-local function playerConfigExists()
-	if not file.IsDir("basewars", "DATA") then
-		file.CreateDir("basewars/themes")
-	end
-
-	if not file.IsDir("basewars/themes", "DATA") then
-		file.CreateDir("basewars/themes")
-	end
-
-	BaseWars:CreateDefaultTheme()
-
-	if not file.Exists("basewars/basewars_config.json", "DATA") then
-		local defaultConfig = table.Copy(BaseWars.DefaultPlayerConfig)
-
-		for k, v in pairs(defaultConfig) do
-			defaultConfig[k] = defaultConfig[k].value -- Reformat the table before saving in the player's game
-		end
-
-		-- https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
-		local playerCountry = system.GetCountry()
-		if playerCountry == "FR" or playerCountry == "BE" then
-			defaultConfig["language"] =  "fr"
-		end
-
-		file.Write("basewars/basewars_config.json", util.TableToJSON(defaultConfig, true))
-		return defaultConfig, false
-	end
-
-	local config = util.JSONToTable(file.Read("basewars/basewars_config.json", "DATA"))
-
-	-- Checkup for missing configs
-	local shouldSave = false
-	if config then
-		for k, v in pairs(BaseWars.DefaultPlayerConfig) do
-			if config[k] == nil then
-				config[k] = v.value
-				shouldSave = true
-			end
-		end
-	end
-
-	--Checkup for config that are no longer used or in the wrong data type
-	for k, v in pairs(config) do
-		if BaseWars.DefaultPlayerConfig[k] == nil then
-			config[k] = nil
-			shouldSave = true
-		else
-			if type(v) != BaseWars.DefaultPlayerConfig[k].type then
-				config[k] = BaseWars.DefaultPlayerConfig[k].value
-				shouldSave = true
-			end
-		end
-	end
-
-	return config, shouldSave
-end
-
 function GM:InitPostEntity()
 	local ply = LocalPlayer()
 
@@ -122,73 +65,17 @@ function GM:InitPostEntity()
 
 	ProfileSelector = vgui.Create("BaseWars.Profiles")
 
-	local playerConfig, shouldSave = playerConfigExists()
-	ply.basewarsConfig = playerConfig
-
-	if shouldSave then
-		SaveBaseWarsConfig(playerConfig)
-	else
-		SendPlayerConfigToServer(playerConfig)
-	end
-
-	BaseWars:ReloadCustomTheme()
+	BaseWars:CheckDataFolder()
 
 	hook.Add("BaseWars:Initialize", "BaseWars:LuaRefreshClient", function()
+		BaseWars.serverAddress = string.Replace(game.GetIPAddress(), ":", "_")
+
 		BaseWars:CreateDefaultTheme()
 		BaseWars:ReloadCustomTheme()
 
 		net.Start("BaseWars:SendGamemodeConfigToClient")
 		net.SendToServer()
 	end)
-end
-
-function SendPlayerConfigToServer()
-	local configForServer = {}
-
-	for k, v in pairs(BaseWars.DefaultPlayerConfig) do
-		if v.server then
-			configForServer[k] = LocalPlayer().basewarsConfig[k]
-		end
-	end
-
-	local data = util.Compress(util.TableToJSON(configForServer))
-	net.Start("BaseWars:SendPlayerConfig")
-		net.WriteData(data, #data)
-	net.SendToServer()
-end
-
-function SetBaseWarsConfig(config, value)
-	local playerConfig = GetPlayerConfig()
-
-	if playerConfig[config] == nil or playerConfig[config] == value then
-		return
-	end
-
-	playerConfig[config] = value
-
-	SaveBaseWarsConfig(playerConfig, config)
-end
-
-function SaveBaseWarsConfig(config, newConfig)
-	config = config or GetPlayerConfig()
-
-	file.Write("basewars/basewars_config.json", util.TableToJSON(config, true))
-
-	if newConfig and not BaseWars.DefaultPlayerConfig[newConfig].server then
-		return
-	end
-
-	SendPlayerConfigToServer(config)
-end
-
-function GetPlayerConfig()
-	return LocalPlayer().basewarsConfig
-end
-
-function GetBaseWarsTheme(str)
-	local themeData = BaseWars.Themes[LocalPlayer():GetBaseWarsConfig("theme")]
-
-	return themeData and themeData[str] or BaseWars.Themes["default"][str]
 end
 
 function GM:AddDeathNotice(attacker, attackerTeam, inflictor, victim, victimTeam)
@@ -297,5 +184,6 @@ end)
 
 net.Receive("BaseWars:SendGamemodeConfigToClient", function(len)
 	BaseWars.Config = util.JSONToTable(util.Decompress(net.ReadData(len / 8)), false, true)
+
 	BaseWars:Log("Received Config From Server")
 end)

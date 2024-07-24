@@ -9,10 +9,10 @@ function PANEL:Init()
 	self.localPlayer = LocalPlayer()
 	self.selectedPlayer = self.localPlayer
 	self.colors = {
-        text = GetBaseWarsTheme("bwm_text"),
-        contentBackground = GetBaseWarsTheme("bwm_contentBackground"),
-        disabled = GetBaseWarsTheme("button_disabled"),
-        green = GetBaseWarsTheme("button_green")
+        text = BaseWars:GetTheme("bwm_text"),
+        contentBackground = BaseWars:GetTheme("bwm_contentBackground"),
+        disabled = BaseWars:GetTheme("button_disabled"),
+        green = BaseWars:GetTheme("button_green")
     }
 
 	self.TopBar = self:Add("DPanel")

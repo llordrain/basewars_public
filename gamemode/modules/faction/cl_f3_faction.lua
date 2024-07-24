@@ -26,8 +26,8 @@ function PANEL:Init()
 	self.SidePanel.Player:SetTall(BaseWars.ScreenScale * 270)
 	self.SidePanel.Player:InvalidateParent(true)
 	self.SidePanel.Player.Paint = function(s,w,h)
-		BaseWars:DrawRoundedBox(4, 0, 0, w, h, GetBaseWarsTheme("bwm_contentBackground"))
-		draw.SimpleText(self.selectedPlayer:Name(), "BaseWars.22", w * .5, h - BaseWars.ScreenScale * 50, GetBaseWarsTheme("bwm_text"), 1, TEXT_ALIGN_BOTTOM)
+		BaseWars:DrawRoundedBox(4, 0, 0, w, h, BaseWars:GetTheme("bwm_contentBackground"))
+		draw.SimpleText(self.selectedPlayer:Name(), "BaseWars.22", w * .5, h - BaseWars.ScreenScale * 50, BaseWars:GetTheme("bwm_text"), 1, TEXT_ALIGN_BOTTOM)
 		draw.SimpleText(self.selectedPlayer:GetFaction(self.localPlayer), "BaseWars.20", w * .5, h - BaseWars.ScreenScale * 30, self.selectedPlayer:GetFactionColor(), 1, TEXT_ALIGN_BOTTOM)
 	end
 
@@ -40,7 +40,7 @@ function PANEL:Init()
 	self.SidePanel.Interfactions:Dock(FILL)
 	self.SidePanel.Interfactions:DockMargin(0, bigMargin, 0, bigMargin)
 	self.SidePanel.Interfactions.Paint = function(s,w,h)
-		BaseWars:DrawRoundedBox(4, 0, 0, w, h, GetBaseWarsTheme("bwm_contentBackground"))
+		BaseWars:DrawRoundedBox(4, 0, 0, w, h, BaseWars:GetTheme("bwm_contentBackground"))
 	end
 
 	self.SidePanel.Interfactions.Scroll = self.SidePanel.Interfactions:Add("DScrollPanel")
@@ -55,7 +55,7 @@ function PANEL:Init()
 		interaction:SetTall(BaseWars.ScreenScale * 36)
 		interaction:DrawSide(true, true)
 		interaction.Draw = function(s,w,h)
-			draw.SimpleText(self.localPlayer:GetLang(v.name), "BaseWars.18", w * .5, h * .5, GetBaseWarsTheme("bwm_text"), 1, 1)
+			draw.SimpleText(self.localPlayer:GetLang(v.name), "BaseWars.18", w * .5, h * .5, BaseWars:GetTheme("bwm_text"), 1, 1)
 		end
 		interaction.DoClick = function(s)
 			if k == self.selectedAction then return end
@@ -74,7 +74,7 @@ function PANEL:Init()
 	self.SidePanel.Action:InvalidateParent(true)
 	self.SidePanel.Action.resizing = false
 	self.SidePanel.Action.Paint = function(s,w,h)
-		BaseWars:DrawRoundedBox(4, 0, 0, w, h, GetBaseWarsTheme("bwm_contentBackground"))
+		BaseWars:DrawRoundedBox(4, 0, 0, w, h, BaseWars:GetTheme("bwm_contentBackground"))
 	end
 	self.SidePanel.Action.Think = function(s)
 		s.selectedPlayer = self.selectedPlayer
@@ -118,7 +118,7 @@ end
 
 function PANEL:Think()
 	self.lerpFrac = FrameTime() * 15
-	self.accentColor = GetBaseWarsTheme("gen_accent")
+	self.accentColor = BaseWars:GetTheme("gen_accent")
 
 	if not IsValid(self.selectedPlayer) then
 		self.selectedPlayer = self.localPlayer
@@ -142,7 +142,7 @@ function PANEL:AddPlayer(ply)
 	playerPanel:DockMargin(0, 0, 0, margin)
 	playerPanel:DrawSide(true, true)
 	playerPanel.Draw = function(s,w,h)
-		local textColor = GetBaseWarsTheme("bwm_text")
+		local textColor = BaseWars:GetTheme("bwm_text")
 
 		draw.SimpleText(ply:Name(), "BaseWars.22", w * .25, h * .5, textColor, 1, 1)
 		draw.SimpleText(ply:GetFaction(self.localPlayer), "BaseWars.22", w * .75, h * .5, ply:GetFactionColor(), 1, 1)

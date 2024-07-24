@@ -34,23 +34,23 @@ function PANEL:Init()
 	self.Frame.Topbar:Dock(TOP)
 	self.Frame.Topbar:SetTall(BaseWars.ScreenScale * 40)
 	self.Frame.Topbar.Paint = function(s,w,h)
-		BaseWars:DrawRoundedBoxEx(4, 0, 0, w, h, GetBaseWarsTheme("am_titleBar"), true, true, false, false)
-		draw.SimpleText("- Admin Menu -", "BaseWars.26", w * .5, h * .5, GetBaseWarsTheme("am_text"), 1, 1)
+		BaseWars:DrawRoundedBoxEx(4, 0, 0, w, h, BaseWars:GetTheme("am_titleBar"), true, true, false, false)
+		draw.SimpleText("- Admin Menu -", "BaseWars.26", w * .5, h * .5, BaseWars:GetTheme("am_text"), 1, 1)
 	end
 
 	self.Frame.Sidebar = self.Frame:Add("DPanel")
 	self.Frame.Sidebar:Dock(LEFT)
 	self.Frame.Sidebar:SetWide(BaseWars.ScreenScale * 220)
 	self.Frame.Sidebar.Paint = function(s,w,h)
-		BaseWars:DrawRoundedBoxEx(4, 0, 0, w, h, GetBaseWarsTheme("bwm_background"), false, false, true, false)
+		BaseWars:DrawRoundedBoxEx(4, 0, 0, w, h, BaseWars:GetTheme("bwm_background"), false, false, true, false)
 	end
 
 	self.Frame.Sidebar.Player = self.Frame.Sidebar:Add("DPanel")
 	self.Frame.Sidebar.Player:Dock(TOP)
 	self.Frame.Sidebar.Player:SetTall(BaseWars.ScreenScale * 70)
 	self.Frame.Sidebar.Player.Paint = function(s,w,h)
-		draw.SimpleText(self.localPlayer:Name(), "BaseWars.20", h, h * .5 + 1, GetBaseWarsTheme("am_text"), TEXT_ALIGN_LEFT, TEXT_ALIGN_BOTTOM)
-		draw.SimpleText(self.localPlayer:GetUserGroup(), "BaseWars.18", h, h * .5 - 1, GetBaseWarsTheme("am_darkText"), TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP)
+		draw.SimpleText(self.localPlayer:Name(), "BaseWars.20", h, h * .5 + 1, BaseWars:GetTheme("am_text"), TEXT_ALIGN_LEFT, TEXT_ALIGN_BOTTOM)
+		draw.SimpleText(self.localPlayer:GetUserGroup(), "BaseWars.18", h, h * .5 - 1, BaseWars:GetTheme("am_darkText"), TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP)
 	end
 
 	self.Frame.Sidebar.Player = self.Frame.Sidebar.Player:Add("AvatarMaterial")
@@ -66,7 +66,7 @@ function PANEL:Init()
 	self.Frame.Sidebar.Close:Dock(BOTTOM)
 	self.Frame.Sidebar.Close:DockMargin(bigMargin, bigMargin, bigMargin, bigMargin)
 	self.Frame.Sidebar.Close.Draw = function(s,w,h)
-		local textColor = GetBaseWarsTheme("am_text")
+		local textColor = BaseWars:GetTheme("am_text")
 
 		BaseWars:DrawMaterial(closeIcon, bigMargin * 1.5, bigMargin, h - bigMargin * 2, h - bigMargin * 2, textColor)
 		draw.SimpleText(self.localPlayer:GetLang("close"), "BaseWars.20", h * 1.1, h * .5, textColor, 0, 1)
@@ -87,7 +87,7 @@ function PANEL:Init()
 		NavButton:DockMargin(bigMargin, margin, bigMargin, 0)
 		NavButton:SetAccentColor(v.color)
 		NavButton.Draw = function(s,w,h)
-			local textColor = GetBaseWarsTheme("am_text")
+			local textColor = BaseWars:GetTheme("am_text")
 
 			BaseWars:DrawMaterial(v.icon, bigMargin * 1.5, bigMargin, h - bigMargin * 2, h - bigMargin * 2, textColor)
 			draw.SimpleText(tabName, "BaseWars.20", h * 1.1, h * .5, textColor, 0, 1)
@@ -113,7 +113,7 @@ function PANEL:Init()
 	self.Frame.Body:Dock(FILL)
 	self.Frame.Body:InvalidateParent(true)
 	self.Frame.Body.Paint = function(s,w,h)
-		BaseWars:DrawRoundedBoxEx(4, 0, 0, w, h, GetBaseWarsTheme("am_background"), false, false, false, true)
+		BaseWars:DrawRoundedBoxEx(4, 0, 0, w, h, BaseWars:GetTheme("am_background"), false, false, false, true)
 	end
 
 	if #self.tabs > 0 then

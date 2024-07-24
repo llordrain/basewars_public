@@ -26,12 +26,12 @@ function PANEL:Init()
 
     self.localPlayer = LocalPlayer()
     self.colors = {
-        text = GetBaseWarsTheme("bwm_text"),
-        darkText = GetBaseWarsTheme("bwm_darkText"),
-        contentBackground = GetBaseWarsTheme("bwm_contentBackground"),
-        contentBackground2 = GetBaseWarsTheme("bwm_contentBackground2"),
-        disabled = GetBaseWarsTheme("button_disabled"),
-        green = GetBaseWarsTheme("button_green")
+        text = BaseWars:GetTheme("bwm_text"),
+        darkText = BaseWars:GetTheme("bwm_darkText"),
+        contentBackground = BaseWars:GetTheme("bwm_contentBackground"),
+        contentBackground2 = BaseWars:GetTheme("bwm_contentBackground2"),
+        disabled = BaseWars:GetTheme("button_disabled"),
+        green = BaseWars:GetTheme("button_green")
     }
 
     self:BuildSelector()

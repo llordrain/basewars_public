@@ -14,7 +14,7 @@ function PANEL:SetState(bool, changeColor)
 	self._state = bool
 
 	if changeColor then
-		self.colorLerp = bool and GetBaseWarsTheme("checkbox_on") or GetBaseWarsTheme("checkbox_off")
+		self.colorLerp = bool and BaseWars:GetTheme("checkbox_on") or BaseWars:GetTheme("checkbox_off")
 	end
 end
 
@@ -42,11 +42,11 @@ function PANEL:Paint(w,h)
 	local state = self:GetState()
 
 	self.posLerp = Lerp(lerpFrac, self.posLerp, state and w * .5 or 0)
-	self.colorLerp = BaseWars:LerpColor(lerpFrac, self.colorLerp, state and GetBaseWarsTheme("checkbox_on") or GetBaseWarsTheme("checkbox_off"))
+	self.colorLerp = BaseWars:LerpColor(lerpFrac, self.colorLerp, state and BaseWars:GetTheme("checkbox_on") or BaseWars:GetTheme("checkbox_off"))
 
-	BaseWars:DrawRoundedBox(4, 0, 0, w, h, self.backgroundColor or GetBaseWarsTheme("checkbox"))
+	BaseWars:DrawRoundedBox(4, 0, 0, w, h, self.backgroundColor or BaseWars:GetTheme("checkbox"))
 
-	draw.SimpleText(ply:GetLang("checkbox_" .. (state and "on" or "off")), self:GetFont(), state and w * .25 or w * .75, h * .5, GetBaseWarsTheme("checkbox_darkText"), 1, 1)
+	draw.SimpleText(ply:GetLang("checkbox_" .. (state and "on" or "off")), self:GetFont(), state and w * .25 or w * .75, h * .5, BaseWars:GetTheme("checkbox_darkText"), 1, 1)
 
 	BaseWars:DrawRoundedBox(4, self.posLerp, 0, w * .5, h, self.colorLerp)
 end

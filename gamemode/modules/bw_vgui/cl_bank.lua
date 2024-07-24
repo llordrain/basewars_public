@@ -42,13 +42,13 @@ function PANEL:Init()
     self.bankEntity = self
     self.currentUpgrade = 1
     self.colors = {
-        background = GetBaseWarsTheme("printer_background"),
-        contentBackground = GetBaseWarsTheme("printer_contentBackground"),
-        text = GetBaseWarsTheme("printer_text"),
-        darkText = GetBaseWarsTheme("printer_darkText"),
-        accent = GetBaseWarsTheme("gen_accent"),
-        notAllowed = GetBaseWarsTheme("button_disabled"),
-        bypass = GetBaseWarsTheme("printer_bypass"),
+        background = BaseWars:GetTheme("printer_background"),
+        contentBackground = BaseWars:GetTheme("printer_contentBackground"),
+        text = BaseWars:GetTheme("printer_text"),
+        darkText = BaseWars:GetTheme("printer_darkText"),
+        accent = BaseWars:GetTheme("gen_accent"),
+        notAllowed = BaseWars:GetTheme("button_disabled"),
+        bypass = BaseWars:GetTheme("printer_bypass"),
     }
 
     self:SetSize(ScrW(), ScrH())

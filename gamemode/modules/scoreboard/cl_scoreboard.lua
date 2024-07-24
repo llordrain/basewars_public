@@ -54,19 +54,19 @@ function PANEL:Init()
 	self.Title:Dock(TOP)
 	self.Title:SetTall(BaseWars.ScreenScale * 60)
 	self.Title.Paint = function(s,w,h)
-		BaseWars:DrawRoundedBoxEx(4, 0, 0, w, h, GetBaseWarsTheme("scoreboard_titleBar"), true, true, false, false)
-		draw.SimpleText(GetHostName(), "BaseWars.36", w * .5, h * .5, GetBaseWarsTheme("scoreboard_text"), 1, 1)
+		BaseWars:DrawRoundedBoxEx(4, 0, 0, w, h, BaseWars:GetTheme("scoreboard_titleBar"), true, true, false, false)
+		draw.SimpleText(GetHostName(), "BaseWars.36", w * .5, h * .5, BaseWars:GetTheme("scoreboard_text"), 1, 1)
 
 		-- Player Count
-		BaseWars:DrawMaterial(icons["user"], h * .5, h * .5, BaseWars.ScreenScale * 20, BaseWars.ScreenScale * 20, GetBaseWarsTheme("scoreboard_text"), 0)
-		draw.SimpleText(player.GetCount(), "BaseWars.20", h * .8, h * .5, GetBaseWarsTheme("scoreboard_text"), 1, 1)
+		BaseWars:DrawMaterial(icons["user"], h * .5, h * .5, BaseWars.ScreenScale * 20, BaseWars.ScreenScale * 20, BaseWars:GetTheme("scoreboard_text"), 0)
+		draw.SimpleText(player.GetCount(), "BaseWars.20", h * .8, h * .5, BaseWars:GetTheme("scoreboard_text"), 1, 1)
 	end
 
 	self.Body = self:Add("DPanel")
 	self.Body:Dock(FILL)
 	self.Body:InvalidateParent(true)
 	self.Body.Paint = function(s,w,h)
-		BaseWars:DrawRoundedBoxEx(4, 0, 0, w, h, GetBaseWarsTheme("scoreboard_background"), false, false, true, true)
+		BaseWars:DrawRoundedBoxEx(4, 0, 0, w, h, BaseWars:GetTheme("scoreboard_background"), false, false, true, true)
 	end
 
 	self:CreatePlayerList()
@@ -84,9 +84,9 @@ function PANEL:CreatePlayerList()
 	self.Body.TopBar:DockMargin(bigMargin, bigMargin, bigMargin, bigMargin)
 	self.Body.TopBar:SetTall(BaseWars.ScreenScale * 40)
 	self.Body.TopBar.Paint = function(s,w,h)
-		local textColor, font = GetBaseWarsTheme("scoreboard_text"), "BaseWars.20"
+		local textColor, font = BaseWars:GetTheme("scoreboard_text"), "BaseWars.20"
 
-		BaseWars:DrawMaterial(icons["user"], bigMargin, bigMargin, h - bigMargin * 2, h - bigMargin * 2, GetBaseWarsTheme("scoreboard_text"))
+		BaseWars:DrawMaterial(icons["user"], bigMargin, bigMargin, h - bigMargin * 2, h - bigMargin * 2, BaseWars:GetTheme("scoreboard_text"))
 
 		draw.SimpleText(self.localPlayer:GetLang("scoreboard", "name"), font, infosPos["name"], h * .5, textColor, 0, 1)
 		draw.SimpleText(self.localPlayer:GetLang("scoreboard", "level"), font, infosPos["level"], h * .5, textColor, 0, 1)
@@ -131,7 +131,7 @@ function PANEL:AddPlayer(ply)
 		factionCat:SetName(plyFaction)
 		factionCat:SetAccentColor(plyFactionColor)
 		factionCat:SetTextColor(plyFactionColor)
-		factionCat:SetColor(GetBaseWarsTheme("scoreboard_categoryBar"))
+		factionCat:SetColor(BaseWars:GetTheme("scoreboard_categoryBar"))
 		factionCat.Tick = function(s)
 			if #s:GetChildren() <= 1 then
 				s:Remove()
@@ -151,9 +151,9 @@ function PANEL:AddPlayer(ply)
 	playerPanel:SetTall(BaseWars.ScreenScale * 40)
 	playerPanel:Dock(TOP)
 	playerPanel:DockMargin(0, margin, 0, 0)
-	playerPanel.lerpColor = GetBaseWarsTheme("scoreboard_contentBackground")
+	playerPanel.lerpColor = BaseWars:GetTheme("scoreboard_contentBackground")
 	playerPanel.Paint = function(s,w,h)
-		s.lerpColor = BaseWars:LerpColor(FrameTime() * 15, s.lerpColor, s:IsHovered() and GetBaseWarsTheme("scoreboard_contentBackground2") or GetBaseWarsTheme("scoreboard_contentBackground"))
+		s.lerpColor = BaseWars:LerpColor(FrameTime() * 15, s.lerpColor, s:IsHovered() and BaseWars:GetTheme("scoreboard_contentBackground2") or BaseWars:GetTheme("scoreboard_contentBackground"))
 
 		if not IsValid(ply) then
 			return
@@ -161,7 +161,7 @@ function PANEL:AddPlayer(ply)
 
 		BaseWars:DrawRoundedBox(4, 0, 0, w, h, s.lerpColor)
 
-		local textColor, font = GetBaseWarsTheme("scoreboard_text"), "BaseWars.20"
+		local textColor, font = BaseWars:GetTheme("scoreboard_text"), "BaseWars.20"
 		local ping = ply:Ping()
 		local nameW, _ = BaseWars:GetTextSize(ply:Name(), font)
 		local iconSize = h - bigMargin * 2
@@ -173,7 +173,7 @@ function PANEL:AddPlayer(ply)
 			userGroup = "vip"
 		end
 
-		BaseWars:DrawMaterial(icons[userGroup], bigMargin, bigMargin, iconSize, iconSize, GetBaseWarsTheme("scoreboard_text"))
+		BaseWars:DrawMaterial(icons[userGroup], bigMargin, bigMargin, iconSize, iconSize, BaseWars:GetTheme("scoreboard_text"))
 
 		if IsFactionLeader then
 			BaseWars:DrawMaterial(icons["faction_leader"], h + nameW + bigMargin, bigMargin, iconSize, iconSize, plyFactionColor)
@@ -196,7 +196,7 @@ function PANEL:AddPlayer(ply)
 		end
 		draw.SimpleText(string.Comma(ply:Deaths()), font, w - infosPos["deaths"], h * .5, textColor, 2, 1)
 		draw.SimpleText(string.Comma(ply:Frags()), font, w - infosPos["kills"], h * .5, textColor, 2, 1)
-		draw.SimpleText(ping > 0 and string.Comma(ping) or "!", ping > 0 and font or "BaseWars.26", w - bigMargin, h * .5, ping > 0 and textColor or GetBaseWarsTheme("scoreboard_noPing"), 2, 1)
+		draw.SimpleText(ping > 0 and string.Comma(ping) or "!", ping > 0 and font or "BaseWars.26", w - bigMargin, h * .5, ping > 0 and textColor or BaseWars:GetTheme("scoreboard_noPing"), 2, 1)
 	end
 	playerPanel.DoClick = function(s)
 		if BaseWars:IsAdmin(self.localPlayer, true) then
@@ -230,7 +230,7 @@ function PANEL:PlayerPanel(ply)
 	self.PlayerInfos:DockMargin(bigMargin, bigMargin, bigMargin, bigMargin)
 	self.PlayerInfos:SetTall(BaseWars.ScreenScale * 250)
 	self.PlayerInfos.Paint = function(s,w,h)
-		BaseWars:DrawRoundedBox(4, 0, 0, w, h, GetBaseWarsTheme("scoreboard_contentBackground"))
+		BaseWars:DrawRoundedBox(4, 0, 0, w, h, BaseWars:GetTheme("scoreboard_contentBackground"))
 	end
 
 	self.PlayerInfos.Avatar = self.PlayerInfos:Add("AvatarMaterial")
@@ -244,28 +244,28 @@ function PANEL:PlayerPanel(ply)
 	self.PlayerInfos.Infos:DockMargin(0, bigMargin, bigMargin, bigMargin)
 	self.PlayerInfos.Infos.Paint = function(s,w,h)
 		-- RIGHT SIDE
-		draw.SimpleText(self.localPlayer:GetLang("scoreboard_rank"):format(ply:GetUserGroup()), "BaseWars.20", bigMargin, margin, GetBaseWarsTheme("scoreboard_darkText"))
-		draw.SimpleText(self.localPlayer:GetLang("scoreboard_faction"):format(ply:GetFaction()), "BaseWars.20", bigMargin, BaseWars.ScreenScale * 25, GetBaseWarsTheme("scoreboard_darkText"))
-		draw.SimpleText(self.localPlayer:GetLang("scoreboard_factionLeader"):format(ply:IsFactionLeader() and self.localPlayer:GetLang("yes") or self.localPlayer:GetLang("no")), "BaseWars.20", bigMargin, BaseWars.ScreenScale * 45, GetBaseWarsTheme("scoreboard_darkText"))
-		draw.SimpleText(self.localPlayer:GetLang("scoreboard_hp"):format(string.Comma(ply:Health()), string.Comma(ply:GetMaxHealth())), "BaseWars.20", bigMargin, BaseWars.ScreenScale * 65, GetBaseWarsTheme("scoreboard_darkText"))
-		draw.SimpleText(self.localPlayer:GetLang("scoreboard_armor"):format(string.Comma(ply:Armor()), string.Comma(ply:GetMaxArmor())), "BaseWars.20", bigMargin, BaseWars.ScreenScale * 85, GetBaseWarsTheme("scoreboard_darkText"))
+		draw.SimpleText(self.localPlayer:GetLang("scoreboard_rank"):format(ply:GetUserGroup()), "BaseWars.20", bigMargin, margin, BaseWars:GetTheme("scoreboard_darkText"))
+		draw.SimpleText(self.localPlayer:GetLang("scoreboard_faction"):format(ply:GetFaction()), "BaseWars.20", bigMargin, BaseWars.ScreenScale * 25, BaseWars:GetTheme("scoreboard_darkText"))
+		draw.SimpleText(self.localPlayer:GetLang("scoreboard_factionLeader"):format(ply:IsFactionLeader() and self.localPlayer:GetLang("yes") or self.localPlayer:GetLang("no")), "BaseWars.20", bigMargin, BaseWars.ScreenScale * 45, BaseWars:GetTheme("scoreboard_darkText"))
+		draw.SimpleText(self.localPlayer:GetLang("scoreboard_hp"):format(string.Comma(ply:Health()), string.Comma(ply:GetMaxHealth())), "BaseWars.20", bigMargin, BaseWars.ScreenScale * 65, BaseWars:GetTheme("scoreboard_darkText"))
+		draw.SimpleText(self.localPlayer:GetLang("scoreboard_armor"):format(string.Comma(ply:Armor()), string.Comma(ply:GetMaxArmor())), "BaseWars.20", bigMargin, BaseWars.ScreenScale * 85, BaseWars:GetTheme("scoreboard_darkText"))
 
 		if BaseWars.Config.Prestige.Enable then
-			draw.SimpleText(self.localPlayer:GetLang("scoreboard_prestige"):format(BaseWars:FormatNumber(ply:GetPrestige())), "BaseWars.20", bigMargin, h - BaseWars.ScreenScale * 85, GetBaseWarsTheme("scoreboard_darkText"), 0, TEXT_ALIGN_BOTTOM)
+			draw.SimpleText(self.localPlayer:GetLang("scoreboard_prestige"):format(BaseWars:FormatNumber(ply:GetPrestige())), "BaseWars.20", bigMargin, h - BaseWars.ScreenScale * 85, BaseWars:GetTheme("scoreboard_darkText"), 0, TEXT_ALIGN_BOTTOM)
 		end
 
-		draw.SimpleText(self.localPlayer:GetLang("scoreboard_money"):format(BaseWars:FormatMoney(ply:GetMoney())), "BaseWars.20", bigMargin, h - BaseWars.ScreenScale * 65, GetBaseWarsTheme("scoreboard_darkText"), 0, TEXT_ALIGN_BOTTOM)
-		draw.SimpleText(self.localPlayer:GetLang("scoreboard_level"):format(BaseWars:FormatNumber(ply:GetLevel())), "BaseWars.20", bigMargin, h - BaseWars.ScreenScale * 45, GetBaseWarsTheme("scoreboard_darkText"), 0, TEXT_ALIGN_BOTTOM)
-		draw.SimpleText(self.localPlayer:GetLang("scoreboard_xp"):format(BaseWars:FormatNumber(ply:GetXP(), true), BaseWars:FormatNumber(ply:GetXPNextLevel(), true)), "BaseWars.20", bigMargin, h - BaseWars.ScreenScale * 25, GetBaseWarsTheme("scoreboard_darkText"), 0, TEXT_ALIGN_BOTTOM)
-		draw.SimpleText(self.localPlayer:GetLang("scoreboard_timeplay"):format(BaseWars:FormatTime2(ply:GetTimePlayed(), self.localPlayer)), "BaseWars.20", bigMargin, h - margin, GetBaseWarsTheme("scoreboard_darkText"), 0, TEXT_ALIGN_BOTTOM)
+		draw.SimpleText(self.localPlayer:GetLang("scoreboard_money"):format(BaseWars:FormatMoney(ply:GetMoney())), "BaseWars.20", bigMargin, h - BaseWars.ScreenScale * 65, BaseWars:GetTheme("scoreboard_darkText"), 0, TEXT_ALIGN_BOTTOM)
+		draw.SimpleText(self.localPlayer:GetLang("scoreboard_level"):format(BaseWars:FormatNumber(ply:GetLevel())), "BaseWars.20", bigMargin, h - BaseWars.ScreenScale * 45, BaseWars:GetTheme("scoreboard_darkText"), 0, TEXT_ALIGN_BOTTOM)
+		draw.SimpleText(self.localPlayer:GetLang("scoreboard_xp"):format(BaseWars:FormatNumber(ply:GetXP(), true), BaseWars:FormatNumber(ply:GetXPNextLevel(), true)), "BaseWars.20", bigMargin, h - BaseWars.ScreenScale * 25, BaseWars:GetTheme("scoreboard_darkText"), 0, TEXT_ALIGN_BOTTOM)
+		draw.SimpleText(self.localPlayer:GetLang("scoreboard_timeplay"):format(BaseWars:FormatTime2(ply:GetTimePlayed(), self.localPlayer)), "BaseWars.20", bigMargin, h - margin, BaseWars:GetTheme("scoreboard_darkText"), 0, TEXT_ALIGN_BOTTOM)
 
 		-- LEFT SIDE
-		draw.SimpleText(self.localPlayer:GetLang("scoreboard_kd"):format(ply:Frags(), ply:Deaths(), math.Round(math.max(math.min(1, ply:Frags()), ply:Frags()) / math.max(math.min(1, ply:Deaths()), ply:Deaths()), 2)), "BaseWars.20", w, margin, GetBaseWarsTheme("scoreboard_darkText"), TEXT_ALIGN_RIGHT)
-		draw.SimpleText(self.localPlayer:GetLang("scoreboard_ping"):format(ply:Ping()), "BaseWars.20", w, BaseWars.ScreenScale * 25, GetBaseWarsTheme("scoreboard_darkText"), TEXT_ALIGN_RIGHT)
-		draw.SimpleText(self.localPlayer:GetLang("scoreboard_bounty"):format(BaseWars:FormatMoney(ply:GetBounty())), "BaseWars.20", w, BaseWars.ScreenScale * 45, GetBaseWarsTheme("scoreboard_darkText"), TEXT_ALIGN_RIGHT)
-		draw.SimpleText(self.localPlayer:GetLang("scoreboard_afk"):format(ply:IsAFK() and BaseWars:FormatTime2(math.ceil(CurTime() - ply:GetAFKTime())) or ply:GetLang("no")), "BaseWars.20", w, BaseWars.ScreenScale * 65, GetBaseWarsTheme("scoreboard_darkText"), TEXT_ALIGN_RIGHT)
-		draw.SimpleText(self.localPlayer:GetLang("scoreboard_god"):format(ply:IsGodmode() and self.localPlayer:GetLang("yes") or self.localPlayer:GetLang("no")), "BaseWars.20", w, BaseWars.ScreenScale * 85, GetBaseWarsTheme("scoreboard_darkText"), TEXT_ALIGN_RIGHT)
-		draw.SimpleText(self.localPlayer:GetLang("scoreboard_cloak"):format(ply:IsCloak() and self.localPlayer:GetLang("yes") or self.localPlayer:GetLang("no")), "BaseWars.20", w, BaseWars.ScreenScale * 105, GetBaseWarsTheme("scoreboard_darkText"), TEXT_ALIGN_RIGHT)
+		draw.SimpleText(self.localPlayer:GetLang("scoreboard_kd"):format(ply:Frags(), ply:Deaths(), math.Round(math.max(math.min(1, ply:Frags()), ply:Frags()) / math.max(math.min(1, ply:Deaths()), ply:Deaths()), 2)), "BaseWars.20", w, margin, BaseWars:GetTheme("scoreboard_darkText"), TEXT_ALIGN_RIGHT)
+		draw.SimpleText(self.localPlayer:GetLang("scoreboard_ping"):format(ply:Ping()), "BaseWars.20", w, BaseWars.ScreenScale * 25, BaseWars:GetTheme("scoreboard_darkText"), TEXT_ALIGN_RIGHT)
+		draw.SimpleText(self.localPlayer:GetLang("scoreboard_bounty"):format(BaseWars:FormatMoney(ply:GetBounty())), "BaseWars.20", w, BaseWars.ScreenScale * 45, BaseWars:GetTheme("scoreboard_darkText"), TEXT_ALIGN_RIGHT)
+		draw.SimpleText(self.localPlayer:GetLang("scoreboard_afk"):format(ply:IsAFK() and BaseWars:FormatTime2(math.ceil(CurTime() - ply:GetAFKTime())) or ply:GetLang("no")), "BaseWars.20", w, BaseWars.ScreenScale * 65, BaseWars:GetTheme("scoreboard_darkText"), TEXT_ALIGN_RIGHT)
+		draw.SimpleText(self.localPlayer:GetLang("scoreboard_god"):format(ply:IsGodmode() and self.localPlayer:GetLang("yes") or self.localPlayer:GetLang("no")), "BaseWars.20", w, BaseWars.ScreenScale * 85, BaseWars:GetTheme("scoreboard_darkText"), TEXT_ALIGN_RIGHT)
+		draw.SimpleText(self.localPlayer:GetLang("scoreboard_cloak"):format(ply:IsCloak() and self.localPlayer:GetLang("yes") or self.localPlayer:GetLang("no")), "BaseWars.20", w, BaseWars.ScreenScale * 105, BaseWars:GetTheme("scoreboard_darkText"), TEXT_ALIGN_RIGHT)
 	end
 
 	self.PlayerInfos.QuickActions = self.PlayerInfos:Add("DPanel")
@@ -280,7 +280,7 @@ function PANEL:PlayerPanel(ply)
 	self.PlayerInfos.QuickActions.SteamID:SetTall(buttonSize)
 	self.PlayerInfos.QuickActions.SteamID:DrawSide(true, true)
 	self.PlayerInfos.QuickActions.SteamID.Draw = function(s,w,h)
-		draw.SimpleText(self.localPlayer:GetLang("scoreboard_steamid"):format(ply:SteamID()), "BaseWars.20", w * .5, h * .5, GetBaseWarsTheme("scoreboard_text"), 1, 1)
+		draw.SimpleText(self.localPlayer:GetLang("scoreboard_steamid"):format(ply:SteamID()), "BaseWars.20", w * .5, h * .5, BaseWars:GetTheme("scoreboard_text"), 1, 1)
 	end
 	self.PlayerInfos.QuickActions.SteamID.DoClick = function(s)
 		s:ButtonSound()
@@ -294,7 +294,7 @@ function PANEL:PlayerPanel(ply)
 	self.PlayerInfos.QuickActions.SteamID64:SetTall(buttonSize)
 	self.PlayerInfos.QuickActions.SteamID64:DrawSide(true, true)
 	self.PlayerInfos.QuickActions.SteamID64.Draw = function(s,w,h)
-		draw.SimpleText(self.localPlayer:GetLang("scoreboard_steamid64"):format(ply:SteamID64()), "BaseWars.20", w * .5, h * .5, GetBaseWarsTheme("scoreboard_text"), 1, 1)
+		draw.SimpleText(self.localPlayer:GetLang("scoreboard_steamid64"):format(ply:SteamID64()), "BaseWars.20", w * .5, h * .5, BaseWars:GetTheme("scoreboard_text"), 1, 1)
 	end
 	self.PlayerInfos.QuickActions.SteamID64.DoClick = function(s)
 		s:ButtonSound()
@@ -308,7 +308,7 @@ function PANEL:PlayerPanel(ply)
 	self.PlayerInfos.QuickActions.Name:SetTall(buttonSize)
 	self.PlayerInfos.QuickActions.Name:DrawSide(true, true)
 	self.PlayerInfos.QuickActions.Name.Draw = function(s,w,h)
-		draw.SimpleText(ply:Name(), "BaseWars.20", w * .5, h * .5, GetBaseWarsTheme("scoreboard_text"), 1, 1)
+		draw.SimpleText(ply:Name(), "BaseWars.20", w * .5, h * .5, BaseWars:GetTheme("scoreboard_text"), 1, 1)
 	end
 	self.PlayerInfos.QuickActions.Name.DoClick = function(s)
 		s:ButtonSound()
@@ -322,7 +322,7 @@ function PANEL:PlayerPanel(ply)
 	self.PlayerInfos.QuickActions.Profile:SetTall(buttonSize)
 	self.PlayerInfos.QuickActions.Profile:DrawSide(true, true)
 	self.PlayerInfos.QuickActions.Profile.Draw = function(s,w,h)
-		draw.SimpleText("Steam Profile", "BaseWars.20", w * .5, h * .5, GetBaseWarsTheme("scoreboard_text"), 1, 1)
+		draw.SimpleText("Steam Profile", "BaseWars.20", w * .5, h * .5, BaseWars:GetTheme("scoreboard_text"), 1, 1)
 	end
 	self.PlayerInfos.QuickActions.Profile.DoClick = function(s)
 		s:ButtonSound()
@@ -333,7 +333,7 @@ function PANEL:PlayerPanel(ply)
 	self.PlayerAction:Dock(FILL)
 	self.PlayerAction:DockMargin(bigMargin, 0, bigMargin, bigMargin)
 	self.PlayerAction.Paint = function(s,w,h)
-		BaseWars:DrawRoundedBox(4, 0, 0, w, h, GetBaseWarsTheme("scoreboard_contentBackground"))
+		BaseWars:DrawRoundedBox(4, 0, 0, w, h, BaseWars:GetTheme("scoreboard_contentBackground"))
 	end
 
 	self.PlayerAction.IconLayout = self.PlayerAction:Add("DIconLayout")
@@ -343,7 +343,7 @@ function PANEL:PlayerPanel(ply)
 	self.PlayerAction.IconLayout:SetSpaceX(margin)
 	self.PlayerAction.IconLayout:SetSpaceY(margin)
 	self.PlayerAction.IconLayout.Paint = function(s,w,h)
-		BaseWars:DrawRoundedBox(4, 0, 0, w, h, GetBaseWarsTheme("scoreboard_contentBackground"))
+		BaseWars:DrawRoundedBox(4, 0, 0, w, h, BaseWars:GetTheme("scoreboard_contentBackground"))
 	end
 
 	if sam then
@@ -364,13 +364,13 @@ function PANEL:PlayerPanel(ply)
 
 			local command = self.PlayerAction.IconLayout:Add("BaseWars.Button2")
 			command:SetSize(w + bigMargin * 4, buttonSize)
-			command:SetColor(GetBaseWarsTheme("scoreboard_contentBackground2"), true)
+			command:SetColor(BaseWars:GetTheme("scoreboard_contentBackground2"), true)
 			command.Draw = function(s,w,h)
 				draw.SimpleText(v.name, "BaseWars.18", w * .5, h * .5, color_white, 1, 1)
 			end
 			command.DoClick = function(s)
 				s:ButtonSound()
-				s:CustomTempDraw(.5, GetBaseWarsTheme("button_green"), s.Draw)
+				s:CustomTempDraw(.5, BaseWars:GetTheme("button_green"), s.Draw)
 
 				RunConsoleCommand("sam", v.name, ply:SteamID64())
 			end
@@ -383,7 +383,7 @@ function PANEL:PlayerPanel(ply)
 	self.GoBack:SetWide(BaseWars.ScreenScale * 150)
 	self.GoBack:DrawSide(true, true)
 	self.GoBack.Draw = function(s,w,h)
-		draw.SimpleText(self.localPlayer:GetLang("scoreboard_goBack"), "BaseWars.20", w * .5, h * .5, GetBaseWarsTheme("scoreboard_text"), 1, 1)
+		draw.SimpleText(self.localPlayer:GetLang("scoreboard_goBack"), "BaseWars.20", w * .5, h * .5, BaseWars:GetTheme("scoreboard_text"), 1, 1)
 	end
 	self.GoBack.DoClick = function(s)
 		s:ButtonSound()

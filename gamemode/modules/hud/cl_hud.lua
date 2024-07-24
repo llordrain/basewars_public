@@ -54,8 +54,8 @@ local HL2Weapons = {
 }
 
 local function drawShadowText(text, font, x, y, xAlign, yAlign, color)
-	draw.SimpleText(text, font, x + 1, y + 1, GetBaseWarsTheme("hud_black"), xAlign, yAlign)
-	draw.SimpleText(text, font, x, y, color or GetBaseWarsTheme("hud_white"), xAlign, yAlign)
+	draw.SimpleText(text, font, x + 1, y + 1, BaseWars:GetTheme("hud_black"), xAlign, yAlign)
+	draw.SimpleText(text, font, x, y, color or BaseWars:GetTheme("hud_white"), xAlign, yAlign)
 end
 
 local function miniMapGetVector(ply)
@@ -105,14 +105,14 @@ function DrawRaidHUD()
 	local defenderW, _ = BaseWars:GetTextSize(participants.defender.name, "BaseWars.22")
 	local barWide = math.max(attackerW + extraMargin * 2, defenderW + extraMargin * 2, baseWide)
 
-	BaseWars:DrawRoundedBox(4, (screenWitdh - timeWide) * .5, bigMargin * 2, timeWide, barTall, GetBaseWarsTheme("raid_time"))
-	draw.SimpleText(raidTime, "BaseWars.28", screenWitdh * .5, bigMargin * 2 + barTall * .55, GetBaseWarsTheme("raid_text"), 1, 1)
+	BaseWars:DrawRoundedBox(4, (screenWitdh - timeWide) * .5, bigMargin * 2, timeWide, barTall, BaseWars:GetTheme("raid_time"))
+	draw.SimpleText(raidTime, "BaseWars.28", screenWitdh * .5, bigMargin * 2 + barTall * .55, BaseWars:GetTheme("raid_text"), 1, 1)
 
-	BaseWars:DrawRoundedBox(4, (screenWitdh - timeWide) * .5 - barWide - margin, bigMargin * 2, barWide, barTall, GetBaseWarsTheme("raid_background"))
-	draw.SimpleText(participants.attacker.name, "BaseWars.26", (screenWitdh - timeWide) * .5 - barWide * .5 - margin, bigMargin * 2 + barTall * .48, GetBaseWarsTheme("raid_text"), 1, 1)
+	BaseWars:DrawRoundedBox(4, (screenWitdh - timeWide) * .5 - barWide - margin, bigMargin * 2, barWide, barTall, BaseWars:GetTheme("raid_background"))
+	draw.SimpleText(participants.attacker.name, "BaseWars.26", (screenWitdh - timeWide) * .5 - barWide * .5 - margin, bigMargin * 2 + barTall * .48, BaseWars:GetTheme("raid_text"), 1, 1)
 
-	BaseWars:DrawRoundedBox(4, screenWitdh * .5 + timeWide * .5 + margin, bigMargin * 2, barWide, barTall, GetBaseWarsTheme("raid_background"))
-	draw.SimpleText(participants.defender.name, "BaseWars.26", screenWitdh * .5 + timeWide * .5 + margin + barWide * .5, bigMargin * 2 + barTall * .48, GetBaseWarsTheme("raid_text"), 1, 1)
+	BaseWars:DrawRoundedBox(4, screenWitdh * .5 + timeWide * .5 + margin, bigMargin * 2, barWide, barTall, BaseWars:GetTheme("raid_background"))
+	draw.SimpleText(participants.defender.name, "BaseWars.26", screenWitdh * .5 + timeWide * .5 + margin + barWide * .5, bigMargin * 2 + barTall * .48, BaseWars:GetTheme("raid_text"), 1, 1)
 end
 
 function DrawExplosiveCounters()
@@ -129,12 +129,12 @@ function DrawExplosiveCounters()
 		Pos = Pos:ToScreen()
 
 		if v:GetArmed() then
-			draw.SimpleText(BaseWars:FormatTime(math.ceil(v:GetCounter())), "BaseWars.20", Pos.x, Pos.y - bigMargin, GetBaseWarsTheme("explosive_text"), 1, 4)
+			draw.SimpleText(BaseWars:FormatTime(math.ceil(v:GetCounter())), "BaseWars.20", Pos.x, Pos.y - bigMargin, BaseWars:GetTheme("explosive_text"), 1, 4)
 
 			if v:GetDefusing() then
-				BaseWars:DrawRoundedBox(4, Pos.x - barW * .5, Pos.y, barW, barH, GetBaseWarsTheme("explosive_background"))
-				BaseWars:DrawRoundedBox(4, Pos.x - barW * .5 + margin, Pos.y + margin, (barW - margin * 2) * math.Clamp(v:GetDefuseTick() / (v.Defuse * ticks), 0, 1), barH - margin * 2, GetBaseWarsTheme("explosive_bar"))
-				draw.SimpleText(BaseWars:FormatTime(v:GetDefuseTick() / ticks), "BaseWars.20", Pos.x, Pos.y + barH * .5, GetBaseWarsTheme("explosive_text"), 1, 1)
+				BaseWars:DrawRoundedBox(4, Pos.x - barW * .5, Pos.y, barW, barH, BaseWars:GetTheme("explosive_background"))
+				BaseWars:DrawRoundedBox(4, Pos.x - barW * .5 + margin, Pos.y + margin, (barW - margin * 2) * math.Clamp(v:GetDefuseTick() / (v.Defuse * ticks), 0, 1), barH - margin * 2, BaseWars:GetTheme("explosive_bar"))
+				draw.SimpleText(BaseWars:FormatTime(v:GetDefuseTick() / ticks), "BaseWars.20", Pos.x, Pos.y + barH * .5, BaseWars:GetTheme("explosive_text"), 1, 1)
 			end
 		end
 	end
@@ -175,7 +175,7 @@ function BaseWarsHUD(ply)
 	drawShadowText(plyFaction, "BaseWars.20", plyNameW + BaseWars.ScreenScale * 155, screenHeight - BaseWars.ScreenScale * 140, TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP, plyFactionColor)
 
 	-- Armor
-	surface.SetDrawColor(GetBaseWarsTheme("hud_barBackground"))
+	surface.SetDrawColor(BaseWars:GetTheme("hud_barBackground"))
 	draw.NoTexture()
 	surface.DrawPoly({
 			{
@@ -215,12 +215,12 @@ function BaseWarsHUD(ply)
 			}
 		})
 	end, function()
-		BaseWars:SimpleLinearGradient(BaseWars.ScreenScale * 120, screenHeight - BaseWars.ScreenScale * 120, armorBarSize + BaseWars.ScreenScale * 10, BaseWars.ScreenScale * 20, GetBaseWarsTheme("hud_barArmor1"), GetBaseWarsTheme("hud_barArmor2"), true)
+		BaseWars:SimpleLinearGradient(BaseWars.ScreenScale * 120, screenHeight - BaseWars.ScreenScale * 120, armorBarSize + BaseWars.ScreenScale * 10, BaseWars.ScreenScale * 20, BaseWars:GetTheme("hud_barArmor1"), BaseWars:GetTheme("hud_barArmor2"), true)
 	end)
 	draw.SimpleText(stringComma(plyArmor), "BaseWars.20", armorBarSize + BaseWars.ScreenScale * 115, screenHeight - BaseWars.ScreenScale * 111, color_white, 2, 1)
 
 	-- Health
-	surface.SetDrawColor(GetBaseWarsTheme("hud_barBackground"))
+	surface.SetDrawColor(BaseWars:GetTheme("hud_barBackground"))
 	draw.NoTexture()
 	surface.DrawPoly({
 		{
@@ -260,7 +260,7 @@ function BaseWarsHUD(ply)
 			}
 		})
 	end, function()
-		BaseWars:SimpleLinearGradient(BaseWars.ScreenScale * 135, screenHeight - BaseWars.ScreenScale * 95, healthBarSize + BaseWars.ScreenScale * 10, BaseWars.ScreenScale * 20, GetBaseWarsTheme("hud_barHP1"), GetBaseWarsTheme("hud_barHP2"), true)
+		BaseWars:SimpleLinearGradient(BaseWars.ScreenScale * 135, screenHeight - BaseWars.ScreenScale * 95, healthBarSize + BaseWars.ScreenScale * 10, BaseWars.ScreenScale * 20, BaseWars:GetTheme("hud_barHP1"), BaseWars:GetTheme("hud_barHP2"), true)
 	end)
 	draw.SimpleText(stringComma(plyHealth), "BaseWars.20", healthBarSize + BaseWars.ScreenScale * 125, screenHeight - BaseWars.ScreenScale * 86, color_white, 2, 1)
 
@@ -282,26 +282,26 @@ function BaseWarsHUD(ply)
 	local spTime = math.ceil(ply:GetSpawnProtectionTime() - CurTime())
 
 	if ply:HasSpawnProtection() then
-		BaseWars:DrawMaterial(icons["spawn_protection"], screenWitdh * .5, screenHeight - BaseWars.ScreenScale * 120, spIconSize, spIconSize, GetBaseWarsTheme("hud_white"), 0)
+		BaseWars:DrawMaterial(icons["spawn_protection"], screenWitdh * .5, screenHeight - BaseWars.ScreenScale * 120, spIconSize, spIconSize, BaseWars:GetTheme("hud_white"), 0)
 		drawShadowText(spTime, "BaseWars.20", screenWitdh * .5, screenHeight - BaseWars.ScreenScale * 122, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
 		drawShadowText(ply:GetLang("hud_spawnprotection"), "BaseWars.20", screenWitdh * .5, screenHeight - BaseWars.ScreenScale * 90, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
 	else
 		if ply:InSafeZone() then
-			BaseWars:DrawMaterial(icons["spawn_protection"], screenWitdh * .5, screenHeight - BaseWars.ScreenScale * 120, spIconSize, spIconSize, GetBaseWarsTheme("hud_white"), 0)
+			BaseWars:DrawMaterial(icons["spawn_protection"], screenWitdh * .5, screenHeight - BaseWars.ScreenScale * 120, spIconSize, spIconSize, BaseWars:GetTheme("hud_white"), 0)
 			drawShadowText(ply:GetLang("hud_spawnprotection"), "BaseWars.20", screenWitdh * .5, screenHeight - BaseWars.ScreenScale * 90, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
 		end
 
 		if ply:IsGodmode() then
-			BaseWars:DrawMaterial(icons["spawn_protection"], screenWitdh * .5, screenHeight - BaseWars.ScreenScale * 120, spIconSize, spIconSize, GetBaseWarsTheme("hud_white"), 0)
+			BaseWars:DrawMaterial(icons["spawn_protection"], screenWitdh * .5, screenHeight - BaseWars.ScreenScale * 120, spIconSize, spIconSize, BaseWars:GetTheme("hud_white"), 0)
 		end
 	end
 
 	if ply:IsCloak() then
-		BaseWars:DrawMaterial(icons["cloak"], screenWitdh * .5 + BaseWars.ScreenScale * 60, screenHeight - BaseWars.ScreenScale * 120, spIconSize, spIconSize, GetBaseWarsTheme("hud_white"), 0)
+		BaseWars:DrawMaterial(icons["cloak"], screenWitdh * .5 + BaseWars.ScreenScale * 60, screenHeight - BaseWars.ScreenScale * 120, spIconSize, spIconSize, BaseWars:GetTheme("hud_white"), 0)
 	end
 
 	if ply:IsNocliping() then
-		BaseWars:DrawMaterial(icons["noclip"], screenWitdh * .5 - BaseWars.ScreenScale * 60, screenHeight - BaseWars.ScreenScale * 120, spIconSize, spIconSize, GetBaseWarsTheme("hud_white"), 0)
+		BaseWars:DrawMaterial(icons["noclip"], screenWitdh * .5 - BaseWars.ScreenScale * 60, screenHeight - BaseWars.ScreenScale * 120, spIconSize, spIconSize, BaseWars:GetTheme("hud_white"), 0)
 	end
 
 	-- Level & XP
@@ -313,8 +313,8 @@ function BaseWarsHUD(ply)
 
 	hudLerps.XP = Lerp(lerpFrac, hudLerps.XP, math.Clamp(plyXP / plyXPForNextLevel, 0, 1))
 
-	BaseWars:DrawRoundedBox(4, (screenWitdh - xpBarWidth) * .5, screenHeight - xpBarHeight * 4, xpBarWidth, xpBarHeight, GetBaseWarsTheme("hud_barBackground"))
-	BaseWars:DrawRoundedBox(4, (screenWitdh - xpBarWidth) * .5, screenHeight - xpBarHeight * 4, xpBarWidth * hudLerps.XP, xpBarHeight, GetBaseWarsTheme("hud_xpBar2"))
+	BaseWars:DrawRoundedBox(4, (screenWitdh - xpBarWidth) * .5, screenHeight - xpBarHeight * 4, xpBarWidth, xpBarHeight, BaseWars:GetTheme("hud_barBackground"))
+	BaseWars:DrawRoundedBox(4, (screenWitdh - xpBarWidth) * .5, screenHeight - xpBarHeight * 4, xpBarWidth * hudLerps.XP, xpBarHeight, BaseWars:GetTheme("hud_xpBar2"))
 
 	drawShadowText(BaseWars:FormatNumber(plyXP, true), "BaseWars.20", (screenWitdh - xpBarWidth) * .5, screenHeight - xpBarHeight * 4, TEXT_ALIGN_LEF, TEXT_ALIGN_BOTTOM)
 	drawShadowText(BaseWars:FormatNumber(plyXPForNextLevel, true), "BaseWars.20", (screenWitdh + xpBarWidth) * .5, screenHeight - xpBarHeight * 4, TEXT_ALIGN_RIGHT, TEXT_ALIGN_BOTTOM)
@@ -335,7 +335,7 @@ function BaseWarsHUD(ply)
 
 		drawShadowText(entityName .. " - " .. entityOwner, "BaseWars.20", screenWitdh * .5, screenHeight * .6 - BaseWars.ScreenScale * 2, 1, TEXT_ALIGN_BOTTOM)
 
-		surface.SetDrawColor(GetBaseWarsTheme("hud_barBackground"))
+		surface.SetDrawColor(BaseWars:GetTheme("hud_barBackground"))
 		draw.NoTexture()
 		surface.DrawPoly({
 			{
@@ -375,9 +375,9 @@ function BaseWarsHUD(ply)
 			}
 		})
 		end, function()
-			BaseWars:LinearGradient((screenWitdh - entityHPBar) * .5 + (entityHPBar * .5 * (1 - hudLerps.EntityHealth)), screenHeight * .6, entityHPBar - (entityHPBar * (1 - hudLerps.EntityHealth)), BaseWars.ScreenScale * 20, {{offset = 0, color = GetBaseWarsTheme("hud_barHP2")}, {offset = .5, color = GetBaseWarsTheme("hud_barHP1")}, {offset = 1, color = GetBaseWarsTheme("hud_barHP2")}}, true)
+			BaseWars:LinearGradient((screenWitdh - entityHPBar) * .5 + (entityHPBar * .5 * (1 - hudLerps.EntityHealth)), screenHeight * .6, entityHPBar - (entityHPBar * (1 - hudLerps.EntityHealth)), BaseWars.ScreenScale * 20, {{offset = 0, color = BaseWars:GetTheme("hud_barHP2")}, {offset = .5, color = BaseWars:GetTheme("hud_barHP1")}, {offset = 1, color = BaseWars:GetTheme("hud_barHP2")}}, true)
 		end)
-		draw.SimpleText(stringComma(entityHealth), "BaseWars.20", screenWitdh * .5, screenHeight * .6 + BaseWars.ScreenScale * 9, GetBaseWarsTheme("hud_white"), 1, 1)
+		draw.SimpleText(stringComma(entityHealth), "BaseWars.20", screenWitdh * .5, screenHeight * .6 + BaseWars.ScreenScale * 9, BaseWars:GetTheme("hud_white"), 1, 1)
 
 		-- if targetEntity.IsElectronic then
 		-- 	local entityEnergyBar = BaseWars.ScreenScale * 275
@@ -386,7 +386,7 @@ function BaseWarsHUD(ply)
 
 		-- 	hudLerps.EntityEnergy = Lerp(lerpFrac, hudLerps.EntityEnergy, math.Clamp(entityEnergy / entityMaxEnergy, 0, 1))
 
-		-- 	surface.SetDrawColor(GetBaseWarsTheme("hud_barBackground"))
+		-- 	surface.SetDrawColor(BaseWars:GetTheme("hud_barBackground"))
 		-- 	draw.NoTexture()
 		-- 	surface.DrawPoly({
 		-- 		{
@@ -426,9 +426,9 @@ function BaseWarsHUD(ply)
 		-- 			}
 		-- 		})
 		-- 	end, function()
-		-- 		BaseWars:LinearGradient((screenWitdh - entityEnergyBar) * .5 + (entityEnergyBar * .5 * (1 - hudLerps.EntityHealth)), screenHeight * .628, entityEnergyBar - (entityEnergyBar * (1 - hudLerps.EntityHealth)), BaseWars.ScreenScale * 20, {{offset = 0, color = GetBaseWarsTheme("hud_barEnergy2")}, {offset = .5, color = GetBaseWarsTheme("hud_barEnergy1")}, {offset = 1, color = GetBaseWarsTheme("hud_barEnergy2")}}, true)
+		-- 		BaseWars:LinearGradient((screenWitdh - entityEnergyBar) * .5 + (entityEnergyBar * .5 * (1 - hudLerps.EntityHealth)), screenHeight * .628, entityEnergyBar - (entityEnergyBar * (1 - hudLerps.EntityHealth)), BaseWars.ScreenScale * 20, {{offset = 0, color = BaseWars:GetTheme("hud_barEnergy2")}, {offset = .5, color = BaseWars:GetTheme("hud_barEnergy1")}, {offset = 1, color = BaseWars:GetTheme("hud_barEnergy2")}}, true)
 		-- 	end)
-		-- 	draw.SimpleText(stringComma(entityEnergy), "BaseWars.20", screenWitdh * .5, screenHeight * .628 + BaseWars.ScreenScale * 9, GetBaseWarsTheme("hud_white"), 1, 1)
+		-- 	draw.SimpleText(stringComma(entityEnergy), "BaseWars.20", screenWitdh * .5, screenHeight * .628 + BaseWars.ScreenScale * 9, BaseWars:GetTheme("hud_white"), 1, 1)
 		-- end
 	end
 
@@ -456,7 +456,7 @@ function BaseWarsHUD(ply)
 		drawShadowText(weaponName, "BaseWars.20", screenWitdh - BaseWars.ScreenScale * 150, screenHeight - BaseWars.ScreenScale * 140, 2)
 
 		-- Ammo
-		surface.SetDrawColor(GetBaseWarsTheme("hud_barBackground"))
+		surface.SetDrawColor(BaseWars:GetTheme("hud_barBackground"))
 		draw.NoTexture()
 		surface.DrawPoly({
 			{
@@ -497,13 +497,13 @@ function BaseWarsHUD(ply)
 				}
 			})
 		end, function()
-			BaseWars:SimpleLinearGradient(screenWitdh - ammoBarSize - BaseWars.ScreenScale * 148, screenHeight - BaseWars.ScreenScale * 120, ammoBarSize + BaseWars.ScreenScale * 10, BaseWars.ScreenScale * 20, GetBaseWarsTheme("hud_barAmmo1"), GetBaseWarsTheme("hud_barAmmo2"), true)
+			BaseWars:SimpleLinearGradient(screenWitdh - ammoBarSize - BaseWars.ScreenScale * 148, screenHeight - BaseWars.ScreenScale * 120, ammoBarSize + BaseWars.ScreenScale * 10, BaseWars.ScreenScale * 20, BaseWars:GetTheme("hud_barAmmo1"), BaseWars:GetTheme("hud_barAmmo2"), true)
 		end)
 		draw.SimpleText(not weaponHasAmmo and "--" or stringComma(weaponClip) .. "/" .. stringComma(weaponMaxClip) .. " [" .. stringComma(weaponReserveAmmo) .. "]", "BaseWars.20", screenWitdh - ammoBarSize - BaseWars.ScreenScale * 135, screenHeight - BaseWars.ScreenScale * 111, color_white, 0, 1)
 	end
 
 	-- Props
-	surface.SetDrawColor(GetBaseWarsTheme("hud_barBackground"))
+	surface.SetDrawColor(BaseWars:GetTheme("hud_barBackground"))
 	draw.NoTexture()
 	surface.DrawPoly({
 		{
@@ -543,7 +543,7 @@ function BaseWarsHUD(ply)
 		}
 	})
 	end, function()
-		BaseWars:SimpleLinearGradient(screenWitdh - propsBarSize - BaseWars.ScreenScale * 139, screenHeight - BaseWars.ScreenScale * 95, propsBarSize + BaseWars.ScreenScale * 10, BaseWars.ScreenScale * 20, GetBaseWarsTheme("hud_barProps1"), GetBaseWarsTheme("hud_barProps2"), true)
+		BaseWars:SimpleLinearGradient(screenWitdh - propsBarSize - BaseWars.ScreenScale * 139, screenHeight - BaseWars.ScreenScale * 95, propsBarSize + BaseWars.ScreenScale * 10, BaseWars.ScreenScale * 20, BaseWars:GetTheme("hud_barProps1"), BaseWars:GetTheme("hud_barProps2"), true)
 	end)
 	draw.SimpleText(plyPropsCount .. "/" .. stringComma(serverMaxProps), "BaseWars.20", screenWitdh - propsBarSize - BaseWars.ScreenScale * 125, screenHeight - BaseWars.ScreenScale * 86, color_white, 0, 1)
 
@@ -552,7 +552,7 @@ function BaseWarsHUD(ply)
 	local minimapSize = BaseWars.ScreenScale * 60
 	local minimapX, minimapY = screenWitdh - minimapSize * 1.5, screenHeight - minimapSize * 1.5
 
-	BaseWars:DrawCircle(minimapX, minimapY, minimapSize, 360, 0, 360, GetBaseWarsTheme("hud_minimap"))
+	BaseWars:DrawCircle(minimapX, minimapY, minimapSize, 360, 0, 360, BaseWars:GetTheme("hud_minimap"))
 
 	if ply:HasRadar() then
 		for _, target in pairs(ents.FindInSphere(ply:GetPos(), minimapSize * 10)) do
@@ -574,10 +574,10 @@ function BaseWarsHUD(ply)
 				color = "hud_minimapSpawnProtection"
 			end
 
-			BaseWars:DrawMaterial(icons["radar_player"], minimapX - posx, minimapY - posy, iconSize, iconSize, GetBaseWarsTheme(color), -math.AngleDifference(ply:EyeAngles().y, target:EyeAngles().y))
+			BaseWars:DrawMaterial(icons["radar_player"], minimapX - posx, minimapY - posy, iconSize, iconSize, BaseWars:GetTheme(color), -math.AngleDifference(ply:EyeAngles().y, target:EyeAngles().y))
 		end
 
-		BaseWars:DrawMaterial(icons["radar_player"], minimapX, minimapY, iconSize, iconSize, GetBaseWarsTheme("hud_minimapYou"), 0)
+		BaseWars:DrawMaterial(icons["radar_player"], minimapX, minimapY, iconSize, iconSize, BaseWars:GetTheme("hud_minimapYou"), 0)
 	end
 end
 
@@ -690,10 +690,10 @@ hook.Add("PostDrawTranslucentRenderables", "BaseWars:AbovePlayerInformation", fu
 					drawShadowText(target:Name(), "BaseWars.65", 0, 0, 1, 0, plyFactionColor)
 
 					if target:InSafeZone() then
-						BaseWars:DrawMaterial(icons["spawn_protection"], 0, -30, spIconSize, spIconSize, GetBaseWarsTheme("hud_white"), 0)
+						BaseWars:DrawMaterial(icons["spawn_protection"], 0, -30, spIconSize, spIconSize, BaseWars:GetTheme("hud_white"), 0)
 					else
 						if target:HasSpawnProtection() then
-							BaseWars:DrawMaterial(icons["spawn_protection"], 0, -30, spIconSize, spIconSize, GetBaseWarsTheme("hud_white"), 0)
+							BaseWars:DrawMaterial(icons["spawn_protection"], 0, -30, spIconSize, spIconSize, BaseWars:GetTheme("hud_white"), 0)
 							drawShadowText(spTime, "BaseWars.30", 0, -35, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
 						end
 					end

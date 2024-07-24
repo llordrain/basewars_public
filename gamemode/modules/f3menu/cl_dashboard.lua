@@ -40,11 +40,11 @@ function PANEL:Init()
     self.w, self.h = self:GetParent():GetSize()
     self.localPlayer = LocalPlayer()
     self.colors = {
-        accent = GetBaseWarsTheme("gen_accent"),
-        text = GetBaseWarsTheme("bwm_text"),
-        darkText = GetBaseWarsTheme("bwm_darkText"),
-        contentBackground = GetBaseWarsTheme("bwm_contentBackground"),
-        contentBackground2 = GetBaseWarsTheme("bwm_contentBackground2")
+        accent = BaseWars:GetTheme("gen_accent"),
+        text = BaseWars:GetTheme("bwm_text"),
+        darkText = BaseWars:GetTheme("bwm_darkText"),
+        contentBackground = BaseWars:GetTheme("bwm_contentBackground"),
+        contentBackground2 = BaseWars:GetTheme("bwm_contentBackground2")
     }
 
     thisPanel = self
@@ -229,7 +229,7 @@ function PANEL:BuildBounties(data)
 
     self.Left.Bounties.Scroll.hasData = true
     for k, v in ipairs(data) do
-        local textColor = GetBaseWarsTheme(k == 1 and "leaderboard_top1" or k == 2 and "leaderboard_top2" or k == 3 and "leaderboard_top3" or "bwm_darkText")
+        local textColor = BaseWars:GetTheme(k == 1 and "leaderboard_top1" or k == 2 and "leaderboard_top2" or k == 3 and "leaderboard_top3" or "bwm_darkText")
         local bountyText = BaseWars:FormatMoney(v.bounty)
 
         BaseWars:RequestSteamName(v.player_id64)
@@ -239,7 +239,7 @@ function PANEL:BuildBounties(data)
         bounty:DockMargin(0, 0, 0, margin)
         bounty:SetTall(BaseWars.ScreenScale * 40)
         bounty.Paint = function(s,w,h)
-            BaseWars:DrawRoundedBox(4, 0, 0, w, h, GetBaseWarsTheme("bwm_contentBackground"))
+            BaseWars:DrawRoundedBox(4, 0, 0, w, h, BaseWars:GetTheme("bwm_contentBackground"))
 
             draw.SimpleText("#" .. k .. " - " .. BaseWars:GetSteamName(v.player_id64), "BaseWars.18", bigMargin, h * .5, textColor, 0, 1)
             draw.SimpleText(bountyText, "BaseWars.18", w - bigMargin, h * .5, textColor, TEXT_ALIGN_RIGHT, 1)

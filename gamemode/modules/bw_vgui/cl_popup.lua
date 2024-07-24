@@ -23,10 +23,10 @@ function POPUP:Init()
     self.cancelText = self.localPlayer:GetLang("cancel")
 
     self.colors = {
-        text = GetBaseWarsTheme("am_text"),
-        darkText = GetBaseWarsTheme("am_darkText"),
-        background = GetBaseWarsTheme("am_background"),
-        contentBackground = GetBaseWarsTheme("am_contentBackground")
+        text = BaseWars:GetTheme("am_text"),
+        darkText = BaseWars:GetTheme("am_darkText"),
+        background = BaseWars:GetTheme("am_background"),
+        contentBackground = BaseWars:GetTheme("am_contentBackground")
     }
 
     self:SetSize(ScrW(), ScrH())
@@ -140,10 +140,10 @@ function SHOP_POPUP:Init()
     self.text = "none"
 
     self.colors = {
-        text = GetBaseWarsTheme("am_text"),
-        darkText = GetBaseWarsTheme("am_darkText"),
-        background = GetBaseWarsTheme("am_background"),
-        contentBackground = GetBaseWarsTheme("am_contentBackground")
+        text = BaseWars:GetTheme("am_text"),
+        darkText = BaseWars:GetTheme("am_darkText"),
+        background = BaseWars:GetTheme("am_background"),
+        contentBackground = BaseWars:GetTheme("am_contentBackground")
     }
 
     self:SetSize(ScrW(), ScrH())

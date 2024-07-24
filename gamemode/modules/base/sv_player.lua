@@ -1,4 +1,3 @@
-util.AddNetworkString("BaseWars:SendPlayerConfig")
 util.AddNetworkString("BaseWars:OpenSpawnpointMenu")
 util.AddNetworkString("BaseWars:PlayerReadyToReceiveNets")
 
@@ -603,10 +602,6 @@ end)
 
 hook.Add("PlayerButtonDown", "BaseWars:AFK", function(ply, key)
 	ply:SetAFKTime(CurTime())
-end)
-
-net.Receive("BaseWars:SendPlayerConfig", function(len, ply)
-	ply.basewarsConfig = util.JSONToTable(util.Decompress(net.ReadData(len / 8)))
 end)
 
 net.Receive("BaseWars:PlayerReadyToReceiveNets", function(len, ply)

@@ -32,13 +32,13 @@ function PANEL:Init()
     self.localPlayer = LocalPlayer()
     self.rowWide = (self.w - bigMargin * 3 - margin * 2 - rowTall * 2) * .5
     self.colors = {
-        text = GetBaseWarsTheme("bwm_text"),
-        darkText = GetBaseWarsTheme("bwm_darkText"),
-        top1 = GetBaseWarsTheme("leaderboard_top1"),
-        top2 = GetBaseWarsTheme("leaderboard_top2"),
-        top3 = GetBaseWarsTheme("leaderboard_top3"),
-        accent = GetBaseWarsTheme("gen_accent"),
-        contentBackground = GetBaseWarsTheme("bwm_contentBackground")
+        text = BaseWars:GetTheme("bwm_text"),
+        darkText = BaseWars:GetTheme("bwm_darkText"),
+        top1 = BaseWars:GetTheme("leaderboard_top1"),
+        top2 = BaseWars:GetTheme("leaderboard_top2"),
+        top3 = BaseWars:GetTheme("leaderboard_top3"),
+        accent = BaseWars:GetTheme("gen_accent"),
+        contentBackground = BaseWars:GetTheme("bwm_contentBackground")
     }
 
     thisPanel = self

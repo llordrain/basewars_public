@@ -21,12 +21,12 @@ local margin = BaseWars.ScreenScale * 5
 BaseWars:AddFactionInteraction("faction_createFaction", buttonSize * 6 + bigMargin * 3 + margin * 3, function(parent)
 	local localPlayer = LocalPlayer()
 	local theme = {
-		text = GetBaseWarsTheme("bwm_text"),
-		darkText = GetBaseWarsTheme("bwm_darkText"),
-		background = GetBaseWarsTheme("bwm_background"),
-		contentBackground = GetBaseWarsTheme("bwm_contentBackground"),
-		disabled = GetBaseWarsTheme("button_disabled"),
-        green = GetBaseWarsTheme("button_green")
+		text = BaseWars:GetTheme("bwm_text"),
+		darkText = BaseWars:GetTheme("bwm_darkText"),
+		background = BaseWars:GetTheme("bwm_background"),
+		contentBackground = BaseWars:GetTheme("bwm_contentBackground"),
+		disabled = BaseWars:GetTheme("button_disabled"),
+        green = BaseWars:GetTheme("button_green")
 	}
 
 	parent.Name = parent:Add("BaseWars.TextEntry")
@@ -141,12 +141,12 @@ end)
 BaseWars:AddFactionInteraction("faction_joinFaction", buttonSize * 3 + bigMargin * 2 + margin * 2, function(parent)
 	local localPlayer = LocalPlayer()
 	local theme = {
-		text = GetBaseWarsTheme("bwm_text"),
-		darkText = GetBaseWarsTheme("bwm_darkText"),
-		background = GetBaseWarsTheme("bwm_background"),
-		contentBackground = GetBaseWarsTheme("bwm_contentBackground"),
-		disabled = GetBaseWarsTheme("button_disabled"),
-        green = GetBaseWarsTheme("button_green")
+		text = BaseWars:GetTheme("bwm_text"),
+		darkText = BaseWars:GetTheme("bwm_darkText"),
+		background = BaseWars:GetTheme("bwm_background"),
+		contentBackground = BaseWars:GetTheme("bwm_contentBackground"),
+		disabled = BaseWars:GetTheme("button_disabled"),
+        green = BaseWars:GetTheme("button_green")
 	}
 
 	parent.Name = parent:Add("BaseWars.TextEntry")
@@ -233,10 +233,10 @@ end)
 BaseWars:AddFactionInteraction("faction_quitFaction", buttonSize + bigMargin * 2, function(parent)
 	local localPlayer = LocalPlayer()
 	local theme = {
-		text = GetBaseWarsTheme("bwm_text"),
-		contentBackground = GetBaseWarsTheme("bwm_contentBackground"),
-		disabled = GetBaseWarsTheme("button_disabled"),
-        green = GetBaseWarsTheme("button_green")
+		text = BaseWars:GetTheme("bwm_text"),
+		contentBackground = BaseWars:GetTheme("bwm_contentBackground"),
+		disabled = BaseWars:GetTheme("button_disabled"),
+        green = BaseWars:GetTheme("button_green")
 	}
 
 	parent.Button = parent:Add("BaseWars.Button2")
@@ -284,12 +284,12 @@ end)
 BaseWars:AddFactionInteraction("faction_changePassword", buttonSize * 2 + bigMargin * 2 + margin, function(parent)
 	local localPlayer = LocalPlayer()
 	local theme = {
-		text = GetBaseWarsTheme("bwm_text"),
-		darkText = GetBaseWarsTheme("bwm_darkText"),
-		contentBackground = GetBaseWarsTheme("bwm_contentBackground"),
-		background = GetBaseWarsTheme("bwm_background"),
-		disabled = GetBaseWarsTheme("button_disabled"),
-        green = GetBaseWarsTheme("button_green")
+		text = BaseWars:GetTheme("bwm_text"),
+		darkText = BaseWars:GetTheme("bwm_darkText"),
+		contentBackground = BaseWars:GetTheme("bwm_contentBackground"),
+		background = BaseWars:GetTheme("bwm_background"),
+		disabled = BaseWars:GetTheme("button_disabled"),
+        green = BaseWars:GetTheme("button_green")
 	}
 
 	parent.Password = parent:Add("BaseWars.TextEntry")
@@ -348,10 +348,10 @@ end)
 BaseWars:AddFactionInteraction("faction_kickMember", buttonSize + bigMargin * 2, function(parent)
 	local localPlayer = LocalPlayer()
 	local theme = {
-		text = GetBaseWarsTheme("bwm_text"),
-		contentBackground = GetBaseWarsTheme("bwm_contentBackground"),
-		disabled = GetBaseWarsTheme("button_disabled"),
-        green = GetBaseWarsTheme("button_green")
+		text = BaseWars:GetTheme("bwm_text"),
+		contentBackground = BaseWars:GetTheme("bwm_contentBackground"),
+		disabled = BaseWars:GetTheme("button_disabled"),
+        green = BaseWars:GetTheme("button_green")
 	}
 
 	parent.Button = parent:Add("BaseWars.Button2")
@@ -427,10 +427,10 @@ end)
 BaseWars:AddFactionInteraction("faction_promoteLeader", buttonSize + bigMargin * 2, function(parent)
 	local localPlayer = LocalPlayer()
 	local theme = {
-		text = GetBaseWarsTheme("bwm_text"),
-		contentBackground = GetBaseWarsTheme("bwm_contentBackground"),
-		disabled = GetBaseWarsTheme("button_disabled"),
-        green = GetBaseWarsTheme("button_green")
+		text = BaseWars:GetTheme("bwm_text"),
+		contentBackground = BaseWars:GetTheme("bwm_contentBackground"),
+		disabled = BaseWars:GetTheme("button_disabled"),
+        green = BaseWars:GetTheme("button_green")
 	}
 
 	parent.Button = parent:Add("BaseWars.Button2")
@@ -494,9 +494,9 @@ BaseWars:AddFactionInteraction("faction_frendlyFire", buttonSize + bigMargin * 2
 	local name = localPlayer:GetFaction()
 	local bool = localPlayer:InFaction() and BaseWars:GetFactions(name).ff or false
 	local theme = {
-		text = GetBaseWarsTheme("bwm_text"),
-		contentBackground = GetBaseWarsTheme("bwm_contentBackground"),
-		disabled = GetBaseWarsTheme("button_disabled")
+		text = BaseWars:GetTheme("bwm_text"),
+		contentBackground = BaseWars:GetTheme("bwm_contentBackground"),
+		disabled = BaseWars:GetTheme("button_disabled")
 	}
 
 	parent.BackPanel = parent:Add("DPanel")
@@ -504,7 +504,7 @@ BaseWars:AddFactionInteraction("faction_frendlyFire", buttonSize + bigMargin * 2
 	parent.BackPanel:DockMargin(bigMargin, bigMargin, bigMargin, bigMargin)
 	parent.BackPanel:SetTall(buttonSize)
 	parent.BackPanel.Paint = function(s,w,h)
-		draw.SimpleText(localPlayer:GetLang("faction_frendlyFire"), "BaseWars.18", bigMargin, h * .5, GetBaseWarsTheme("bwn_text"), 0, 1)
+		draw.SimpleText(localPlayer:GetLang("faction_frendlyFire"), "BaseWars.18", bigMargin, h * .5, BaseWars:GetTheme("bwn_text"), 0, 1)
 	end
 
 	parent.BackPanel.Toggle = parent.BackPanel:Add("BaseWars.CheckBox")

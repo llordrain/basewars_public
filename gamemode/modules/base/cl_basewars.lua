@@ -270,47 +270,6 @@ function BaseWars:LerpColor(frac, from, to)
 	)
 end
 
-function BaseWars:ReloadCustomTheme()
-	local themes, _ = file.Find("basewars/themes/*.json", "DATA")
-	for k, v in pairs(themes) do
-		local theme = util.JSONToTable(file.Read("basewars/themes/" .. v, "DATA"))
-		local id = string.sub(v, 1, #v - 5)
-
-		if BaseWars.DefaultTheme[id] then
-			continue
-		end
-
-		if not theme.themeName then
-			continue
-		end
-
-		for colorID, color in pairs(theme) do
-			if not isnumber(color.r) or not isnumber(color.g) or not isnumber(color.b) or not isnumber(color.a) then
-				continue
-			end
-
-			theme[colorID] = Color(color.r, color.g, color.b, color.a)
-		end
-
-		AddTheme(id, theme)
-
-		BaseWars:Log("Added theme: " .. theme.themeName)
-	end
-end
-
-function BaseWars:CreateDefaultTheme()
-	for themeID, theme in pairs(BaseWars.Themes) do
-		local temp = {}
-		for id, color in pairs(theme) do
-			temp[id] = color
-		end
-
-		file.Write("basewars/themes/" .. themeID .. ".json", util.TableToJSON(temp, true))
-	end
-
-	BaseWars:Log("Created default theme")
-end
-
 function BaseWars:CreateFont(name, size, weight, extra)
 	if not name or not size then return end
 	weight = weight or 500
@@ -347,7 +306,7 @@ BaseWars:CreateFont("BaseWars.65", BaseWars.ScreenScale * 65, WEIGHT)
 -- Disgusting but works for now
 function BaseWars:EaseInBlurBackground(panel, blurIntensity, timeInSeconds, color, alpha)
 	blurIntensity = math.max(blurIntensity, 0)
-	color = color or GetBaseWarsTheme("gen_background")
+	color = color or BaseWars:GetTheme("gen_background")
 	alpha = alpha or 230
 
 	panel.blurTime = SysTime() + timeInSeconds

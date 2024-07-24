@@ -10,15 +10,15 @@ function PANEL:Init()
 	end
 
 	self.colors = {
-		accent = GetBaseWarsTheme("accent"),
-		text = GetBaseWarsTheme("shop_text"),
-		darkText = GetBaseWarsTheme("shop_darkText"),
-		titlebar = GetBaseWarsTheme("shop_titlebar"),
-		sidebar = GetBaseWarsTheme("shop_sidebar"),
-		body = GetBaseWarsTheme("shop_body"),
-		category = GetBaseWarsTheme("shop_category"),
-		card = GetBaseWarsTheme("shop_card"),
-		cardBack = GetBaseWarsTheme("shop_cardBack"),
+		accent = BaseWars:GetTheme("accent"),
+		text = BaseWars:GetTheme("shop_text"),
+		darkText = BaseWars:GetTheme("shop_darkText"),
+		titlebar = BaseWars:GetTheme("shop_titlebar"),
+		sidebar = BaseWars:GetTheme("shop_sidebar"),
+		body = BaseWars:GetTheme("shop_body"),
+		category = BaseWars:GetTheme("shop_category"),
+		card = BaseWars:GetTheme("shop_card"),
+		cardBack = BaseWars:GetTheme("shop_cardBack"),
 	}
 
 	self.translate = {

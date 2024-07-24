@@ -536,7 +536,7 @@ hook.Add("BaseWars:Initialize", "BaseWars:CreateShopList", function()
 	BaseWars:CreateShopList()
 
 	local choices = {
-		[-1] = "#last"
+		[-1] = "#bws_last"
 	}
 
 	for k, v in ipairs(BaseWars:GetShopList()) do

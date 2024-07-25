@@ -130,3 +130,36 @@ function PANEL:AnimSlide(anim, delta, data)
 end
 
 vgui.Register("BaseWars.Category", PANEL, "Panel")
+
+local SCOREBOARD = table.Copy(PANEL)
+
+AccessorFunc(SCOREBOARD, "m_barAccentColor", "BarAccentColor")
+
+function SCOREBOARD:Init()
+	self:SetName("Place Holder")
+	self:SetExpanded(true)
+	self:SetColor(Color(128, 0, 0))
+	self:SetTextColor(color_white)
+	self:SetBarAccentColor(Color(math.random(255), math.random(255), math.random(255)))
+
+	self.Top = self:Add("DButton")
+	self.Top:Dock(TOP)
+	self.Top:SetTall(BaseWars:SS(36))
+	self.Top:SetText("")
+	self.Top.Paint = function(s, w, h)
+		BaseWars:DrawRoundedBox(BaseWars:SS(6), 0, 0, w, h, self:GetColor())
+		BaseWars:DrawRoundedBoxEx(BaseWars:SS(6), 0, 0, BaseWars:SS(5), h, self:GetBarAccentColor(), true, false, true, false)
+
+		draw.SimpleText(self:GetName(), "BaseWars.20", h * .3, h * .45, self:GetTextColor(), 0, 1)
+	end
+	self.Top.DoClick = function(s)
+		self:Toggle()
+	end
+
+	self:SetAnimTime(.15)
+	self.animSlide = Derma_Anim("Anim", self, self.AnimSlide)
+
+	self:DockMargin(0, 0, BaseWars:SS(5), BaseWars:SS(10))
+end
+
+vgui.Register("BaseWars.Category.Scoreboard", SCOREBOARD, "Panel")

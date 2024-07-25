@@ -126,10 +126,10 @@ function PANEL:AddPlayer(ply)
 	local IsFactionLeader = ply:IsFactionLeader()
 
 	if not self.factions[plyFaction] then
-		local factionCat = self.Body.PlayersList:Add("BaseWars.Category")
+		local factionCat = self.Body.PlayersList:Add("BaseWars.Category.Scoreboard")
 		factionCat:Dock(TOP)
 		factionCat:SetName(plyFaction)
-		factionCat:SetAccentColor(plyFactionColor)
+		factionCat:SetBarAccentColor(plyFactionColor)
 		factionCat:SetTextColor(plyFactionColor)
 		factionCat:SetColor(BaseWars:GetTheme("scoreboard_categoryBar"))
 		factionCat.Tick = function(s)

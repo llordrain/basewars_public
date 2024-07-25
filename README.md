@@ -1,6 +1,8 @@
 > [!IMPORTANT]
 > There's a lot of stuff in the gamemode that i haven't touched in years (So they're probable shit) and i'm also not consistent at all. Everything works with **UserGroups** for now
 
+## [Workshop Addon Here](https://steamcommunity.com/sharedfiles/filedetails/?id=3265905462)
+
 # Credits
 
 Icons » [flaticon.com](https://www.flaticon.com/)

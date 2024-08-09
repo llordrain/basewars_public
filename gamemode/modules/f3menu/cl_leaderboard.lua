@@ -149,7 +149,7 @@ function PANEL:BuildLeft(what)
             draw.SimpleText(self.localPlayer:GetLang("leaderboard_title", leftDisplay), "BaseWars.24", w * .5, h * .5, self.colors.text, 1, 1)
         end
         self.LeftPanel.Topbar.DoClick = function(s)
-            surface.PlaySound("bw_button.wav")
+            surface.PlaySound("basewars/button.wav")
 
             local _, y = s:LocalToScreen()
             local _, h = s:GetSize()
@@ -208,7 +208,7 @@ function PANEL:BuildRight(what)
             draw.SimpleText(self.localPlayer:GetLang("leaderboard_title", rightDisplay), "BaseWars.24", w * .5, h * .5, self.colors.text, 1, 1)
         end
         self.RightPanel.Topbar.DoClick = function(s)
-            surface.PlaySound("bw_button.wav")
+            surface.PlaySound("basewars/button.wav")
 
             local _, y = s:LocalToScreen()
             local _, h = s:GetSize()

@@ -147,7 +147,7 @@ function PANEL:Build(data)
         profilePanel.DoClick = function(s)
             if self.chosen then return end
 
-            surface.PlaySound("bw_button.wav")
+            surface.PlaySound("basewars/button.wav")
             self.chosen = true
 
             self:WaitForSomething("profileSelector_applyingProfile", "BaseWars.26", true)
@@ -173,7 +173,7 @@ function PANEL:Build(data)
         createProfile.DoClick = function(s)
             if self.chosen then return end
 
-            surface.PlaySound("bw_button.wav")
+            surface.PlaySound("basewars/button.wav")
             self.chosen = true
 
             self:WaitForSomething("profileSelector_creatingProfile", "BaseWars.26")

@@ -17,7 +17,7 @@ function BUTTON:SetAccentColor(color)
 end
 
 function BUTTON:ButtonSound()
-    surface.PlaySound("bw_button.wav")
+    surface.PlaySound("basewars/button.wav")
 end
 
 function BUTTON:DoClick()
@@ -118,7 +118,7 @@ function OLD_BUTTON:DrawSide(left, right)
 end
 
 function OLD_BUTTON:ButtonSound()
-    surface.PlaySound("bw_button.wav")
+    surface.PlaySound("basewars/button.wav")
 end
 
 vgui.Register("OLD.BaseWars.Button", OLD_BUTTON, "DButton")
@@ -156,7 +156,7 @@ function BUTTON:GetColor()
 end
 
 function BUTTON:ButtonSound()
-    surface.PlaySound("bw_button.wav")
+    surface.PlaySound("basewars/button.wav")
 end
 
 function BUTTON:DoClick()
@@ -278,7 +278,7 @@ function PANEL:SetColor(color)
 end
 
 function PANEL:ButtonSound()
-    surface.PlaySound("bw_button.wav")
+    surface.PlaySound("basewars/button.wav")
 end
 
 function PANEL:DoClick()

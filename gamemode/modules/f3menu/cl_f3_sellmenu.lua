@@ -160,7 +160,7 @@ function PANEL:AddEntity(entity)
 		end
 	end
 	entityPanel.DoClick = function(s)
-		surface.PlaySound("bw_button.wav")
+		surface.PlaySound("basewars/button.wav")
 		self:RemoveEntity(entity)
 		s:Remove()
 	end
@@ -211,7 +211,7 @@ function PANEL:RemoveEntity(entity, ignoreCouting)
 		end
 	end
 	entityPanel.DoClick = function(s)
-		surface.PlaySound("bw_button.wav")
+		surface.PlaySound("basewars/button.wav")
 		self:AddEntity(entity)
 		s:Remove()
 	end

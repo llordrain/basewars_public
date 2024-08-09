@@ -146,7 +146,7 @@ function BaseWars:Notify(text, type, time, ...)
 
 	MsgC(NotificationsData[type].colorText, text, "\n")
 
-	surface.PlaySound("bw_notification.wav")
+	surface.PlaySound("basewars/notification.wav")
 end
 
 local chatNotificationColor = Color(150, 150, 150)

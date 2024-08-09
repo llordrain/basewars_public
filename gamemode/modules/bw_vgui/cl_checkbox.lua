@@ -23,7 +23,7 @@ function PANEL:GetState()
 end
 
 function PANEL:Toggle()
-	surface.PlaySound("bw_button.wav")
+	surface.PlaySound("basewars/button.wav")
 	self:SetState(not self:GetState())
 
 	self:OnToggle(self:GetState())

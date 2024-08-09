@@ -322,7 +322,7 @@ function PANEL:AddItemCard(entID, entObj, parent, isFavorite)
 	end
 	item.DoClick = function(s)
 		if self.localPlayer:GetBaseWarsConfig("showBuyPopup") then
-			surface.PlaySound("bw_button.wav")
+			surface.PlaySound("basewars/button.wav")
 
 			local popup = vgui.Create("BaseWars.Popup.Shop")
 			popup:SetEntityID(entID)
@@ -332,7 +332,7 @@ function PANEL:AddItemCard(entID, entObj, parent, isFavorite)
 
 		local canBuy, reason = self.localPlayer:CanBuy(entID)
 		if canBuy then
-			surface.PlaySound("bw_button.wav")
+			surface.PlaySound("basewars/button.wav")
 			RunConsoleCommand("basewarsbuy", entID)
 
 			if self.localPlayer:GetBaseWarsConfig("closeOnBuy") then
@@ -370,7 +370,7 @@ function PANEL:AddItemCard(entID, entObj, parent, isFavorite)
 		BaseWars:DrawMaterial(BaseWars.Icons["f4/favorite" .. (s.isFavorited and "2" or "1")], w * .5, h * .5, BaseWars:SS(28), BaseWars:SS(28), self.colors[s.isFavorited and "accent" or "text"], 0)
 	end
 	item.Favorite.DoClick = function(s)
-		surface.PlaySound("bw_button.wav")
+		surface.PlaySound("basewars/button.wav")
 
 		if s.isFavorited then
 			for k, v in ipairs(self.favoritesCatContent:GetChildren()) do

@@ -200,7 +200,7 @@ function PANEL:AddPlayer(ply)
 	end
 	playerPanel.DoClick = function(s)
 		if BaseWars:IsAdmin(self.localPlayer, true) then
-			surface.PlaySound("bw_button.wav")
+			surface.PlaySound("basewars/button.wav")
 			self:PlayerPanel(ply)
 		else
 			SetClipboardText(ply:SteamID())

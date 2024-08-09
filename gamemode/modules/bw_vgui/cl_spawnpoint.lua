@@ -31,7 +31,7 @@ function NAME:Init()
         BaseWars:DrawMaterial(closeIcon, margin * 2, margin * 2, w - margin * 4, h - margin * 4, s.color)
     end
     self.Topbar.Close.DoClick = function(s)
-        surface.PlaySound("bw_button.wav")
+        surface.PlaySound("basewars/button.wav")
         self:Remove()
     end
 
@@ -153,7 +153,7 @@ function SPAWN:CreateFrame()
             draw.SimpleText(v:GetCName(), "BaseWars.20", w * .5, h * .5, BaseWars:GetTheme("spawnpoint_text"), 1, 1)
         end
         spawnpoint.DoClick = function(s)
-            surface.PlaySound("bw_button.wav")
+            surface.PlaySound("basewars/button.wav")
 
             net.Start("BaseWars:OpenSpawnpointMenu")
                 net.WriteEntity(v)
@@ -181,7 +181,7 @@ function SPAWN:CreateFrame()
         draw.SimpleText(LocalPlayer():GetLang("spawnpoint_spawnatworld"), "BaseWars.20", w * .5, h * .5, BaseWars:GetTheme("spawnpoint_text"), 1, 1)
     end
     self.SpawnAtWorld.DoClick = function(s)
-        surface.PlaySound("bw_button.wav")
+        surface.PlaySound("basewars/button.wav")
 
         net.Start("BaseWars:OpenSpawnpointMenu")
         net.SendToServer()

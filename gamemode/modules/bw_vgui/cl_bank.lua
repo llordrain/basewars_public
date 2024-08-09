@@ -375,7 +375,7 @@ function PANEL:Init()
 
             self.currentUpgrade = k
 
-            surface.PlaySound("bw_button.wav")
+            surface.PlaySound("basewars/button.wav")
         end
     end
 

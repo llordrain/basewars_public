@@ -542,7 +542,7 @@ BaseWars:AddFactionInteraction("faction_frendlyFire", buttonSize + bigMargin * 2
 			return
 		end
 
-		surface.PlaySound("bw_button.wav")
+		surface.PlaySound("basewars/button.wav")
 		s:SetState(not s:GetState())
 
 		localPlayer:ChangeFactionFriendlyFire(s:GetState())

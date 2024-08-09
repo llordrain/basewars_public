@@ -185,13 +185,13 @@ function PANEL:Init()
                 BaseWars:DrawMaterial(icons["copy"].icon, w - h * .5, h * .5, icons["copy"].size, icons["copy"].size, self.colors.text, 0)
             end
             command.Copy.DoClick = function(s)
-                surface.PlaySound("bw_button.wav")
+                surface.PlaySound("basewars/button.wav")
 
                 SetClipboardText(commandPrefix .. k .. commandArgs)
                 BaseWars:Notify("#dashboard_copiedCommand", NOTIFICATION_GENERIC, 5)
             end
             command.Copy.DoRightClick = function(s)
-                surface.PlaySound("bw_button.wav")
+                surface.PlaySound("basewars/button.wav")
 
                 SetClipboardText(commandPrefix .. k)
                 BaseWars:Notify("#dashboard_copiedCommand", NOTIFICATION_GENERIC, 5)
@@ -208,7 +208,7 @@ function PANEL:Init()
                 BaseWars:DrawMaterial(icons["execute_command"].icon, w - h * .5, h * .5, icons["execute_command"].size, icons["execute_command"].size, self.colors.text, 0)
             end
             command.ExecuteCommand.DoClick = function(s)
-                surface.PlaySound("bw_button.wav")
+                surface.PlaySound("basewars/button.wav")
 
                 RunConsoleCommand("say", commandPrefix .. k)
                 BaseWars:Notify("#dashboard_commandExecuted", NOTIFICATION_GENERIC, 5, commandPrefix .. k)

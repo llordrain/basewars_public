@@ -493,7 +493,7 @@ function PANEL:BuildTable(key, parent, subParent)
 				return
 			end
 
-			surface.PlaySound("bw_button.wav")
+			surface.PlaySound("basewars/button.wav")
 			table.insert(self.config[key], x)
 			self.somethingChanged = true
 
@@ -560,7 +560,7 @@ function PANEL:BuildTable(key, parent, subParent)
 					BaseWars:DrawRoundedBox(4, 0, 0, w, h, s.lerpColor)
 				end
 				item.DoClick = function(s)
-					surface.PlaySound("bw_button.wav")
+					surface.PlaySound("basewars/button.wav")
 
 					s:Remove()
 					self.config[key][k] = nil
@@ -651,7 +651,7 @@ function PANEL:BuildTable(key, parent, subParent)
 				return
 			end
 
-			surface.PlaySound("bw_button.wav")
+			surface.PlaySound("basewars/button.wav")
 			table.insert(self.config[key], text)
 			self.somethingChanged = true
 

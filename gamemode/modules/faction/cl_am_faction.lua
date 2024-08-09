@@ -135,7 +135,7 @@ function PANEL:Build()
             s.clicked = true
             s:SetState(not s:GetState())
 
-            surface.PlaySound("bw_button.wav")
+            surface.PlaySound("basewars/button.wav")
 
             net.Start("BaseWars:Factions:Admin:ToggleFriendlyFire")
                 net.WriteString(factionName)

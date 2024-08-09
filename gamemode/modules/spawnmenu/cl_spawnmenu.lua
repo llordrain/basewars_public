@@ -56,7 +56,7 @@ hook.Add("InitPostEntity", "BaseWars:SpawnMenu", function()
 			local prop = ILayout:Add("SpawnIcon")
 			prop:SetModel(v)
 			prop.DoClick = function(s)
-				surface.PlaySound("bw_button.wav")
+				surface.PlaySound("basewars/button.wav")
 				LocalPlayer():ConCommand("gm_spawn " .. s:GetModelName())
 			end
 		end

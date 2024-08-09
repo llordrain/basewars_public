@@ -140,7 +140,7 @@ function PANEL:Init()
 				return
 			end
 
-			surface.PlaySound("bw_button.wav")
+			surface.PlaySound("basewars/button.wav")
 
 			net.Start("BaseWars:Prestige.BuyPerk")
 				net.WriteString(k)

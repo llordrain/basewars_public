@@ -346,7 +346,7 @@ function PANEL:Init()
         upg.CheckBox.Toggle = function(s)
             if k == 5 and not BaseWars:IsVIP(self.localPlayer) then return end
 
-            surface.PlaySound("bw_button.wav")
+            surface.PlaySound("basewars/button.wav")
             s:SetState(not s:GetState())
 
             s:OnToggle(s:GetState())
@@ -576,7 +576,7 @@ function PANEL:Init()
 
             self.currentUpgrade = k
 
-            surface.PlaySound("bw_button.wav")
+            surface.PlaySound("basewars/button.wav")
         end
     end
 

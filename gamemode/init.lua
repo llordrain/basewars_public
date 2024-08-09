@@ -36,12 +36,14 @@ end
 AddCSLuaFile("shared.lua")
 include("shared.lua")
 
+AddCSLuaFile("cl_init.lua")
+
 AddCSLuaFile("lang.lua")
 AddCSLuaFile("themes.lua")
 
 AddCSLuaFile("config/default_config.lua")
 AddCSLuaFile("config/entities.lua")
-AddCSLuaFile("cl_init.lua")
+
 AddCSLuaFile("libraries/cami.lua")
 AddCSLuaFile("libraries/cppi.lua")
 AddCSLuaFile("libraries/material-avatar.lua")

@@ -7,6 +7,7 @@ ENT.Model = "models/props_c17/consolebox01a.mdl"
 
 ENT.IsPrinter = true
 ENT.PresetHealth = 150
+ENT.BasePaper = 5000
 
 ENT.Capacity = 10000
 ENT.UpgradeCost = 1000
@@ -20,25 +21,23 @@ ENT.TextColor = Color(255, 255, 255)
 function ENT:SetupNetWork()
 	self:NetworkVar("Float", 0, "Money")
 	self:NetworkVar("Float", 1, "Capacity")
-	self:NetworkVar("Float", 4, "PACost")
-	self:NetworkVar("Float", 5, "PICost")
-	self:NetworkVar("Float", 6, "PCCost")
-	self:NetworkVar("Float", 7, "AutoPaperCost")
-	self:NetworkVar("Float", 8, "CapacityCost")
-	self:NetworkVar("Float", 9, "PrintAmount")
-	self:NetworkVar("Float", 10, "PrintInterval")
-	self:NetworkVar("Float", 11, "BaseCost")
+
+	self:NetworkVar("Float", 2, "PrintAmount")
+	self:NetworkVar("Float", 3, "PrintInterval")
+
+	self:NetworkVar("Float", 4, "BaseUpgradePrice")
 
 	self:NetworkVar("Int", 0, "Paper")
 	self:NetworkVar("Int", 1, "MaxPaper")
-	self:NetworkVar("Int", 2, "PILevel")
-	self:NetworkVar("Int", 3, "PALevel")
-	self:NetworkVar("Int", 4, "CLevel")
-	self:NetworkVar("Int", 5, "PCLevel")
+
+	self:NetworkVar("Int", 2, "PrintAmountLevel")
+	self:NetworkVar("Int", 3, "PrintIntervalLevel")
+	self:NetworkVar("Int", 4, "CapacityLevel")
+	self:NetworkVar("Int", 5, "PaperCapacityLevel")
 
 	self:NetworkVar("Bool", 0, "AutoPaper")
-	self:NetworkVar("Bool", 1, "ConnectedToBank")
-	self:NetworkVar("Bool", 2, "Refund")
+
+	self:NetworkVar("Entity", 0, "Bank")
 end
 
 function ENT:OnUpgrade(ply)
@@ -55,4 +54,8 @@ function ENT:OnBuyPaper(ply)
 	local pos = self:WorldToLocal(trace.HitPos)
 
 	return pos.y >= .46 and pos.y <= 15.12 and pos.x >= 7.95 and pos.x <= 13.9
+end
+
+function ENT:GetUpgradeCost(upgrade, level)
+	return 0
 end

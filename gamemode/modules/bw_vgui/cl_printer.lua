@@ -3,47 +3,47 @@ local printerUpgrades = {
         id = "interval",
         icon = "interval",
         price = function(printer)
-            return IsValid(printer) and printer:GetPICost() or 0
+            return IsValid(printer) and printer:GetBaseUpgradePrice() * (printer:GetPrintIntervalLevel() + 1) or 0
         end,
         level = function(printer)
-            return IsValid(printer) and printer:GetPILevel() or 0
+            return IsValid(printer) and printer:GetPrintIntervalLevel() or 0
         end
     },
     {
         id = "amount",
         icon = "amount",
         price = function(printer)
-            return IsValid(printer) and printer:GetPACost() or 0
+            return IsValid(printer) and printer:GetBaseUpgradePrice() * (printer:GetPrintAmountLevel() + 1) or 0
         end,
         level = function(printer)
-            return IsValid(printer) and printer:GetPALevel() or 0
+            return IsValid(printer) and printer:GetPrintAmountLevel() or 0
         end
     },
     {
         id = "capacity",
         icon = "capacity",
         price = function(printer)
-            return IsValid(printer) and printer:GetCapacityCost() or 0
+            return IsValid(printer) and printer:GetBaseUpgradePrice() * (printer:GetCapacityLevel() + 1) or 0
         end,
         level = function(printer)
-            return IsValid(printer) and printer:GetCLevel() or 0
+            return IsValid(printer) and printer:GetCapacityLevel() or 0
         end
     },
     {
         id = "paperCapacity",
         icon = "paper",
         price = function(printer)
-            return IsValid(printer) and printer:GetPCCost() or 0
+            return IsValid(printer) and printer:GetBaseUpgradePrice() * (printer:GetPaperCapacityLevel() + 1) or 0
         end,
         level = function(printer)
-            return IsValid(printer) and printer:GetPCLevel() or 0
+            return IsValid(printer) and printer:GetPaperCapacityLevel() or 0
         end
     },
     {
         id = "autoPaper",
         icon = "paper",
         price = function(printer)
-            return IsValid(printer) and printer:GetAutoPaperCost() or 0
+            return IsValid(printer) and printer:GetBaseUpgradePrice() * 5 or 0
         end,
         level = function(printer)
             return IsValid(printer) and (printer:GetAutoPaper() == true and 1 or 0) or 0
@@ -241,7 +241,7 @@ function PANEL:Init()
 
         local totalCost, totalUpgrade, currentLevel = 0, 0, 0
         local textToDraw = self.localPlayer:GetLang("printer_upgradeMax")
-        local baseCost = IsValid(self:GetPrinter()) and self:GetPrinter():GetBaseCost() or 0
+        local baseCost = IsValid(self:GetPrinter()) and self:GetPrinter():GetBaseUpgradePrice() or 0
 
         if self.currentUpgrade == 5 and not BaseWars:IsVIP(self.localPlayer) then
             draw.SimpleText(self.localPlayer:GetLang("printer_VIPOnly"), "BaseWars.18", w * .5, h * .5, self.colors.text, 1, 1)
@@ -258,7 +258,7 @@ function PANEL:Init()
         end
 
         if self.currentUpgrade == 5 then
-            baseCost = self:GetPrinter():GetAutoPaperCost()
+            baseCost = printerUpgrades[5]["price"](self:GetPrinter())
         end
 
         for i = currentLevel + 1, maxUpgrade do -- +1 cause i dont need to pay for the upgrade i already have

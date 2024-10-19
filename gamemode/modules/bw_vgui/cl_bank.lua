@@ -3,7 +3,7 @@ local bankUpgrades = {
         id = "capacity",
         icon = "capacity",
         price = function(bank)
-            return IsValid(bank) and bank:GetCapacityCost() or 0
+            return IsValid(bank) and bank:GetBaseUpgradePrice() * .2 or 0
         end,
         level = function(bank)
             return IsValid(bank) and bank:GetCapacityLevel() or 0
@@ -13,7 +13,7 @@ local bankUpgrades = {
         id = "health",
         icon = "health",
         price = function(bank)
-            return IsValid(bank) and bank:GetHealthCost() or 0
+            return IsValid(bank) and bank:GetBaseUpgradePrice() or 0
         end,
         level = function(bank)
             return IsValid(bank) and bank:GetHealthLevel() or 0
@@ -216,7 +216,6 @@ function PANEL:Init()
             if not IsValid(v) then continue end
             if not v.IsPrinter then continue end
             if v:CPPIGetOwner() != self:GetBank():CPPIGetOwner() then continue end
-            if not v:GetConnectedToBank() then continue end
 
             local maxPaper = v:GetMaxPaper() or 0
             local paper = v:GetPaper() or 0
@@ -250,7 +249,6 @@ function PANEL:Init()
             if not IsValid(v) then continue end
             if not v.IsPrinter then continue end
             if v:CPPIGetOwner() != self:GetBank():CPPIGetOwner() then continue end
-            if not v:GetConnectedToBank() then continue end
 
             table.insert(printers, v)
         end

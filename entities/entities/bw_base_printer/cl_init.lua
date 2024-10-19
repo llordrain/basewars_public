@@ -11,17 +11,11 @@ function ENT:Initialize()
     self.moneyBar = 0
 end
 
-local icons = {
-    ["paper"] = Material("basewars_materials/printer/paper.png", "smooth"),
-    ["upgrade"] = Material("basewars_materials/printer/upgrade.png", "smooth"),
-}
-
 function ENT:Draw()
     self:DrawModel()
-
     local ply = LocalPlayer()
     local showPrinter = true
-    local hasBank = self:GetConnectedToBank()
+    local hasBank = false --self:GetBank()
     local traceEntity = ply:GetEyeTrace().Entity
 
     if ply:GetPos():Distance(self:GetPos()) > BaseWars.Config.EntityRenderDistance then
@@ -71,14 +65,14 @@ function ENT:Draw()
 
         -- Paper
         BaseWars:DrawRoundedBox(3, 5, 46, w - 10, 30, self.Color)
-        BaseWars:DrawMaterial(icons["paper"], 10, 51, 20, 20, textColor)
+        BaseWars:DrawMaterial(BaseWars.Icons["printer/paper"], 10, 51, 20, 20, textColor)
         BaseWars:DrawRoundedBox(3, 35, 51, w - 45, 20, self.SubColor)
         BaseWars:DrawRoundedBox(3, 35, 51, (w - 45) * self.paperBar, 20, textColor)
 
         -- Printer Infos
         BaseWars:DrawRoundedBox(3, 5, 81, w - 10, h - 156, self.Color)
 
-        if hasBank then
+        if IsValid(hasBank) then
             draw.SimpleText("+ " .. BaseWars:FormatMoney(printAmount / interval) .. "/s", "BaseWars.Printer.Info", w * .5, h - 159, textColor, 1, 4)
             draw.SimpleText(ply:GetLang("printer_paper"):format(paper, maxPaper), "BaseWars.Printer.Info", w * .5, h - 150, textColor, 1, 1)
             draw.SimpleText(ply:GetLang("printer_connectedToBank"), "BaseWars.Printer.Info", w * .5, h - 141, textColor, 1, 0)
@@ -92,7 +86,7 @@ function ENT:Draw()
 
             -- Paper
             BaseWars:DrawRoundedBox(3, 5, 46, w - 10, 30, self.Color)
-            BaseWars:DrawMaterial(icons["paper"], 10, 51, 20, 20, textColor)
+            BaseWars:DrawMaterial(BaseWars.Icons["printer/paper"], 10, 51, 20, 20, textColor)
             BaseWars:DrawRoundedBox(3, 35, 51, w - 45, 20, self.SubColor)
             BaseWars:DrawRoundedBox(3, 35, 51, (w - 45) * self.paperBar, 20, textColor)
 
@@ -107,12 +101,12 @@ function ENT:Draw()
 
         -- Upgrade button
         BaseWars:DrawRoundedBox(3, 5, 240, half, 60, self.Color)
-        BaseWars:DrawMaterial(icons["upgrade"], w * .25 - 15, 248, 30, 30, ColorAlpha(textColor, self.upgrades))
+        BaseWars:DrawMaterial(BaseWars.Icons["printer/upgrade"], w * .25 - 15, 248, 30, 30, ColorAlpha(textColor, self.upgrades))
         draw.SimpleText(ply:GetLang("printer_upgrade"), "BaseWars.Printer.Bottom", w * .25, w - 10, ColorAlpha(textColor, self.upgrades), 1, TEXT_ALIGN_BOTTOM)
 
         -- Buy paper button
         BaseWars:DrawRoundedBox(3, half + 10, 240, half, 60, self.Color)
-        BaseWars:DrawMaterial(icons["paper"], w * .75 - 15, 248, 30, 30, ColorAlpha(textColor, self.buyPaper))
+        BaseWars:DrawMaterial(BaseWars.Icons["printer/paper"], w * .75 - 15, 248, 30, 30, ColorAlpha(textColor, self.buyPaper))
         draw.SimpleText(ply:GetLang("printer_buypaper"), "BaseWars.Printer.Bottom", w * .75, w - 10, ColorAlpha(textColor, self.buyPaper), 1, TEXT_ALIGN_BOTTOM)
     cam.End3D2D()
 end

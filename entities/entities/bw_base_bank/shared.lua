@@ -14,15 +14,14 @@ ENT.TextColor = Color(255, 255, 255)
 function ENT:SetupNetWork()
 	self:NetworkVar("Float", 0, "Money")
 	self:NetworkVar("Float", 1, "Capacity")
-	self:NetworkVar("Float", 2, "Printing")
-	self:NetworkVar("Float", 3, "CapacityCost")
-	self:NetworkVar("Float", 4, "HealthCost")
 
+	self:NetworkVar("Float", 2, "BaseUpgradePrice")
+
+	self:NetworkVar("Float", 3, "PrintAmount")
 	self:NetworkVar("Int", 0, "PrinterCount")
+
 	self:NetworkVar("Int", 1, "CapacityLevel")
 	self:NetworkVar("Int", 2, "HealthLevel")
-
-	self:NetworkVar("Bool", 0, "Refund")
 end
 
 function ENT:OnUpgrade(ply)

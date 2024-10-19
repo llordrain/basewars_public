@@ -235,7 +235,7 @@ function BaseWars:IsSuperAdmin(ply)
 		return false
 	end
 
-	return BaseWars.Config.SuperAdmins[ply:GetUserGroup()] or BaseWars.DefaultConfig.ServerOwner[ply:SteamID64()] or false
+	return BaseWars.Config.SuperAdmins[ply:GetUserGroup()] or --[[BaseWars.DefaultConfig.ServerOwner[ply:SteamID64()] or]] false
 end
 
 function BaseWars:GetVIPGroups()

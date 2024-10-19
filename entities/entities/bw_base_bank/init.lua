@@ -10,31 +10,33 @@ include("shared.lua")
 function ENT:Init()
 	self:SetMoney(0)
 	self:SetCapacity(100000)
-	self:SetPrinting(0)
 
-	self:SetCapacityCost(20000)
-	self:SetHealthCost(self:GetCapacityCost() * 8)
+	self:SetBaseUpgradePrice(1000)
+
+	self:SetPrintAmount(0)
+	self:SetPrinterCount(0)
 
 	self:SetCapacityLevel(0)
 	self:SetHealthLevel(0)
-	self:SetPrinterCount(0)
 
-	self:SetRefund(true)
-
-	self.Printers = {}
-
-	self.InterestTime = CurTime()
-	self.WaitScan = CurTime()
-	self.Time = CurTime()
-
-	self:Scan(self:CPPIGetOwner())
+	self.WithdrawTime = 0
+	self.InterestTime = CurTime() + 60 * 15
+	self.WaitScan = 0
 end
 
-function ENT:WithdrawMoney(ply, bypassPrivate)
-	if not (bypassPrivate and BaseWars:IsSuperAdmin(ply)) and not BaseWars.Config.PrinterPublic and self:CPPIGetOwner() != ply then
-		BaseWars:Notify(ply, "#printer_notYours", NOTIFICATION_ERROR, 5)
+function ENT:WithdrawMoney(ply, adminBypass)
+	if not BaseWars.Config.PrinterPublic and self:CPPIGetOwner() != ply and not (adminBypass and BaseWars:IsSuperAdmin(ply)) then
+		BaseWars:Notify(ply, "#bank_notYours", NOTIFICATION_ERROR, 5)
+
 		return
 	end
+
+	-- Prevents player from withdrawing for no reason and create a shitload of logs if you have a logging addon :]
+	if self.WithdrawTime >= CurTime() then
+		return
+	end
+
+	self.WithdrawTime = CurTime() + .5
 
 	local money = self:GetMoney()
 	local xp = math.floor(BaseWars:CalculatePlayerXP(ply, BaseWars:CalculateXPFromMultiplier(money) * BaseWars.Config.XPMult))
@@ -51,107 +53,120 @@ function ENT:WithdrawMoney(ply, bypassPrivate)
 end
 
 function ENT:Use(ply)
-	if not (ply and ply:IsPlayer()) then return end
+	if not ply:IsPlayer() then
+		return
+	end
 
 	if self:OnUpgrade(ply) then
 		net.Start("BaseWars:Bank:OpenUpgradeMenu")
 			net.WriteEntity(self)
 		net.Send(ply)
-	else
-		self:WithdrawMoney(ply)
+
+		return
 	end
+
+	self:WithdrawMoney(ply)
 end
 
-function ENT:UpgradeCapacity(ply)
-	if self:GetCapacityLevel() >= BaseWars.Config.BankMaxLevel["capacity"] then
-		BaseWars:Notify(ply, "#printer_maxupgrade", NOTIFICATION_ERROR, 5)
-		return
-	end
+function ENT:Upgrade(ply, upgrade)
+	if upgrade == "capacity" then
+		if self:GetCapacityLevel() >= BaseWars.Config.BankMaxLevel["capacity"] then
+			BaseWars:Notify(ply, "#printer_maxupgrade", NOTIFICATION_ERROR, 5)
 
-	if self:GetCapacityLevel() >= BaseWars.Config.BankMaxLevel["capacity"] then
-		return
-	end
-
-	local level = self:GetCapacityLevel()
-	local realCost = self:GetCapacityCost() * 10 ^ self:GetCapacityLevel()
-	if not ply:CanAfford(realCost) then
-		return
-	end
-
-	ply:TakeMoney(realCost)
-	self:SetCapacityLevel(level + 1)
-	self:SetCapacity(self:GetCapacity() * 10)
-	self:SetCurrentValue(self:GetCurrentValue() + realCost)
-
-	hook.Run("BaseWars:PlayerUpgradeBank", ply, self, "capacity", realCost)
-
-	BaseWars:Notify(ply, "#bank_buyupgrade", NOTIFICATION_PURCHASE, 5, ply:GetLang("bank_upgrades", "capacityName"), BaseWars:FormatMoney(realCost))
-end
-
-function ENT:UpgradeHealth(ply)
-	if self:GetHealthLevel() >= BaseWars.Config.BankMaxLevel["health"] then
-		BaseWars:Notify(ply, "#printer_maxupgrade", NOTIFICATION_ERROR, 5)
-		return
-	end
-
-	if self:GetHealthLevel() >= BaseWars.Config.BankMaxLevel["health"] then
-		return
-	end
-
-	local level = self:GetHealthLevel()
-	local realCost = self:GetHealthCost() * 10 ^ self:GetHealthLevel()
-	if not ply:CanAfford(realCost) then
-		return
-	end
-
-	ply:TakeMoney(realCost)
-	self:SetHealthLevel(level + 1)
-	self:SetCurrentValue(self:GetCurrentValue() + realCost)
-
-	local oldHealth = self:GetMaxHealth()
-	self:SetMaxHealth(self.PresetHealth * (self:GetHealthLevel() + 1) ^ 2.2)
-	if self:Health() == oldHealth then
-		self:SetHealth(self:GetMaxHealth())
-	end
-
-	hook.Run("BaseWars:PlayerUpgradeBank", ply, self, "health", realCost)
-
-	BaseWars:Notify(ply, "#bank_buyupgrade", NOTIFICATION_PURCHASE, 5, ply:GetLang("bank_upgrades", "healthName"), BaseWars:FormatMoney(realCost))
-end
-
-function ENT:Scan(ply)
-	if not IsValid(ply) then return end
-	self:SetPrinting(0)
-
-	local entities = {}
-	local entitiesFound = ents.FindByClass("bw_*")
-	for k, v in pairs(entitiesFound) do
-		if not IsValid(v) then continue end
-		if not v.IsPrinter then continue end
-		if not v.CPPIGetOwner then continue end
-		if v:CPPIGetOwner() != self:CPPIGetOwner() then continue end
-		if not self:InRange(v) then continue end
-
-		if v:GetPaper() > 0 then
-			self:SetPrinting(self:GetPrinting() + v:GetPrintAmount() / v:GetPrintInterval())
+			return
 		end
 
-		v:SetConnectedToBank(true)
+		local upgradeLevel = self:GetCapacityLevel()
+		local upgradePrice = self:GetBaseUpgradePrice() * .2 * 10 ^ upgradeLevel
 
-		table.insert(entities, v)
+		if not ply:CanAfford(upgradePrice) then
+			return
+		end
+
+		self:SetCapacityLevel(upgradeLevel + 1)
+		self:SetCapacity(self:GetCapacity() * 10)
+		self:SetCurrentValue(self:GetCurrentValue() + upgradePrice)
+
+		ply:TakeMoney(upgradePrice)
+		BaseWars:Notify(ply, "#bank_buyupgrade", NOTIFICATION_PURCHASE, 5, ply:GetLang("bank_upgrades", upgrade .. "Name"), BaseWars:FormatMoney(upgradePrice))
+
+		hook.Run("BaseWars:PlayerUpgradeBank", ply, self, upgrade, upgradePrice)
 	end
 
-	self.Printers = entities
-	self:SetPrinterCount(table.Count(entities))
+	if upgrade == "health" then
+		if self:GetHealthLevel() >= BaseWars.Config.BankMaxLevel["health"] then
+			BaseWars:Notify(ply, "#printer_maxupgrade", NOTIFICATION_ERROR, 5)
+
+			return
+		end
+
+		local upgradeLevel = self:GetHealthLevel()
+		local upgradePrice = self:GetBaseUpgradePrice() * 10 ^ upgradeLevel
+
+		if not ply:CanAfford(upgradePrice) then
+			return
+		end
+
+		self:SetHealthLevel(upgradeLevel + 1)
+		self:SetCurrentValue(self:GetCurrentValue() + upgradePrice)
+
+		local oldHealth = self:GetMaxHealth()
+		self:SetMaxHealth(self.PresetHealth * (self:GetHealthLevel() + 1) ^ 2.2)
+		if self:Health() == oldHealth then
+			self:SetHealth(self:GetMaxHealth())
+		end
+
+		ply:TakeMoney(upgradePrice)
+		BaseWars:Notify(ply, "#bank_buyupgrade", NOTIFICATION_PURCHASE, 5, ply:GetLang("bank_upgrades", upgrade .. "Name"), BaseWars:FormatMoney(upgradePrice))
+
+		hook.Run("BaseWars:PlayerUpgradeBank", ply, self, upgrade, upgradePrice)
+	end
 end
 
-function ENT:OnRemove()
-	if not self:GetRefund() then return end
+function ENT:Scan()
+	local owner = self:CPPIGetOwner()
 
-	local selfOwner = self:CPPIGetOwner()
-	if IsValid(selfOwner) then
-		self:WithdrawMoney(selfOwner)
+	if not IsValid(owner) then
+		return
 	end
+
+	local oldPrinterCount = self:GetPrinterCount()
+
+	local printAmount = 0
+	local printerCount = 0
+	for _, v in ipairs(ents.GetAll()) do
+		if not IsValid(v) then continue end
+		if not v.IsPrinter then continue end
+		if v:CPPIGetOwner() != owner then continue end
+
+		printAmount = printAmount + v:GetPrintAmount() / v:GetPrintInterval()
+		printerCount = printerCount + 1
+
+		v:SetBank(self)
+	end
+
+	self:SetPrintAmount(printAmount)
+	self:SetPrinterCount(printerCount)
+
+	-- if oldPrinterCount < printerCount then
+	-- 	self:SyncPrinters()
+	-- end
+end
+
+function ENT:SyncPrinters()
+	local owner = self:CPPIGetOwner()
+
+	for _, v in ipairs(ents.GetAll()) do
+		if not IsValid(v) then continue end
+		if not v.IsPrinter then continue end
+		if v:CPPIGetOwner() != owner then continue end
+
+		v.LastPrintTime = CurTime() + 1
+	end
+end
+
+function ENT:AddMoney(money)
+	self:SetMoney(math.Clamp(self:GetMoney() + money, 0, self:GetCapacity()))
 end
 
 function ENT:InRange(printer)
@@ -163,7 +178,11 @@ function ENT:InRange(printer)
 end
 
 function ENT:ThinkFunc()
-	if self:BadlyDamaged() then return end
+	if self:BadlyDamaged() and math.random(0, 10) == 0 then
+		self:Spark()
+
+		return
+	end
 
 	local owner = self:CPPIGetOwner()
 
@@ -178,29 +197,10 @@ function ENT:ThinkFunc()
 		self.InterestTime = CurTime() + 60 * 15
 	end
 
-	if CurTime() >= self.Time and self:GetMoney() < self:GetCapacity() then
-		for k, v in pairs(self.Printers) do
-			if not IsValid(v) then continue end
-			if v:BadlyDamaged() then continue end
-
-			local money = v:GetMoney()
-			local max = self:GetCapacity() - self:GetMoney()
-			if money >= max then
-				v:SetMoney(money - max)
-				money = max
-			else
-				v:SetMoney(0)
-			end
-
-			self:SetMoney(self:GetMoney() + money)
-		end
-
-		self.Time = CurTime() + .25
-	end
-
 	if CurTime() >= self.WaitScan then
 		self:Scan(self:CPPIGetOwner())
-		self.WaitScan = CurTime() + 2
+
+		self.WaitScan = CurTime() + 1
 	end
 end
 
@@ -218,11 +218,7 @@ net.Receive("BaseWars:Bank:BuyUpgrade", function(len, ply)
 		return
 	end
 
-	if upgradeID == 1 then
-		bank:UpgradeCapacity(ply)
-	elseif upgradeID == 2 then
-		bank:UpgradeHealth(ply)
-	end
+	bank:Upgrade(ply, upgradeID == 1 and "capacity" or "health")
 end)
 
 net.Receive("BaseWars:Bank:BuyPaper", function(len, ply)

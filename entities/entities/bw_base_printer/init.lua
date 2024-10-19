@@ -8,63 +8,119 @@ util.AddNetworkString("BaseWars:Printer:BuyPaperFromMenu")
 util.AddNetworkString("BaseWars:Printer:QuickUpgrade")
 util.AddNetworkString("BaseWars:Printer:TakeMoneyMenu")
 
-function ENT:Init()
-	self:SetMaxEnergy(500)
-	self:SetEnergy(self:GetMaxEnergy())
+local function calculateUpgradeCount(ply, BaseUpgradePrice, currentLevel, isMax, maxUpgradeCount)
+	local upgradeCount = 0
+	local totalPrice = 0
+	for i = currentLevel + 1, isMax and maxUpgradeCount or currentLevel + 1 do
+		if not ply:CanAfford(totalPrice + BaseUpgradePrice * i) then
+			break
+		end
 
-	self:SetMoney(0)
-	self:SetCapacity(self.Capacity)
-	self:SetPrintAmount(self.PrintAmount)
-	self:SetPrintInterval(self.PrintInterval)
-	self:SetupPrinterCost(1000)
-	self:SetConnectedToBank(false)
+		totalPrice = totalPrice + BaseUpgradePrice * i
+		upgradeCount = upgradeCount + 1
+	end
 
-	self:SetMaxPaper(5000)
-	self:SetPaper(self:GetMaxPaper())
-
-	self:SetPILevel(0)
-	self:SetPALevel(0)
-	self:SetCLevel(0)
-	self:SetPCLevel(0)
-	self:SetAutoPaper(false)
-
-	self:SetRefund(true)
-
-	self.BasePaper = 5000
-	self.PrintTime = CurTime()
-	self.Withdraw = CurTime()
-	self.TakeMoney = CurTime()
+	return upgradeCount, totalPrice
 end
 
-function ENT:SetupPrinterCost(amount)
-	self:SetPACost(amount)
-	self:SetPICost(amount)
-	self:SetPCCost(amount)
-	self:SetCapacityCost(amount)
-	self:SetAutoPaperCost(amount * 5)
-	self:SetBaseCost(amount)
+local function takeMoneyAndLog(ply, upgrade, upgradeCount, totalPrice, printer)
+	printer:SetCurrentValue(printer:GetCurrentValue() + totalPrice)
+
+	ply:TakeMoney(totalPrice)
+	BaseWars:Notify(ply, "#printer_buyupgrade", NOTIFICATION_PURCHASE, 5, ply:GetLang("printer_upgrades", upgrade .. "Name"), upgradeCount, BaseWars:FormatMoney(totalPrice))
+
+	hook.Run("BaseWars:PlayerUpgradePrinter", ply, printer, upgrade, upgradeCount, totalPrice)
+end
+
+function ENT:Init()
+	-- Float
+	self:SetMoney(0)
+	self:SetCapacity(self.Capacity)
+
+	self:SetPrintAmount(self.PrintAmount)
+	self:SetPrintInterval(self.PrintInterval)
+
+	self:SetBaseUpgradePrice(5)
+
+	-- Int
+	self:SetMaxEnergy(500) -- From bw_base_electronics
+	self:SetEnergy(self:GetMaxEnergy()) -- From bw_base_electronics
+
+	self:SetMaxPaper(self.BasePaper)
+	self:SetPaper(self:GetMaxPaper())
+
+	self:SetPrintAmountLevel(0)
+	self:SetPrintIntervalLevel(0)
+	self:SetCapacityLevel(0)
+	self:SetPaperCapacityLevel(0)
+
+	-- Bool
+	self:SetAutoPaper(false)
+
+	-- Entity
+	self:SetBank(NULL)
+
+	self.WithdrawTime = 0
+	self.LastPrintTime = 0
 end
 
 function ENT:PrintMoney()
-	if not IsValid(self:CPPIGetOwner()) then return end
-	if self:GetMoney() >= self:GetCapacity() then return end
-	if self:GetPaper() <= 0 then return end
+	local money = self:GetMoney()
+	local capacity = self:GetCapacity()
+	local paper = self:GetPaper()
 
-	local printed = self:GetPrintAmount()
-	local added = math.Clamp(self:GetMoney() + printed, 0, self:GetCapacity())
-
-	self:SetMoney(added)
-	self:SetPaper(self:GetPaper() - 1)
-end
-
-function ENT:WithdrawMoney(ply, bypassPrivate)
-	if not (bypassPrivate and BaseWars:IsSuperAdmin(ply)) and not BaseWars.Config.PrinterPublic and self:CPPIGetOwner() != ply then
-		BaseWars:Notify(ply, "#printer_notYours", NOTIFICATION_ERROR, 5)
+	if money >= capacity then
 		return
 	end
 
-	if CurTime() < self.Withdraw + .5 then return end
-	self.Withdraw = CurTime()
+	if paper <= 0 then
+		return
+	end
+
+	local printed = self:GetPrintAmount()
+	local bank = self:GetBank()
+
+	if IsValid(bank) and bank:InRange(self) then
+		local bankMoney = bank:GetMoney()
+		local bankCapacity = bank:GetCapacity()
+
+		if bankMoney >= bankCapacity then
+			self:AddMoney(printed)
+		else
+			if bankMoney + printed > bankCapacity then
+				local excess = printed - (bankCapacity - bankMoney)
+
+				if excess > 0 then
+					self:AddMoney(excess)
+				end
+			end
+
+			bank:AddMoney(printed)
+		end
+	else
+		self:AddMoney(printed)
+	end
+
+	self:SetPaper(paper - 1)
+end
+
+function ENT:AddMoney(money)
+	self:SetMoney(math.Clamp(self:GetMoney() + money, 0, self:GetCapacity()))
+end
+
+function ENT:WithdrawMoney(ply, adminBypass)
+	if not BaseWars.Config.PrinterPublic and self:CPPIGetOwner() != ply and not (adminBypass and BaseWars:IsSuperAdmin(ply)) then
+		BaseWars:Notify(ply, "#printer_notYours", NOTIFICATION_ERROR, 5)
+
+		return
+	end
+
+	-- Prevents player from withdrawing for no reason and create a shitload of logs if you have a logging addon :]
+	if self.WithdrawTime >= CurTime() then
+		return
+	end
+
+	self.WithdrawTime = CurTime() + .5
 
 	local money = self:GetMoney()
 	local xp = math.floor(BaseWars:CalculatePlayerXP(ply, BaseWars:CalculateXPFromMultiplier(money) * BaseWars.Config.XPMult))
@@ -81,229 +137,159 @@ function ENT:WithdrawMoney(ply, bypassPrivate)
 end
 
 function ENT:Use(ply)
-	if not (ply and ply:IsPlayer()) then return end
+	if not ply:IsPlayer() then
+		return
+	end
 
 	if self:OnBuyPaper(ply) then
 		self:RefillPaper(ply)
-	elseif self:OnUpgrade(ply) then
+
+		return
+	end
+
+	if self:OnUpgrade(ply) then
 		net.Start("BaseWars:Printer:OpenUpgradeMenu")
 			net.WriteEntity(self)
 		net.Send(ply)
-	else
-		self:WithdrawMoney(ply)
+
+		return
+	end
+
+	self:WithdrawMoney(ply)
+end
+
+function ENT:Upgrade(ply, upgrade, max, hideMaxUpgradeNotif)
+	if not IsValid(ply) or not ply:IsPlayer() then
+		return
+	end
+
+	local BaseUpgradePrice = self:GetBaseUpgradePrice()
+
+	if upgrade == "interval" then
+		local currentLevel = self:GetPrintIntervalLevel()
+		local maxUpgradeCount = BaseWars.Config.PrinterMaxLevel[upgrade]
+
+		if self:GetPrintIntervalLevel() >= BaseWars.Config.PrinterMaxLevel[upgrade] then
+			if not hideMaxUpgradeNotif then
+				BaseWars:Notify(ply, "#printer_maxupgrade", NOTIFICATION_ERROR, 5)
+			end
+
+			return
+		end
+
+		local upgradeCount, totalPrice = calculateUpgradeCount(ply, BaseUpgradePrice, currentLevel, max, maxUpgradeCount)
+		if upgradeCount == 0 then
+			return
+		end
+
+		local finalLevel = currentLevel + upgradeCount
+
+		self:SetPrintIntervalLevel(finalLevel)
+		self:SetPrintInterval(1 - upgradeCount * .05)
+
+		takeMoneyAndLog(ply, upgrade, upgradeCount, totalPrice, self)
+	end
+
+	if upgrade == "amount" then
+		local currentLevel = self:GetPrintAmountLevel()
+		local maxUpgradeCount = BaseWars.Config.PrinterMaxLevel[upgrade]
+
+		if self:GetPrintAmountLevel() >= BaseWars.Config.PrinterMaxLevel[upgrade] then
+			if not hideMaxUpgradeNotif then
+				BaseWars:Notify(ply, "#printer_maxupgrade", NOTIFICATION_ERROR, 5)
+			end
+
+			return
+		end
+
+		local upgradeCount, totalPrice = calculateUpgradeCount(ply, BaseUpgradePrice, currentLevel, max, maxUpgradeCount)
+		if upgradeCount == 0 then
+			return
+		end
+
+		local finalLevel = currentLevel + upgradeCount
+
+		self:SetPrintAmountLevel(finalLevel)
+		self:SetPrintAmount(self.PrintAmount * (finalLevel + 1) ^ 1.45)
+
+		takeMoneyAndLog(ply, upgrade, upgradeCount, totalPrice, self)
+	end
+
+	if upgrade == "capacity" then
+		local currentLevel = self:GetCapacityLevel()
+		local maxUpgradeCount = BaseWars.Config.PrinterMaxLevel[upgrade]
+
+		if self:GetCapacityLevel() >= BaseWars.Config.PrinterMaxLevel[upgrade] then
+			if not hideMaxUpgradeNotif then
+				BaseWars:Notify(ply, "#printer_maxupgrade", NOTIFICATION_ERROR, 5)
+			end
+
+			return
+		end
+
+		local upgradeCount, totalPrice = calculateUpgradeCount(ply, BaseUpgradePrice, currentLevel, max, maxUpgradeCount)
+		if upgradeCount == 0 then
+			return
+		end
+
+		local finalLevel = currentLevel + upgradeCount
+
+		self:SetCapacityLevel(finalLevel)
+		self:SetCapacity(self.Capacity * (finalLevel * 6))
+
+		takeMoneyAndLog(ply, upgrade, upgradeCount, totalPrice, self)
+	end
+
+	if upgrade == "paperCapacity" then
+		local currentLevel = self:GetPaperCapacityLevel()
+		local maxUpgradeCount = BaseWars.Config.PrinterMaxLevel[upgrade]
+
+		if self:GetPaperCapacityLevel() >= BaseWars.Config.PrinterMaxLevel[upgrade] then
+			if not hideMaxUpgradeNotif then
+				BaseWars:Notify(ply, "#printer_maxupgrade", NOTIFICATION_ERROR, 5)
+			end
+
+			return
+		end
+
+		local upgradeCount, totalPrice = calculateUpgradeCount(ply, BaseUpgradePrice, currentLevel, max, maxUpgradeCount)
+		if upgradeCount == 0 then
+			return
+		end
+
+		local finalLevel = currentLevel + upgradeCount
+
+		self:SetPaperCapacityLevel(finalLevel)
+		self:SetMaxPaper(self.BasePaper + finalLevel * 1000)
+
+		takeMoneyAndLog(ply, upgrade, upgradeCount, totalPrice, self)
+	end
+
+	if upgrade == "autoPaper" then
+		if self:GetAutoPaper() then
+			if not hideMaxUpgradeNotif then
+				BaseWars:Notify(ply, "#printer_maxupgrade", NOTIFICATION_ERROR, 5)
+			end
+
+			return
+		end
+
+		local upgradePrice = BaseUpgradePrice * 5
+
+		if not ply:CanAfford(upgradePrice) then
+			return
+		end
+
+		self:SetAutoPaper(true)
+
+		takeMoneyAndLog(ply, upgrade, 1, upgradePrice, self)
 	end
 end
 
-function ENT:OnRemove()
-	if not self:GetRefund() then return end
-
-	local selfOwner = self:CPPIGetOwner()
-	if IsValid(selfOwner) then
-		self:WithdrawMoney(selfOwner)
-	end
-end
-
-function ENT:UpgradeInterval(ply, max)
-	if self:GetPILevel() >= BaseWars.Config.PrinterMaxLevel["interval"] then
-		BaseWars:Notify(ply, "#printer_maxupgrade", NOTIFICATION_ERROR, 5)
-		return
-	end
-
-	local levelToGo = max and BaseWars.Config.PrinterMaxLevel["interval"] - self:GetPILevel() or 1
-	local baseCost = self:GetBaseCost()
-	local totalCost = 0
-	local level = self:GetPILevel()
-	local upgrades = 0
-
-	while upgrades < levelToGo do
-		if level + upgrades >= BaseWars.Config.PrinterMaxLevel["interval"] then
-			break
-		end
-
-		if not ply:CanAfford(baseCost * (level + upgrades + 1)) then
-			break
-		end
-
-		upgrades = upgrades + 1
-
-		totalCost = totalCost + baseCost * (level + upgrades)
-
-		self:SetPILevel(level + upgrades)
-		self:SetPrintInterval(self:GetPrintInterval() - .05)
-
-		ply:TakeMoney(baseCost * (level + upgrades))
-		self:SetPICost(baseCost * (level + upgrades + 1))
-
-		self:SetCurrentValue(self:GetCurrentValue() + baseCost * (level + upgrades))
-	end
-
-	if upgrades == 0 then
-		return
-	end
-
-	hook.Run("BaseWars:PlayerUpgradePrinter", ply, self, "interval", upgrades, totalCost)
-
-	BaseWars:Notify(ply, "#printer_buyupgrade", NOTIFICATION_PURCHASE, 5, ply:GetLang("printer_upgrades", "intervalName"), upgrades, BaseWars:FormatMoney(totalCost))
-end
-
-function ENT:UpgradeAmount(ply, max)
-	if self:GetPALevel() >= BaseWars.Config.PrinterMaxLevel["amount"] then
-		BaseWars:Notify(ply, "#printer_maxupgrade", NOTIFICATION_ERROR, 5)
-		return
-	end
-
-	local levelToGo = max and BaseWars.Config.PrinterMaxLevel["amount"] - self:GetPALevel() or 1
-	local baseCost = self:GetBaseCost()
-	local totalCost = 0
-	local level = self:GetPALevel()
-	local upgrades = 0
-
-	while upgrades < levelToGo do
-		if level + upgrades >= BaseWars.Config.PrinterMaxLevel["amount"] then
-			break
-		end
-
-		if not ply:CanAfford(baseCost * (level + upgrades + 1)) then
-			break
-		end
-
-		upgrades = upgrades + 1
-
-		totalCost = totalCost + baseCost * (level + upgrades)
-
-		self:SetPALevel(level + upgrades)
-		self:SetPrintAmount(self.PrintAmount * ((level + upgrades) + 1) ^ 1.6)
-
-		ply:TakeMoney(baseCost * (level + upgrades))
-		self:SetPACost(baseCost * (level + upgrades + 1))
-
-		self:SetCurrentValue(self:GetCurrentValue() + baseCost * (level + upgrades))
-	end
-
-	if upgrades == 0 then
-		return
-	end
-
-	hook.Run("BaseWars:PlayerUpgradePrinter", ply, self, "amount", upgrades, totalCost)
-
-	BaseWars:Notify(ply, "#printer_buyupgrade", NOTIFICATION_PURCHASE, 5, ply:GetLang("printer_upgrades", "amountName"), upgrades, BaseWars:FormatMoney(totalCost))
-end
-
-function ENT:UpgradeCapacity(ply, max)
-	if self:GetCLevel() >= BaseWars.Config.PrinterMaxLevel["capacity"] then
-		BaseWars:Notify(ply, "#printer_maxupgrade", NOTIFICATION_ERROR, 5)
-		return
-	end
-
-	local levelToGo = max and BaseWars.Config.PrinterMaxLevel["capacity"] - self:GetCLevel() or 1
-	local baseCost = self:GetBaseCost()
-	local totalCost = 0
-	local level = self:GetCLevel()
-	local upgrades = 0
-
-	while upgrades < levelToGo do
-		if level + upgrades >= BaseWars.Config.PrinterMaxLevel["capacity"] then
-			break
-		end
-
-		if not ply:CanAfford(baseCost * (level + upgrades + 1)) then
-			break
-		end
-
-		upgrades = upgrades + 1
-
-		totalCost = totalCost + baseCost * (level + upgrades)
-
-		self:SetCLevel(level + upgrades)
-		self:SetCapacity(self.Capacity * ((level + upgrades) * 4))
-
-		ply:TakeMoney(baseCost * (level + upgrades))
-		self:SetCapacityCost(baseCost * (level + upgrades + 1))
-
-		self:SetCurrentValue(self:GetCurrentValue() + baseCost * (level + upgrades))
-	end
-
-	if upgrades == 0 then
-		return
-	end
-
-	hook.Run("BaseWars:PlayerUpgradePrinter", ply, self, "capacity", upgrades, totalCost)
-
-	BaseWars:Notify(ply, "#printer_buyupgrade", NOTIFICATION_PURCHASE, 5, ply:GetLang("printer_upgrades", "capacityName"), upgrades, BaseWars:FormatMoney(totalCost))
-end
-
-function ENT:UpgradePaperCapacity(ply, max)
-	if self:GetPCLevel() >= BaseWars.Config.PrinterMaxLevel["paperCapacity"] then
-		BaseWars:Notify(ply, "#printer_maxupgrade", NOTIFICATION_ERROR, 5)
-		return
-	end
-
-	local levelToGo = max and BaseWars.Config.PrinterMaxLevel["paperCapacity"] - self:GetPCLevel() or 1
-	local baseCost = self:GetBaseCost()
-	local totalCost = 0
-	local level = self:GetPCLevel()
-	local upgrades = 0
-
-	while upgrades < levelToGo do
-		if level + upgrades >= BaseWars.Config.PrinterMaxLevel["paperCapacity"] then
-			break
-		end
-
-		if not ply:CanAfford(baseCost * (level + upgrades + 1)) then
-			break
-		end
-
-		upgrades = upgrades + 1
-
-		totalCost = totalCost + baseCost * (level + upgrades)
-
-		self:SetPCLevel(level + upgrades)
-		self:SetMaxPaper(self.BasePaper + (level + upgrades) * 1000)
-
-		ply:TakeMoney(baseCost * (level + upgrades))
-		self:SetPCCost(baseCost * (level + upgrades + 1))
-
-		self:SetCurrentValue(self:GetCurrentValue() + baseCost * (level + upgrades))
-	end
-
-	if upgrades == 0 then
-		return
-	end
-
-	hook.Run("BaseWars:PlayerUpgradePrinter", ply, self, "paperCapacity", upgrades, totalCost)
-
-	BaseWars:Notify(ply, "#printer_buyupgrade", NOTIFICATION_PURCHASE, 5, ply:GetLang("printer_upgrades", "paperCapacityName"), upgrades, BaseWars:FormatMoney(totalCost))
-end
-
-function ENT:UpgradeAutoPaper(ply, max)
-	if not BaseWars:IsVIP(ply) then
-		BaseWars:Notify(ply, "#printer_VIPOnly", NOTIFICATION_ERROR, 5)
-		return
-	end
-
-	if self:GetAutoPaper() then
-		BaseWars:Notify(ply, "#printer_maxupgrade", NOTIFICATION_ERROR, 5)
-		return
-	end
-
-	local cost = self:GetAutoPaperCost()
-	if not ply:CanAfford(cost) then
-		BaseWars:Notify(ply, "#printer_cantAffordUpgrade", NOTIFICATION_ERROR, 5)
-		return
-	end
-
-	self:SetAutoPaper(true)
-	ply:TakeMoney(cost)
-	self:SetCurrentValue(self:GetCurrentValue() + cost)
-
-	hook.Run("BaseWars:PlayerUpgradePrinter", ply, self, "autoPaper", 1, cost)
-
-	BaseWars:Notify(ply, "#printer_buyupgrade", NOTIFICATION_PURCHASE, 5, ply:GetLang("printer_upgrades", "autoPaperName"), "1", BaseWars:FormatMoney(cost))
-end
-
-function ENT:RefillPaper(ply, bypassPrivate)
-	if not (bypassPrivate and BaseWars:IsSuperAdmin(ply)) and not BaseWars.Config.PrinterPublic and self:CPPIGetOwner() != ply then
+function ENT:RefillPaper(ply, adminBypass)
+	if not BaseWars.Config.PrinterPublic and self:CPPIGetOwner() != ply and not (adminBypass and BaseWars:IsSuperAdmin(ply)) then
 		BaseWars:Notify(ply, "#printer_notYours", NOTIFICATION_ERROR, 5)
+
 		return
 	end
 
@@ -332,107 +318,123 @@ function ENT:RefillPaper(ply, bypassPrivate)
 end
 
 function ENT:Think()
+	local owner = self:CPPIGetOwner()
+
 	self:NextThink(CurTime())
 
-	if not IsValid(self:CPPIGetOwner()) then return end
+	-- The printer stops working if the it has no owner
+	-- if not IsValid(owner) then
+	-- 	return
+	-- end
+
+	-- Should proly redo this?
 	if self:BadlyDamaged() and math.random(0, 10) == 0 then
 		self:Spark()
+
 		return
 	end
 
-	if CurTime() >= self.PrintTime then
-		if self:GetAutoPaper() and self:GetPaper() <= 0 then
-			self:RefillPaper(self:CPPIGetOwner())
+	if CurTime() >= self.LastPrintTime then
+		if self:GetAutoPaper() and self:GetPaper() <= 0 and IsValid(owner) then
+			self:RefillPaper(owner)
+		end
+
+		local money = self:GetMoney()
+		local bank = self:GetBank()
+		if IsValid(bank) and bank:InRange(self) then
+			local bankMoney = bank:GetMoney()
+			local bankCapacity = bank:GetCapacity()
+			local roomLeft = bankCapacity - bankMoney
+
+			if roomLeft > 0 then
+				if money > roomLeft then
+					local excess = money - roomLeft
+
+					self:SetMoney(excess)
+					bank:AddMoney(money - excess)
+				else
+					self:SetMoney(0)
+					bank:AddMoney(money)
+				end
+			end
 		end
 
 		self:PrintMoney()
-		self.PrintTime = CurTime() + self:GetPrintInterval()
+
+		self.LastPrintTime = CurTime() + self:GetPrintInterval()
 	end
 
 	return true
 end
 
+local upgradeIndex = {
+	"interval",
+	"amount",
+	"capacity",
+	"paperCapacity",
+	"autoPaper",
+}
 net.Receive("BaseWars:Printer:BuyUpgrade", function(len, ply)
 	local printer = net.ReadEntity()
 	local upgradeID = net.ReadUInt(3)
 	local max = net.ReadBool()
-	local superAdminBypass = net.ReadBool()
+	local adminBypass = net.ReadBool()
 
 	if not IsValid(printer) or not printer.IsPrinter then
 		return
 	end
 
-	if not (superAdminBypass and BaseWars:IsSuperAdmin(ply)) and not BaseWars.Config.PrinterPublic and printer:CPPIGetOwner() != ply then
+	if not BaseWars.Config.PrinterPublic and printer:CPPIGetOwner() != ply and not (adminBypass and BaseWars:IsSuperAdmin(ply)) then
 		BaseWars:Notify(ply, "#printer_notYours", NOTIFICATION_ERROR, 5)
+
 		return
 	end
 
-	if upgradeID == 1 then
-		printer:UpgradeInterval(ply, max)
-	elseif upgradeID == 2 then
-		printer:UpgradeAmount(ply, max)
-	elseif upgradeID == 3 then
-		printer:UpgradeCapacity(ply, max)
-	elseif upgradeID == 4 then
-		printer:UpgradePaperCapacity(ply, max)
-	elseif upgradeID == 5 then
-		printer:UpgradeAutoPaper(ply)
-	end
+	printer:Upgrade(ply, upgradeIndex[upgradeID], max)
 end)
 
 net.Receive("BaseWars:Printer:QuickUpgrade", function(len, ply)
 	local printer = net.ReadEntity()
 	local upgrades = net.ReadTable()
-	local superAdminBypass = net.ReadBool()
+	local adminBypass = net.ReadBool()
 
 	if not IsValid(printer) or not printer.IsPrinter then
 		return
 	end
 
-	if not (superAdminBypass and BaseWars:IsSuperAdmin(ply)) and not BaseWars.Config.PrinterPublic and printer:CPPIGetOwner() != ply then
+	if not BaseWars.Config.PrinterPublic and printer:CPPIGetOwner() != ply and not (adminBypass and BaseWars:IsSuperAdmin(ply)) then
 		BaseWars:Notify(ply, "#printer_notYours", NOTIFICATION_ERROR, 5)
+
 		return
 	end
 
-	if upgrades[1] and printer:GetPILevel() < BaseWars.Config.PrinterMaxLevel["interval"] then
-		printer:UpgradeInterval(ply, true)
-	end
+	for i, _ in ipairs(upgrades) do
+		if not upgrades[i] then
+			continue
+		end
 
-	if upgrades[2] and printer:GetPALevel() < BaseWars.Config.PrinterMaxLevel["amount"] then
-		printer:UpgradeAmount(ply, true)
-	end
-
-	if upgrades[3] and printer:GetCLevel() < BaseWars.Config.PrinterMaxLevel["capacity"] then
-		printer:UpgradeCapacity(ply, true)
-	end
-
-	if upgrades[4] and printer:GetPCLevel() < BaseWars.Config.PrinterMaxLevel["paperCapacity"] then
-		printer:UpgradePaperCapacity(ply, true)
-	end
-
-	if upgrades[5] and not printer:GetAutoPaper() then
-		printer:UpgradeAutoPaper(ply)
+		printer:Upgrade(ply, upgradeIndex[i], true, true)
 	end
 end)
 
 net.Receive("BaseWars:Printer:BuyPaperFromMenu", function(len, ply)
 	local printer = net.ReadEntity()
-	local superAdminBypass = net.ReadBool()
+	local adminBypass = net.ReadBool()
 
 	if not IsValid(printer) or not printer.IsPrinter then
 		return
 	end
 
-	printer:RefillPaper(ply, superAdminBypass)
+	printer:RefillPaper(ply, adminBypass)
 end)
 
 net.Receive("BaseWars:Printer:TakeMoneyMenu", function(len, ply)
 	local printer = net.ReadEntity()
-	local superAdminBypass = net.ReadBool()
+	local adminBypass = net.ReadBool()
 
 	if not IsValid(printer) or not printer.IsPrinter then
 		return
 	end
 
-	printer:WithdrawMoney(ply, superAdminBypass)
+	printer:WithdrawMoney(ply, adminBypass)
 end)

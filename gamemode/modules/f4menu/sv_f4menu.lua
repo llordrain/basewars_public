@@ -143,8 +143,8 @@ local function BuyBaseWarsItem(ply, entityID)
 	-- 	ADDONS SUPPORT
 	-- ---------------------------------------------------------------------------]]
 
-	if entity.IsPrinter then
-		entity:SetupPrinterCost(entiyPrice * .5)
+	if entity.IsPrinter or entity.IsBank then
+		entity:SetBaseUpgradePrice(entiyPrice * .5)
 	end
 
 	hook.Run("BaseWars:BuyEntity", ply, entity, entityID)

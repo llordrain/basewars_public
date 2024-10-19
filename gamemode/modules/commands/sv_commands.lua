@@ -337,26 +337,13 @@ BaseWars:AddChatCommand("max", function(ply, args)
 		return
 	end
 
-	local showBuyPaper = tobool(args[1])
+	local autoPaper = tobool(args[1])
 
-	if entity:GetPALevel() < BaseWars.Config.PrinterMaxLevel["amount"] then
-		entity:UpgradeAmount(ply, true)
-	end
+	entity:Upgrade(ply, "amount", true, true)
+	entity:Upgrade(ply, "interval", true, true)
 
-	if entity:GetPILevel() < BaseWars.Config.PrinterMaxLevel["interval"] then
-		entity:UpgradeInterval(ply, true)
-	end
-
-	if showBuyPaper then
-		if BaseWars:IsVIP(ply) then
-			if not entity:GetAutoPaper() then
-				entity:UpgradeAutoPaper(ply, true)
-			end
-		else
-			if entity:GetPCLevel() < BaseWars.Config.PrinterMaxLevel["paperCapacity"] then
-				entity:UpgradePaperCapacity(ply, true)
-			end
-		end
+	if autoPaper and BaseWars:IsVIP(ply) and not entity:GetAutoPaper() then
+		entity:Upgrade(ply, "autoPaper", true, true)
 	end
 end)
 

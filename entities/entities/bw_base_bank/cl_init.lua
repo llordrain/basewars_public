@@ -49,7 +49,7 @@ function ENT:Draw()
         if self:GetPrinterCount() == 0 then
             draw.SimpleText(ply:GetLang("printer_noPrinterConnected"), "BaseWars.Printer.Info", w * .5, 141, textColor, 1, 1)
         else
-            local printAmont = self:GetPrinting()
+            local printAmont = self:GetPrintAmount()
             local time = (capacity - money) / printAmont
             time = time == 0 and ply:GetLang("printer_bank_full") or printAmont == 0 and ply:GetLang("printer_printOutOfPaper") or ply:GetLang("printer_time"):format(BaseWars:FormatTime2(time, ply))
 

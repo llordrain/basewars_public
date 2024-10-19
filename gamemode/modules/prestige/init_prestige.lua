@@ -208,7 +208,7 @@ hook.Add("BaseWars:Initialize", "BaseWars:Prestige", function()
             local multiplier = 1 - .05 * ply:GetPrestigePerk("printerUpgradeCost")
 
             if entity.IsPrinter then
-                entity:SetupPrinterCost(BaseWars:GetBaseWarsEntity(entityID):GetPrice() * multiplier)
+                entity:SetBaseUpgradePrice(BaseWars:GetBaseWarsEntity(entityID):GetPrice() * multiplier)
             end
 
             if entity.IsBank then

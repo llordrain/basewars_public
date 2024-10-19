@@ -50,10 +50,6 @@ function PLAYER:Prestige()
 
 		if not BaseWars.Config.Prestige.RemoveProps and v:IsClass("prop_physics") then continue end
 
-		if v.IsBank or v.IsPrinter then
-			v:SetRefund(false)
-		end
-
 		SafeRemoveEntity(v)
 	end
 

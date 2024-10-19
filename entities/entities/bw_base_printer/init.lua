@@ -8,7 +8,7 @@ util.AddNetworkString("BaseWars:Printer:BuyPaperFromMenu")
 util.AddNetworkString("BaseWars:Printer:QuickUpgrade")
 util.AddNetworkString("BaseWars:Printer:TakeMoneyMenu")
 
-local function calculateUpgradeCount(ply, BaseUpgradePrice, currentLevel, isMax, maxUpgradeCount)
+local function calculateUpgradeCountAndPrice(ply, BaseUpgradePrice, currentLevel, isMax, maxUpgradeCount)
 	local upgradeCount = 0
 	local totalPrice = 0
 	for i = currentLevel + 1, isMax and maxUpgradeCount or currentLevel + 1 do
@@ -177,7 +177,7 @@ function ENT:Upgrade(ply, upgrade, max, hideMaxUpgradeNotif)
 			return
 		end
 
-		local upgradeCount, totalPrice = calculateUpgradeCount(ply, BaseUpgradePrice, currentLevel, max, maxUpgradeCount)
+		local upgradeCount, totalPrice = calculateUpgradeCountAndPrice(ply, BaseUpgradePrice, currentLevel, max, maxUpgradeCount)
 		if upgradeCount == 0 then
 			return
 		end
@@ -202,7 +202,7 @@ function ENT:Upgrade(ply, upgrade, max, hideMaxUpgradeNotif)
 			return
 		end
 
-		local upgradeCount, totalPrice = calculateUpgradeCount(ply, BaseUpgradePrice, currentLevel, max, maxUpgradeCount)
+		local upgradeCount, totalPrice = calculateUpgradeCountAndPrice(ply, BaseUpgradePrice, currentLevel, max, maxUpgradeCount)
 		if upgradeCount == 0 then
 			return
 		end
@@ -227,7 +227,7 @@ function ENT:Upgrade(ply, upgrade, max, hideMaxUpgradeNotif)
 			return
 		end
 
-		local upgradeCount, totalPrice = calculateUpgradeCount(ply, BaseUpgradePrice, currentLevel, max, maxUpgradeCount)
+		local upgradeCount, totalPrice = calculateUpgradeCountAndPrice(ply, BaseUpgradePrice, currentLevel, max, maxUpgradeCount)
 		if upgradeCount == 0 then
 			return
 		end
@@ -252,7 +252,7 @@ function ENT:Upgrade(ply, upgrade, max, hideMaxUpgradeNotif)
 			return
 		end
 
-		local upgradeCount, totalPrice = calculateUpgradeCount(ply, BaseUpgradePrice, currentLevel, max, maxUpgradeCount)
+		local upgradeCount, totalPrice = calculateUpgradeCountAndPrice(ply, BaseUpgradePrice, currentLevel, max, maxUpgradeCount)
 		if upgradeCount == 0 then
 			return
 		end

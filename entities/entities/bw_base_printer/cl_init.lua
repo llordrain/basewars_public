@@ -13,9 +13,10 @@ end
 
 function ENT:Draw()
     self:DrawModel()
+
     local ply = LocalPlayer()
     local showPrinter = true
-    local hasBank = false --self:GetBank()
+    local hasBank = self:GetBank()
     local traceEntity = ply:GetEyeTrace().Entity
 
     if ply:GetPos():Distance(self:GetPos()) > BaseWars.Config.EntityRenderDistance then

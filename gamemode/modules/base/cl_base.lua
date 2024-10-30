@@ -175,7 +175,7 @@ end)
 net.Receive("BaseWars:GamemodeConfigModified", function(len)
 	local newConfig = util.JSONToTable(util.Decompress(net.ReadData(len / 8)), false, true)
 
-	hook.Add("BaseWars:PreConfigurationModified", BaseWars.Config, newConfig)
+	hook.Run("BaseWars:PreConfigurationModified", BaseWars.Config, newConfig)
 
 	BaseWars.Config = newConfig
 

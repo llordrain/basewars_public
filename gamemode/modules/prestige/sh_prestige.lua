@@ -14,7 +14,11 @@ end
 
 function PLAYER:CanPrestige(notShow)
 	if self:InRaid() then
-		if CLIENT and not notShow then
+		if notShow then
+			return false
+		end
+
+		if CLIENT then
 			BaseWars:Notify("#prestige_duringRaid", NOTIFICATION_ERROR, 5)
 		else
 			BaseWars:Notify(self, "#prestige_duringRaid", NOTIFICATION_ERROR, 5)

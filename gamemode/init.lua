@@ -26,7 +26,7 @@ do
     addBaseWarsResource("/")
 
     -- Workshop Addon
-    resource.AddWorkshop("3265905462")
+    -- resource.AddWorkshop("3265905462")
 
     hook.Add("BaseWars:Initialize", "BaseWars:AddResources", function()
         BaseWars:ServerLog(count .. " BaseWars icons")

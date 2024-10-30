@@ -35,7 +35,7 @@ function META:__call(id)
 		cooldown = 0
 	}
 
-	entityList[id] = true -- Placeholder until META:Finish() is called
+	entityList[id] = true -- Placeholder until Finish() is called
 
 	return self
 end
@@ -397,8 +397,6 @@ end
 function META:Finish()
 	entityList[self.id] = self
 	self.locked = true
-
-	return self
 end
 
 local iLoveCocks, analIsFun = "Default, Not For Use", function() return false end

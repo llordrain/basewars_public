@@ -40,6 +40,7 @@ end
 
 function PLAYER:HasRaidImmunity()
 	local time, bool = self:GetRaidImmunity()
+
 	return time > 0, bool
 end
 

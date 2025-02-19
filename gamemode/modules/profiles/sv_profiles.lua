@@ -4,6 +4,28 @@ util.AddNetworkString("BaseWars:CreatePlayerProfile")
 util.AddNetworkString("BaseWars:CancelProfileSelection")
 
 --[[-------------------------------------------------------------------------
+	Local Fcuntions
+---------------------------------------------------------------------------]]
+local function sellAndDeletePlayerEntites(ply)
+	if ply.oldBasewarsProfileID then
+		local totalMoney = 0
+		for k, v in ents.Iterator() do
+			if not v:ValidToSell(ply) then continue end
+
+			totalMoney = totalMoney + v:GetCurrentValue() * BaseWars.Config.BackMoney
+
+			if v.IsPrinter or v.IsBank then
+				totalMoney = totalMoney + v:GetMoney()
+			end
+
+			SafeRemoveEntity(v)
+		end
+
+		MySQLite.query(Format("UPDATE basewars_player SET money = CAST(money AS DECIMAL) + %s WHERE player_id64 = %s AND profile_id = %s", totalMoney, ply:SteamID64(), ply.oldBasewarsProfileID), function() end, BaseWarsSQLError)
+	end
+end
+
+--[[-------------------------------------------------------------------------
 	FUNCTIONS
 ---------------------------------------------------------------------------]]
 function BaseWars:PlayerRequestProfilesData(ply)
@@ -142,25 +164,12 @@ net.Receive("BaseWars:PlayerChoseProfile", function(len, ply)
 		return
 	end
 
-	if ply.oldBasewarsProfileID then
-		local totalMoney = 0
-		for k, v in ents.Iterator() do
-			if not v:ValidToSell(ply) then continue end
-
-			totalMoney = totalMoney + v:GetCurrentValue() * BaseWars.Config.BackMoney
-
-			if v.IsPrinter or v.IsBank then
-				totalMoney = totalMoney + v:GetMoney()
-			end
-
-			SafeRemoveEntity(v)
-		end
-
-		MySQLite.query(Format("UPDATE basewars_player SET money = CAST(money AS DECIMAL) + %s WHERE player_id64 = %s AND profile_id = %s", totalMoney, ply:SteamID64(), ply.oldBasewarsProfileID), function() end, BaseWarsSQLError)
-	end
-
 	local profileData = ply.basewarsTempProfiles[profile]
-	ply.basewarsProfileID = profileData.profile_id
+	local profileId = profileData.profile_id
+
+	sellAndDeletePlayerEntites(ply)
+
+	ply.basewarsProfileID = profileId
 
 	ply:SetMoney(profileData.money, true)
 	ply:SetLevel(profileData.level, true)
@@ -174,12 +183,12 @@ net.Receive("BaseWars:PlayerChoseProfile", function(len, ply)
 		ply:SetPrestigePerk(k, v)
 	end
 
-	hook.Run("BaseWars:PlayerChoseProfile", ply, profileData.profile_id, profileData)
+	hook.Run("BaseWars:PlayerChoseProfile", ply, profileId, profileData)
 
 	ply.basewarsTempProfiles = nil
 
 	net.Start("BaseWars:PlayerChoseProfile")
-		net.WriteUInt(profileData.profile_id, 31)
+		net.WriteUInt(profileId, 31)
 	net.Send(ply)
 end)
 
@@ -191,6 +200,8 @@ net.Receive("BaseWars:CreatePlayerProfile", function(len, ply)
 			ply:Kick("?")
 			return
 		end
+
+		sellAndDeletePlayerEntites(ply)
 
 		MySQLite.query(([[INSERT INTO basewars_player (player_id64, level, time_played, xp, money) VALUES (%s, %s, %s, %s, %s)]]):format(ply:SteamID64(), 0, 0, 0, BaseWars.Config.StartMoney), function()
 			MySQLite.query("SELECT profile_id FROM basewars_player ORDER BY profile_id DESC LIMIT 1", function(profileIDResult)
